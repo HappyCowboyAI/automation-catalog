@@ -10,6 +10,9 @@
 | **Node Count** | 16                                                 |
 | **Credentials**| People.ai MCP, Anthropic, Slack Bot, Supabase      |
 
+## Category
+account-monitoring
+
 ## Description
 
 Monitors accounts for engagement gaps that may signal churn risk. Every morning at 6:30 AM, the workflow pulls accounts and checks for those that have "gone silent" — no meaningful engagement activity within a configured lookback window. For flagged accounts, it uses Claude to assess the severity of the silence, considering deal stage, contract dates, and historical patterns. Accounts deemed concerning are surfaced via Slack alerts so the owning rep or CSM can re-engage.

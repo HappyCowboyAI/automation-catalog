@@ -10,6 +10,9 @@
 | **Node Count** | 13                                                 |
 | **Credentials**| People.ai MCP, Anthropic, Slack Bot, Supabase      |
 
+## Category
+daily-intelligence
+
 ## Description
 
 Prepares an AI-generated briefing document before each upcoming meeting. A parent cron workflow fires every 15 minutes and invokes this sub-workflow for meetings approaching on the calendar. The workflow fetches account context from People.ai via MCP — recent activity, engagement history, key contacts — and passes it to Claude to produce a concise meeting brief. The brief is delivered to the meeting owner via Slack DM so they walk in fully prepared.

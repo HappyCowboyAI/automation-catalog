@@ -10,6 +10,9 @@
 | **Node Count** | 41                                                 |
 | **Credentials**| People.ai MCP, Anthropic, Gmail, Slack Bot, Atlassian MCP |
 
+## Category
+account-monitoring
+
 ## Description
 
 Automates executive email triage by reading unread Gmail messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. Claude analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Slack channel or trigger follow-up workflows, ensuring nothing falls through the cracks.
