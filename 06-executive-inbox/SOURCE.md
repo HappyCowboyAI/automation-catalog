@@ -8,22 +8,22 @@
 | **Status**     | Active                                             |
 | **Trigger**    | Schedule                                           |
 | **Node Count** | 41                                                 |
-| **Credentials**| People.ai MCP, Anthropic, Gmail, Slack Bot, Atlassian MCP |
+| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), Gmail, Messaging (Slack, Teams, Email), Project Management (Jira, Asana, etc.) — optional |
 
 ## Category
 account-monitoring
 
 ## Description
 
-Automates executive email triage by reading unread Gmail messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. Claude analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Slack channel or trigger follow-up workflows, ensuring nothing falls through the cracks.
+Automates executive email triage by reading unread Gmail messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. The AI Agent analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Messaging channel (Slack, Teams, or Email) or trigger follow-up workflows, ensuring nothing falls through the cracks.
 
 ## Node Flow
 
 1. **Schedule Trigger & Email Fetch** — On a recurring schedule, reads unread emails from the executive's Gmail inbox.
 2. **Identify Customer Emails** — Code and conditional logic filter out internal, automated, and non-customer messages, keeping only emails that warrant attention.
-3. **Enrich with Account Context** — For each customer email, queries People.ai MCP and Atlassian MCP to pull account status, recent activity, open tickets, and relationship history.
-4. **AI Triage & Classification** — Claude (via agent, structured output parser, and chain) analyzes email content plus account context to assign urgency, category, and routing recommendation.
-5. **Route to Channels** — A switch node directs each classified email to the appropriate Slack channel, team member, or follow-up queue based on the AI's triage decision.
+3. **Enrich with Account Context** — For each customer email, queries People.ai MCP and Project Management (Jira, Asana, etc.) to pull account status, recent activity, open tickets, and relationship history.
+4. **AI Triage & Classification** — AI Agent (via agent, structured output parser, and chain) analyzes email content plus account context to assign urgency, category, and routing recommendation.
+5. **Route to Channels** — A switch node directs each classified email to the appropriate Messaging channel (Slack, Teams, or Email), team member, or follow-up queue based on the AI's triage decision.
 6. **Await & Follow Up** — Wait nodes handle deferred actions and ensure follow-up tasks are tracked.
 
 ## Key Nodes
@@ -36,8 +36,8 @@ Automates executive email triage by reading unread Gmail messages, identifying t
 | `code`                   | Email parsing and data transformation     |
 | `if` / `switch`          | Conditional filtering and routing         |
 | `agent`                  | Orchestrates AI triage reasoning          |
-| `lmChatAnthropic`        | Claude language model                     |
-| `mcpClientTool`          | People.ai and Atlassian MCP integration   |
+| `lmChat`                 | LLM language model                        |
+| `mcpClientTool`          | People.ai and Project Management integration |
 | `chainLlm`              | LLM chain for structured analysis         |
 | `outputParserStructured` | Enforces typed classification output      |
 | `wait`                   | Manages deferred follow-up actions        |
@@ -45,7 +45,7 @@ Automates executive email triage by reading unread Gmail messages, identifying t
 ## Credentials Required
 
 - **People.ai MCP** — Account context and engagement history
-- **Anthropic** — Claude LLM for triage and classification
+- **LLM API (Claude, OpenAI, Gemini, etc.)** — LLM for triage and classification
 - **Gmail** — Executive inbox access
-- **Slack Bot** — Routes messages to appropriate channels
-- **Atlassian MCP** — Ticket and project context
+- **Messaging (Slack, Teams, Email)** — Routes messages to appropriate channels
+- **Project Management (Jira, Asana, etc.) — optional** — Ticket and project context

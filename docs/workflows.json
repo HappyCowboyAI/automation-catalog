@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-08T18:00:19.418699+00:00",
+  "_generated": "2026-03-08T18:39:58.022049+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -22,15 +22,15 @@
     {
       "id": "01-sales-digest",
       "name": "Sales Digest",
-      "description": "Generates a personalized daily sales digest for each enrolled user. At 6 AM on weekdays, the workflow retrieves the list of digest subscribers from Supabase, queries People.ai via MCP for each user's relevant account and opportunity activity, then passes the data to Claude (Anthropic) to compose a concise, actionable summary. The finished digest is delivered as a Slack DM to each user.",
+      "description": "Generates a personalized daily sales digest for each enrolled user. At 6 AM on weekdays, the workflow retrieves the list of digest subscribers from the User Config Store, queries People.ai via MCP for each user's relevant account and opportunity activity, then passes the data to the LLM to compose a concise, actionable summary. The finished digest is delivered via Messaging (Slack, Teams, or Email) to each user.",
       "category": "daily-intelligence",
       "trigger": "Schedule \u2014 6:00 AM weekdays                        |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Account activity and engagement data",
-        "Anthropic \u2014 Claude LLM for digest generation",
-        "Slack Bot \u2014 Delivers DMs to subscribers",
-        "Supabase \u2014 Subscriber list storage"
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for digest generation",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers digests to subscribers",
+        "User Configuration Store (built-in JSON, Supabase, Airtable, or any database) \u2014 Subscriber list storage"
       ],
       "node_flow": [
         {
@@ -43,7 +43,7 @@
         {
           "step": 2,
           "name": "Fetch Digest Users",
-          "description": "Reads the subscriber list from Supabase and splits into individual batches.",
+          "description": "Reads the subscriber list from the Config Store and splits into individual batches.",
           "type": "data",
           "color": "blue"
         },
@@ -57,14 +57,14 @@
         {
           "step": 4,
           "name": "AI Summarization",
-          "description": "Claude (via `lmChatAnthropic` + `agent`) synthesizes raw data into a personalized narrative with key takeaways and recommended actions.",
+          "description": "AI Agent (via LLM + `agent`) synthesizes raw data into a personalized narrative with key takeaways and recommended actions.",
           "type": "ai",
           "color": "purple"
         },
         {
           "step": 5,
-          "name": "Deliver via Slack",
-          "description": "Sends the formatted digest as a Slack direct message to the user.",
+          "name": "Deliver via Messaging",
+          "description": "Sends the formatted digest via Slack, Teams, or Email to the user.",
           "type": "output",
           "color": "orange"
         }
@@ -76,15 +76,15 @@
     {
       "id": "02-meeting-brief",
       "name": "Meeting Brief",
-      "description": "Prepares an AI-generated briefing document before each upcoming meeting. A parent cron workflow fires every 15 minutes and invokes this sub-workflow for meetings approaching on the calendar. The workflow fetches account context from People.ai via MCP \u2014 recent activity, engagement history, key contacts \u2014 and passes it to Claude to produce a concise meeting brief. The brief is delivered to the meeting owner via Slack DM so they walk in fully prepared.",
+      "description": "Prepares an AI-generated briefing document before each upcoming meeting. A parent cron workflow fires every 15 minutes and invokes this sub-workflow for meetings approaching on the calendar. The workflow fetches account context from People.ai via MCP \u2014 recent activity, engagement history, key contacts \u2014 and passes it to the LLM to produce a concise meeting brief. The brief is delivered to the meeting owner via Messaging (Slack, Teams, or Email) so they walk in fully prepared.",
       "category": "daily-intelligence",
       "trigger": "Sub-workflow (called by Meeting Prep Cron, every 15 min) |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Account activity and engagement context",
-        "Anthropic \u2014 Claude LLM for brief generation",
-        "Slack Bot \u2014 Delivers briefs via DM",
-        "Supabase \u2014 Meeting and user metadata"
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for brief generation",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers briefs via Slack, Teams, or Email",
+        "User Configuration Store (built-in JSON, Supabase, Airtable, or any database) \u2014 Meeting and user metadata"
       ],
       "node_flow": [
         {
@@ -104,14 +104,14 @@
         {
           "step": 3,
           "name": "AI Brief Generation",
-          "description": "Claude analyzes the account context and composes a structured briefing with key talking points, recent interactions, and risk/opportunity signals.",
+          "description": "AI Agent analyzes the account context and composes a structured briefing with key talking points, recent interactions, and risk/opportunity signals.",
           "type": "ai",
           "color": "purple"
         },
         {
           "step": 4,
-          "name": "Deliver via Slack",
-          "description": "Sends the formatted meeting brief as a Slack DM to the meeting owner ahead of the call.",
+          "name": "Deliver via Messaging",
+          "description": "Sends the formatted meeting brief via Slack, Teams, or Email to the meeting owner ahead of the call.",
           "type": "output",
           "color": "orange"
         }
@@ -123,15 +123,15 @@
     {
       "id": "03-silence-contract-monitor",
       "name": "Silence & Contract Monitor",
-      "description": "Monitors accounts for engagement gaps that may signal churn risk. Every morning at 6:30 AM, the workflow pulls accounts and checks for those that have \"gone silent\" \u2014 no meaningful engagement activity within a configured lookback window. For flagged accounts, it uses Claude to assess the severity of the silence, considering deal stage, contract dates, and historical patterns. Accounts deemed concerning are surfaced via Slack alerts so the owning rep or CSM can re-engage.",
+      "description": "Monitors accounts for engagement gaps that may signal churn risk. Every morning at 6:30 AM, the workflow pulls accounts and checks for those that have \"gone silent\" \u2014 no meaningful engagement activity within a configured lookback window. For flagged accounts, it uses the LLM to assess the severity of the silence, considering deal stage, contract dates, and historical patterns. Accounts deemed concerning are surfaced via Alert (Slack, Teams, or Email) so the owning rep or CSM can re-engage.",
       "category": "account-monitoring",
       "trigger": "Schedule \u2014 6:30 AM daily                           |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Engagement activity and account data",
-        "Anthropic \u2014 Claude LLM for risk assessment",
-        "Slack Bot \u2014 Alert delivery",
-        "Supabase \u2014 Account metadata and configuration"
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for risk assessment",
+        "Messaging (Slack, Teams, Email) \u2014 Alert delivery",
+        "User Configuration Store (built-in JSON, Supabase, Airtable, or any database) \u2014 Account metadata and configuration"
       ],
       "node_flow": [
         {
@@ -144,14 +144,14 @@
         {
           "step": 2,
           "name": "Identify Silent Accounts",
-          "description": "Queries People.ai MCP and Supabase to find accounts with no recent engagement activity, then splits results into batches for processing.",
+          "description": "Queries People.ai MCP and the Config Store to find accounts with no recent engagement activity, then splits results into batches for processing.",
           "type": "ai",
           "color": "purple"
         },
         {
           "step": 3,
           "name": "AI Risk Assessment",
-          "description": "For each silent account, Claude evaluates the engagement gap against deal context, contract timelines, and historical norms to determine risk level.",
+          "description": "For each silent account, the AI Agent evaluates the engagement gap against deal context, contract timelines, and historical norms to determine risk level.",
           "type": "ai",
           "color": "purple"
         },
@@ -164,8 +164,8 @@
         },
         {
           "step": 5,
-          "name": "Alert via Slack",
-          "description": "Sends targeted Slack notifications for accounts that warrant attention, including AI-generated context and suggested next steps.",
+          "name": "Alert via Messaging",
+          "description": "Sends targeted Alert (Slack, Teams, or Email) for accounts that warrant attention, including AI-generated context and suggested next steps.",
           "type": "output",
           "color": "orange"
         }
@@ -177,14 +177,14 @@
     {
       "id": "04-opportunity-discovery",
       "name": "Opportunity Discovery",
-      "description": "Surfaces hidden revenue opportunities by identifying accounts with recent engagement activity but no corresponding open opportunities in the pipeline. On a weekly cadence, the workflow cross-references People.ai activity data against the CRM pipeline, flags accounts showing buying signals without active deals, and uses Claude to analyze the strength of those signals. Findings are posted to Slack and optionally emailed, giving reps a curated list of accounts worth pursuing.",
+      "description": "Surfaces hidden revenue opportunities by identifying accounts with recent engagement activity but no corresponding open opportunities in the pipeline. On a weekly cadence, the workflow cross-references People.ai activity data against the CRM pipeline, flags accounts showing buying signals without active deals, and uses the LLM to analyze the strength of those signals. Findings are posted via Messaging (Slack, Teams, or Email) and optionally emailed, giving reps a curated list of accounts worth pursuing.",
       "category": "pipeline-forecasting",
       "trigger": "Schedule \u2014 Weekly                                  |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Account engagement and activity signals",
-        "Anthropic \u2014 Claude LLM for opportunity scoring",
-        "Slack Bot \u2014 Posts discovery results to channel",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for opportunity scoring",
+        "Messaging (Slack, Teams, Email) \u2014 Posts discovery results to channel",
         "SMTP \u2014 Email delivery for stakeholder summaries"
       ],
       "node_flow": [
@@ -212,14 +212,14 @@
         {
           "step": 4,
           "name": "AI Signal Analysis",
-          "description": "Claude evaluates each flagged account's activity patterns, contact seniority, and engagement intensity to score opportunity likelihood and recommend next steps.",
+          "description": "AI Agent evaluates each flagged account's activity patterns, contact seniority, and engagement intensity to score opportunity likelihood and recommend next steps.",
           "type": "ai",
           "color": "purple"
         },
         {
           "step": 5,
-          "name": "Notify via Slack & Email",
-          "description": "Posts a prioritized list of discovered opportunities to Slack and sends email summaries to relevant stakeholders via SMTP.",
+          "name": "Notify via Messaging",
+          "description": "Posts a prioritized list of discovered opportunities via Messaging (Slack, Teams, or Email) and sends email summaries to relevant stakeholders via SMTP.",
           "type": "output",
           "color": "orange"
         }
@@ -231,13 +231,13 @@
     {
       "id": "05-forecast-coach",
       "name": "Forecast Coach",
-      "description": "Provides AI-powered coaching insights for sales leaders by analyzing their team's open pipeline each week. Every Monday, the workflow pulls each leader's team pipeline from People.ai, filters for active deals, and uses Claude to assess deal health \u2014 looking at engagement recency, stakeholder coverage, stage velocity, and risk indicators. The result is a per-leader coaching report delivered via email, highlighting deals that need attention and suggesting specific coaching actions.",
+      "description": "Provides AI-powered coaching insights for sales leaders by analyzing their team's open pipeline each week. Every Monday, the workflow pulls each leader's team pipeline from People.ai, filters for active deals, and uses the LLM to assess deal health \u2014 looking at engagement recency, stakeholder coverage, stage velocity, and risk indicators. The result is a per-leader coaching report delivered via email, highlighting deals that need attention and suggesting specific coaching actions.",
       "category": "pipeline-forecasting",
       "trigger": "Schedule \u2014 Weekly (Monday)                         |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Pipeline data and engagement metrics",
-        "Anthropic \u2014 Claude LLM for deal health analysis",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for deal health analysis",
         "SMTP \u2014 Email delivery for coaching reports"
       ],
       "node_flow": [
@@ -258,7 +258,7 @@
         {
           "step": 3,
           "name": "AI Deal Health Analysis",
-          "description": "Claude evaluates each deal across multiple dimensions (engagement, momentum, stakeholder mapping, competitive signals) and generates coaching-ready insights.",
+          "description": "AI Agent evaluates each deal across multiple dimensions (engagement, momentum, stakeholder mapping, competitive signals) and generates coaching-ready insights.",
           "type": "ai",
           "color": "purple"
         },
@@ -284,16 +284,16 @@
     {
       "id": "06-executive-inbox",
       "name": "Executive Inbox",
-      "description": "Automates executive email triage by reading unread Gmail messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. Claude analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Slack channel or trigger follow-up workflows, ensuring nothing falls through the cracks.",
+      "description": "Automates executive email triage by reading unread Gmail messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. The AI Agent analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Messaging channel (Slack, Teams, or Email) or trigger follow-up workflows, ensuring nothing falls through the cracks.",
       "category": "account-monitoring",
       "trigger": "Schedule                                           |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Account context and engagement history",
-        "Anthropic \u2014 Claude LLM for triage and classification",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for triage and classification",
         "Gmail \u2014 Executive inbox access",
-        "Slack Bot \u2014 Routes messages to appropriate channels",
-        "Atlassian MCP \u2014 Ticket and project context"
+        "Messaging (Slack, Teams, Email) \u2014 Routes messages to appropriate channels",
+        "Project Management (Jira, Asana, etc.) \u2014 optional \u2014 Ticket and project context"
       ],
       "node_flow": [
         {
@@ -313,21 +313,21 @@
         {
           "step": 3,
           "name": "Enrich with Account Context",
-          "description": "For each customer email, queries People.ai MCP and Atlassian MCP to pull account status, recent activity, open tickets, and relationship history.",
+          "description": "For each customer email, queries People.ai MCP and Project Management (Jira, Asana, etc.) to pull account status, recent activity, open tickets, and relationship history.",
           "type": "output",
           "color": "orange"
         },
         {
           "step": 4,
           "name": "AI Triage & Classification",
-          "description": "Claude (via agent, structured output parser, and chain) analyzes email content plus account context to assign urgency, category, and routing recommendation.",
+          "description": "AI Agent (via agent, structured output parser, and chain) analyzes email content plus account context to assign urgency, category, and routing recommendation.",
           "type": "output",
           "color": "orange"
         },
         {
           "step": 5,
           "name": "Route to Channels",
-          "description": "A switch node directs each classified email to the appropriate Slack channel, team member, or follow-up queue based on the AI's triage decision.",
+          "description": "A switch node directs each classified email to the appropriate Messaging channel (Slack, Teams, or Email), team member, or follow-up queue based on the AI's triage decision.",
           "type": "output",
           "color": "orange"
         },
