@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>People.ai n8n Workflow Catalog</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root {
+    --pai-primary-blue: #006885;
+    --pai-dark-blue: #00204E;
+    --pai-blue: #0A41AA;
+    --pai-med-blue: #8CB8ED;
+    --pai-light-blue: #CDE6FF;
+    --pai-teal: #00D9D3;
+    --pai-light-teal: #7FECE9;
+    --pai-dark-gray: #54667D;
+    --pai-med-gray: #A9B2BE;
+    --pai-light-gray: #D4D9DE;
+    --pai-off-black: #0A1225;
+    --pai-white: #FFFFFF;
+    --pai-yellow: #E8C031;
+    --pai-orange: #EB8D35;
+    --pai-red: #F8544D;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0,32,78,0.08);
+    --shadow-hover: 0 4px 16px rgba(0,32,78,0.14);
+    --n8n-bg: #1a1a2e;
+    --n8n-surface: #232340;
+    --n8n-border: #2e2e4a;
+    --n8n-green: #4cd964;
+    --n8n-blue: #5b9aff;
+    --n8n-purple: #a855f7;
+    --n8n-orange: #ff9f43;
+    --n8n-text: #e0e0f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--pai-off-black);
+    background: #F5F7FA;
+    line-height: 1.5;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--pai-dark-blue) 0%, var(--pai-primary-blue) 100%);
+    color: white;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-logo {
+    font-size: 18px;
+    font-weight: 700;
+    opacity: 0.7;
+  }
+  .header-logo span { color: var(--pai-teal); }
+  .header-title {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .header-subtitle {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--pai-teal);
+    color: var(--pai-dark-blue);
+  }
+  .btn-primary:hover { background: var(--pai-light-teal); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+  .btn-outline {
+    background: transparent;
+    color: var(--pai-primary-blue);
+    border: 1px solid var(--pai-light-gray);
+  }
+  .btn-outline:hover { border-color: var(--pai-primary-blue); background: var(--pai-light-blue); }
+  .btn-copy {
+    background: var(--pai-primary-blue);
+    color: white;
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+  .btn-copy:hover { background: var(--pai-dark-blue); }
+  .btn-download {
+    background: transparent;
+    color: var(--pai-primary-blue);
+    border: 1px solid var(--pai-primary-blue);
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+  .btn-download:hover { background: var(--pai-light-blue); }
+  .btn-download.disabled, .btn-copy.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .btn-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Container */
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 32px; }
+
+  /* Search */
+  .search-bar {
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .search-bar input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid var(--pai-light-gray);
+    border-radius: var(--radius);
+    font-size: 14px;
+    background: white;
+    color: var(--pai-off-black);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar input:focus { border-color: var(--pai-primary-blue); }
+  .search-bar::before {
+    content: '\1F50D';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0.5;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+  .filter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--pai-dark-gray);
+    margin-right: 4px;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--pai-light-gray);
+    background: white;
+    color: var(--pai-dark-gray);
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--pai-primary-blue); color: var(--pai-primary-blue); }
+  .filter-btn.active {
+    background: var(--pai-primary-blue);
+    color: white;
+    border-color: var(--pai-primary-blue);
+  }
+
+  /* Card Grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--pai-light-gray);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    border-left: 4px solid var(--pai-teal);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .card-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--pai-med-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card-name {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 4px 0 8px;
+    color: var(--pai-dark-blue);
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--pai-dark-gray);
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge-trigger {
+    background: #E6F9F0;
+    color: #0a8a5e;
+  }
+  .badge-output {
+    background: #FFF3E0;
+    color: #B06800;
+  }
+  .badge-category {
+    background: var(--pai-light-blue);
+    color: var(--pai-blue);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--pai-dark-gray);
+  }
+  .stats-bar strong { color: var(--pai-dark-blue); }
+
+  /* Detail View */
+  .detail-view { display: none; }
+  .detail-view.active { display: block; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--pai-primary-blue);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .detail-header {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--pai-light-gray);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .detail-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--pai-dark-blue);
+    margin-bottom: 8px;
+  }
+  .detail-desc {
+    font-size: 15px;
+    color: var(--pai-dark-gray);
+    margin-bottom: 16px;
+  }
+  .detail-meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--pai-dark-gray);
+  }
+  .detail-meta-item strong { color: var(--pai-off-black); }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--pai-light-gray);
+    margin-bottom: 20px;
+  }
+  .tab {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    color: var(--pai-dark-gray);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tab:hover { color: var(--pai-primary-blue); }
+  .tab.active {
+    color: var(--pai-primary-blue);
+    border-bottom-color: var(--pai-primary-blue);
+  }
+
+  .tab-content {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--pai-light-gray);
+    padding: 24px;
+  }
+
+  /* n8n Mockup */
+  .n8n-mockup {
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    overflow: hidden;
+    height: 360px;
+    margin-bottom: 16px;
+    border: 1px solid var(--n8n-border);
+    display: flex;
+    flex-direction: column;
+    background: var(--n8n-bg);
+  }
+  .n8n-title-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #16162b;
+    border-bottom: 1px solid var(--n8n-border);
+  }
+  .n8n-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .n8n-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .n8n-dots span:nth-child(1) { background: #ff5f57; }
+  .n8n-dots span:nth-child(2) { background: #ffbd2e; }
+  .n8n-dots span:nth-child(3) { background: #28c840; }
+  .n8n-title-text {
+    flex: 1;
+    font-size: 12px;
+    color: var(--n8n-text);
+    font-family: monospace;
+    opacity: 0.7;
+  }
+  .n8n-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    position: relative;
+  }
+
+  /* Setup Step Content */
+  .setup-step-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  /* Import Dialog Mockup */
+  .import-dialog {
+    background: var(--n8n-surface);
+    border: 1px solid var(--n8n-border);
+    border-radius: 12px;
+    padding: 24px;
+    width: 320px;
+    max-width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .import-dialog.visible { opacity: 1; transform: translateY(0); }
+  .import-dialog-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--n8n-text);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .import-dropzone {
+    border: 2px dashed var(--n8n-border);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    color: var(--pai-med-gray);
+    font-size: 13px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .import-dropzone.active {
+    border-color: var(--n8n-orange);
+    background: rgba(255,159,67,0.08);
+  }
+  .import-dropzone-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .import-file-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255,159,67,0.15);
+    border-radius: 16px;
+    font-size: 12px;
+    color: var(--n8n-orange);
+    font-weight: 600;
+    margin-top: 12px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .import-file-chip.visible { opacity: 1; transform: scale(1); }
+
+  /* Credential Fields */
+  .cred-field {
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .cred-field.visible { opacity: 1; transform: translateX(0); }
+  .cred-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pai-med-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .cred-input {
+    width: 100%;
+    padding: 7px 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--n8n-border);
+    border-radius: 6px;
+    color: var(--n8n-text);
+    font-size: 12px;
+    font-family: monospace;
+    transition: border-color 0.3s;
+  }
+  .cred-input.typing {
+    border-color: var(--n8n-orange);
+    box-shadow: 0 0 0 2px rgba(255,159,67,0.15);
+  }
+
+  /* Config Fields */
+  .config-field {
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .config-field.visible { opacity: 1; }
+  .config-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pai-med-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .config-input {
+    width: 100%;
+    padding: 7px 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--n8n-border);
+    border-radius: 6px;
+    color: var(--n8n-text);
+    font-size: 12px;
+  }
+
+  /* Activate Toggle */
+  .activate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .activate-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--n8n-text);
+  }
+  .activate-toggle {
+    width: 64px;
+    height: 34px;
+    border-radius: 17px;
+    background: #3a3a5c;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.4s;
+  }
+  .activate-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.4s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .activate-toggle.on {
+    background: var(--n8n-green);
+  }
+  .activate-toggle.on::after {
+    transform: translateX(30px);
+  }
+  .activate-status {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pai-med-gray);
+    transition: color 0.3s;
+  }
+  .activate-status.active { color: var(--n8n-green); }
+  .activate-check {
+    font-size: 32px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .activate-check.visible { opacity: 1; }
+
+  /* Playback Controls */
+  .playback-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .playback-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--pai-light-gray);
+    background: white;
+    color: var(--pai-dark-blue);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .playback-btn:hover { background: var(--pai-light-blue); }
+  .playback-btn.primary {
+    width: 44px;
+    height: 44px;
+    background: var(--pai-primary-blue);
+    color: white;
+    border: none;
+    font-size: 16px;
+  }
+  .playback-btn.primary:hover { background: #005570; }
+  .playback-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .playback-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: all 0.3s;
+  }
+  .playback-dot.active {
+    background: var(--pai-primary-blue);
+    transform: scale(1.3);
+  }
+  .playback-dot.done {
+    background: var(--pai-teal);
+  }
+  .step-desc {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pai-dark-blue);
+    margin-top: 12px;
+    min-height: 20px;
+  }
+  .step-detail {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    min-height: 16px;
+    margin-bottom: 8px;
+  }
+
+  /* Flow Visualization */
+  .flow-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+  }
+  .flow-canvas svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .flow-node {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    border-radius: 10px;
+    background: var(--n8n-surface);
+    border: 2px solid var(--n8n-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--n8n-text);
+    padding: 4px 6px;
+    transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s;
+    opacity: 0;
+    transform: scale(0.8);
+    z-index: 2;
+    line-height: 1.2;
+  }
+  .flow-node.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .flow-node.active {
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba(255,255,255,0.15);
+  }
+  .flow-node.type-trigger { border-color: var(--n8n-green); }
+  .flow-node.type-trigger.active { box-shadow: 0 0 16px rgba(76,217,100,0.3); }
+  .flow-node.type-data { border-color: var(--n8n-blue); }
+  .flow-node.type-data.active { box-shadow: 0 0 16px rgba(91,154,255,0.3); }
+  .flow-node.type-ai { border-color: var(--n8n-purple); }
+  .flow-node.type-ai.active { box-shadow: 0 0 16px rgba(168,85,247,0.3); }
+  .flow-node.type-output { border-color: var(--n8n-orange); }
+  .flow-node.type-output.active { box-shadow: 0 0 16px rgba(255,159,67,0.3); }
+
+  .flow-desc-text {
+    position: absolute;
+    bottom: 8px;
+    left: 12px;
+    right: 12px;
+    font-size: 11px;
+    color: var(--pai-med-gray);
+    text-align: center;
+    min-height: 30px;
+    transition: opacity 0.3s;
+  }
+
+  .svg-path {
+    fill: none;
+    stroke: var(--n8n-border);
+    stroke-width: 2;
+    transition: stroke 0.4s;
+  }
+  .svg-path.active {
+    stroke: var(--n8n-orange);
+    stroke-width: 2.5;
+  }
+  .svg-pulse {
+    fill: none;
+    stroke: var(--n8n-orange);
+    stroke-width: 3;
+    stroke-dasharray: 8 12;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .svg-pulse.active {
+    opacity: 1;
+    animation: dashPulse 0.8s linear infinite;
+  }
+  @keyframes dashPulse {
+    to { stroke-dashoffset: -20; }
+  }
+
+  /* Details Tab */
+  .detail-section {
+    margin-bottom: 20px;
+  }
+  .detail-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--pai-dark-blue);
+    margin-bottom: 8px;
+  }
+  .detail-section ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 14px;
+    color: var(--pai-dark-gray);
+    line-height: 1.8;
+  }
+  .detail-section p {
+    font-size: 14px;
+    color: var(--pai-dark-gray);
+    line-height: 1.7;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--pai-dark-blue);
+    color: white;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 200;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* About modal / view */
+  .about-content {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--pai-light-gray);
+    padding: 24px;
+  }
+  .about-content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pai-dark-blue);
+    margin-bottom: 12px;
+  }
+  .about-content p {
+    font-size: 14px;
+    color: var(--pai-dark-gray);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .about-content strong { color: var(--pai-off-black); }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--pai-med-gray);
+  }
+
+  /* Coming soon label */
+  .coming-soon-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pai-med-gray);
+    background: var(--pai-light-gray);
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-left: 8px;
+  }
+
+  /* Print */
+  @media print {
+    .header { background: white !important; color: black !important; }
+    .btn, .filters, .toast { display: none !important; }
+    .card { break-inside: avoid; border: 1px solid #ccc; }
+    body { background: white; }
+  }
+
+  @media (max-width: 768px) {
+    .header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .container { padding: 16px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .detail-meta-row { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div>
+      <div class="header-logo">people<span>.</span>ai</div>
+    </div>
+    <div>
+      <div class="header-title">n8n Workflow Catalog</div>
+      <div class="header-subtitle">Ready-to-import workflow automations powered by People.ai</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <a class="btn btn-secondary" href="#/about">About</a>
+    <a class="btn btn-primary" href="https://happycowboyai.github.io/LLMSkills/" target="_blank">LLM Skills</a>
+  </div>
+</div>
+
+<!-- Catalog View -->
+<div id="catalog-view" class="container">
+  <div class="stats-bar" id="stats-bar"></div>
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search workflows..." oninput="handleSearch()">
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="card-grid" id="card-grid"></div>
+</div>
+
+<!-- Detail View -->
+<div id="detail-view" class="container detail-view">
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <div id="detail-content"></div>
+</div>
+
+<!-- About View -->
+<div id="about-view" class="container detail-view">
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <div class="about-content">
+    <h2>About the n8n Workflow Catalog</h2>
+    <p>
+      This catalog contains ready-to-import n8n workflow automations that leverage the
+      <strong>People.ai MCP</strong> (Model Context Protocol) integration alongside AI models,
+      CRM data, and communication tools to deliver actionable sales intelligence.
+    </p>
+    <p>
+      Each workflow is a complete n8n automation that can be imported directly into your n8n instance.
+      Workflows combine People.ai's engagement data with Claude AI to generate insights like daily
+      sales digests, meeting briefs, pipeline coaching reports, and account risk alerts.
+    </p>
+    <p style="margin-top:16px;">
+      <strong>How it works:</strong><br>
+      1. Browse the catalog and pick a workflow<br>
+      2. Download the workflow JSON (Quick Start or Full version)<br>
+      3. Import into your n8n instance<br>
+      4. Connect your credentials (People.ai MCP, Anthropic, Slack, etc.)<br>
+      5. Configure schedule and channel settings<br>
+      6. Activate the workflow
+    </p>
+    <p style="margin-top:16px;">
+      <strong>Prerequisites:</strong><br>
+      &bull; An n8n instance (self-hosted or n8n Cloud)<br>
+      &bull; People.ai MCP credentials<br>
+      &bull; Anthropic API key for Claude AI<br>
+      &bull; Slack Bot token (for most workflows)<br>
+      &bull; Additional credentials as noted per workflow
+    </p>
+    <p style="margin-top:16px;">
+      <strong>Maintained by:</strong> AI Innovation Team<br>
+      <strong>Slack:</strong> #n8n-workflows
+    </p>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+let catalogData = null;
+let currentFilter = 'all';
+let searchQuery = '';
+
+// ── Data Loading ──
+async function loadWorkflows() {
+  try {
+    const res = await fetch('workflows.json');
+    catalogData = await res.json();
+    handleRoute();
+  } catch (e) {
+    console.error('Failed to load workflows.json:', e);
+    document.getElementById('card-grid').innerHTML =
+      '<div class="empty-state">Failed to load workflow data. Ensure workflows.json is in the same directory.</div>';
+  }
+}
+
+// ── Routing ──
+function navigate(hash) { location.hash = hash; }
+
+function handleRoute() {
+  const hash = location.hash || '#/';
+  const views = ['catalog-view', 'detail-view', 'about-view'];
+  views.forEach(v => {
+    document.getElementById(v).style.display = 'none';
+    document.getElementById(v).classList.remove('active');
+  });
+
+  if (hash.startsWith('#/workflow/')) {
+    const id = hash.replace('#/workflow/', '');
+    document.getElementById('detail-view').style.display = 'block';
+    document.getElementById('detail-view').classList.add('active');
+    renderDetail(id);
+  } else if (hash === '#/about') {
+    document.getElementById('about-view').style.display = 'block';
+    document.getElementById('about-view').classList.add('active');
+  } else {
+    document.getElementById('catalog-view').style.display = 'block';
+    document.getElementById('catalog-view').classList.add('active');
+    renderCatalog();
+  }
+}
+
+// ── Catalog Rendering ──
+function renderCatalog() {
+  if (!catalogData) return;
+  renderStats();
+  renderFilters();
+  renderCards();
+}
+
+function renderStats() {
+  const wf = catalogData.workflows;
+  document.getElementById('stats-bar').innerHTML =
+    `<span><strong>${wf.length}</strong> workflows</span>
+     <span><strong>${catalogData.categories.length}</strong> categories</span>`;
+}
+
+function renderFilters() {
+  const cats = catalogData.categories;
+  let html = '<span class="filter-label">Category:</span>';
+  html += `<button class="filter-btn ${currentFilter === 'all' ? 'active' : ''}" onclick="setFilter('all')">All</button>`;
+  cats.forEach(c => {
+    html += `<button class="filter-btn ${currentFilter === c.id ? 'active' : ''}" onclick="setFilter('${c.id}')">${c.name}</button>`;
+  });
+  document.getElementById('filters').innerHTML = html;
+}
+
+function setFilter(f) { currentFilter = f; renderCatalog(); }
+
+function handleSearch() {
+  searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+  renderCards();
+}
+
+function renderCards() {
+  let workflows = catalogData.workflows;
+
+  if (currentFilter !== 'all') {
+    workflows = workflows.filter(w => w.category === currentFilter);
+  }
+  if (searchQuery) {
+    workflows = workflows.filter(w =>
+      w.name.toLowerCase().includes(searchQuery) ||
+      w.description.toLowerCase().includes(searchQuery)
+    );
+  }
+
+  if (workflows.length === 0) {
+    document.getElementById('card-grid').innerHTML =
+      '<div class="empty-state">No workflows match the selected filters.</div>';
+    return;
+  }
+
+  document.getElementById('card-grid').innerHTML = workflows.map(w => {
+    const cat = catalogData.categories.find(c => c.id === w.category);
+    const triggerShort = w.trigger.replace(/\s*\|.*$/, '').trim();
+    return `
+      <div class="card" onclick="navigate('#/workflow/${w.id}')">
+        <div class="card-number">${w.id} &middot; ${cat ? cat.name : ''}</div>
+        <div class="card-name">${w.name}</div>
+        <div class="card-desc">${w.description}</div>
+        <div class="card-meta">
+          <span class="badge badge-trigger">${triggerShort}</span>
+          ${w.output ? `<span class="badge badge-output">${w.output}</span>` : ''}
+          <span class="badge badge-category">${cat ? cat.name : ''}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Detail Rendering ──
+function renderDetail(workflowId) {
+  const wf = catalogData.workflows.find(w => w.id === workflowId);
+  if (!wf) {
+    document.getElementById('detail-content').innerHTML =
+      '<div class="empty-state">Workflow not found.</div>';
+    return;
+  }
+
+  const cat = catalogData.categories.find(c => c.id === wf.category);
+  const triggerShort = wf.trigger.replace(/\s*\|.*$/, '').trim();
+
+  let html = `
+    <div class="detail-header">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+        <span class="badge badge-category">${cat ? cat.name : ''}</span>
+        <span style="font-size:12px;color:var(--pai-med-gray);">${wf.id}</span>
+      </div>
+      <div class="detail-title">${wf.name}</div>
+      <div class="detail-desc">${wf.description}</div>
+      <div class="detail-meta-row">
+        <div><strong>Trigger:</strong> ${triggerShort}</div>
+        ${wf.output ? `<div><strong>Output:</strong> ${wf.output}</div>` : ''}
+        <div><strong>Nodes:</strong> ${wf.node_flow.length}</div>
+        <div><strong>Credentials:</strong> ${wf.credentials.length}</div>
+      </div>
+    </div>
+
+    <div class="tabs" id="detail-tabs">
+      <div class="tab active" data-tab="setup" onclick="switchTab('setup')">Setup</div>
+      <div class="tab" data-tab="flow" onclick="switchTab('flow')">Flow</div>
+      <div class="tab" data-tab="details" onclick="switchTab('details')">Details</div>
+    </div>
+
+    <div id="tab-panels">
+      <div class="tab-content" data-panel="setup" style="display:block">
+        <div id="setup-walkthrough-container"></div>
+      </div>
+      <div class="tab-content" data-panel="flow" style="display:none">
+        <div id="flow-visualization-container"></div>
+      </div>
+      <div class="tab-content" data-panel="details" style="display:none">
+        <div id="details-content-container"></div>
+      </div>
+    </div>`;
+
+  document.getElementById('detail-content').innerHTML = html;
+
+  // Initialize Setup Walkthrough
+  const setupContainer = document.getElementById('setup-walkthrough-container');
+  if (setupContainer) {
+    const setup = new SetupWalkthrough(wf, setupContainer);
+    setup.init();
+  }
+
+  // Initialize Flow Visualization
+  const flowContainer = document.getElementById('flow-visualization-container');
+  if (flowContainer) {
+    const flow = new FlowVisualization(wf, flowContainer);
+    flow.init();
+  }
+
+  // Render Details Tab
+  renderDetailsTab(wf);
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('#detail-tabs .tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tabId);
+  });
+  document.querySelectorAll('#tab-panels .tab-content').forEach(p => {
+    p.style.display = p.dataset.panel === tabId ? 'block' : 'none';
+  });
+}
+
+function renderDetailsTab(wf) {
+  const container = document.getElementById('details-content-container');
+  if (!container) return;
+
+  let html = `
+    <div class="detail-section">
+      <h3>Description</h3>
+      <p>${wf.description}</p>
+    </div>
+    <div class="detail-section">
+      <h3>Required Credentials</h3>
+      <ul>
+        ${wf.credentials.map(c => `<li>${c}</li>`).join('')}
+      </ul>
+    </div>`;
+
+  if (wf.configuration && wf.configuration.length > 0) {
+    html += `
+      <div class="detail-section">
+        <h3>Configuration Options</h3>
+        <ul>
+          ${wf.configuration.map(c => `<li>${c}</li>`).join('')}
+        </ul>
+      </div>`;
+  }
+
+  if (wf.quick_start_vs_full) {
+    html += `
+      <div class="detail-section">
+        <h3>Quick Start vs Full Version</h3>
+        <p>${wf.quick_start_vs_full}</p>
+      </div>`;
+  }
+
+  html += `
+    <div class="detail-section">
+      <h3>Download Workflow</h3>
+      <div class="btn-actions">
+        <button class="btn btn-copy disabled">
+          Download Quick Start <span class="coming-soon-label">Coming Soon</span>
+        </button>
+        <button class="btn btn-download disabled">
+          Download Full Version <span class="coming-soon-label">Coming Soon</span>
+        </button>
+      </div>
+    </div>`;
+
+  container.innerHTML = html;
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ── Setup Walkthrough Component ──
+class SetupWalkthrough {
+  constructor(workflow, container) {
+    this.workflow = workflow;
+    this.container = container;
+    this.currentStep = -1;
+    this.totalSteps = 4;
+    this.playing = false;
+    this.mockupEl = null;
+    this.stepTitles = [
+      'Import Workflow',
+      'Connect Credentials',
+      'Configure',
+      'Activate'
+    ];
+    this.stepDetails = [
+      'Import the workflow JSON into your n8n instance',
+      'Connect required credential accounts',
+      'Set schedule, channels, and preferences',
+      'Toggle the workflow active to start automation'
+    ];
+  }
+
+  init() {
+    this.render();
+  }
+
+  render() {
+    this.container.innerHTML = `
+      <h3 style="margin-bottom:16px;color:var(--pai-dark-blue);">Setup Walkthrough</h3>
+      <div class="n8n-mockup">
+        <div class="n8n-title-bar">
+          <div class="n8n-dots"><span></span><span></span><span></span></div>
+          <div class="n8n-title-text">n8n &mdash; ${this.workflow.name}</div>
+        </div>
+        <div class="n8n-body" id="setup-mockup-body"></div>
+      </div>
+      <div class="step-desc" id="setup-step-desc"></div>
+      <div class="step-detail" id="setup-step-detail"></div>
+      <div class="playback-controls">
+        <button class="playback-btn" data-action="prev">&#9664;</button>
+        <button class="playback-btn primary" data-action="play" id="setup-play-btn">&#9654;</button>
+        <div class="playback-dots" id="setup-dots"></div>
+        <button class="playback-btn" data-action="next">&#9654;</button>
+      </div>`;
+
+    this.mockupBody = this.container.querySelector('#setup-mockup-body');
+    this.descEl = this.container.querySelector('#setup-step-desc');
+    this.detailEl = this.container.querySelector('#setup-step-detail');
+    this.dotsEl = this.container.querySelector('#setup-dots');
+    this.playBtn = this.container.querySelector('#setup-play-btn');
+
+    this.container.querySelector('[data-action="prev"]').onclick = () => this.stepBack();
+    this.container.querySelector('[data-action="play"]').onclick = () => this.togglePlay();
+    this.container.querySelector('[data-action="next"]').onclick = () => this.stepForward();
+
+    this.renderDots();
+    this.updateDesc();
+    this.showStep(0);
+  }
+
+  renderDots() {
+    let html = '';
+    for (let i = 0; i < this.totalSteps; i++) {
+      const cls = i === this.currentStep ? 'active' : (i < this.currentStep ? 'done' : '');
+      html += `<div class="playback-dot ${cls}"></div>`;
+    }
+    this.dotsEl.innerHTML = html;
+  }
+
+  updateDesc() {
+    if (this.currentStep >= 0 && this.currentStep < this.totalSteps) {
+      this.descEl.textContent = `Step ${this.currentStep + 1}: ${this.stepTitles[this.currentStep]}`;
+      this.detailEl.textContent = this.stepDetails[this.currentStep];
+    } else {
+      this.descEl.textContent = 'Click play or step forward to begin';
+      this.detailEl.textContent = '';
+    }
+  }
+
+  showStep(stepIndex) {
+    this.currentStep = stepIndex;
+    this.renderDots();
+    this.updateDesc();
+    this.mockupBody.innerHTML = '';
+
+    switch(stepIndex) {
+      case 0: this.renderImportStep(); break;
+      case 1: this.renderCredentialsStep(); break;
+      case 2: this.renderConfigureStep(); break;
+      case 3: this.renderActivateStep(); break;
+    }
+  }
+
+  renderImportStep() {
+    this.mockupBody.innerHTML = `
+      <div class="setup-step-content">
+        <div class="import-dialog" id="import-dialog">
+          <div class="import-dialog-title">Import Workflow</div>
+          <div class="import-dropzone" id="import-dropzone">
+            <span class="import-dropzone-icon">&#128230;</span>
+            Drop workflow JSON here<br>
+            <span style="font-size:11px;opacity:0.7;">or click to browse</span>
+          </div>
+          <div style="text-align:center;">
+            <div class="import-file-chip" id="import-file-chip">
+              &#128196; ${this.workflow.id}.json
+            </div>
+          </div>
+        </div>
+      </div>`;
+    this.animateImport();
+  }
+
+  async animateImport() {
+    await this.wait(300);
+    const dialog = this.mockupBody.querySelector('#import-dialog');
+    if (dialog) dialog.classList.add('visible');
+    await this.wait(800);
+    const dropzone = this.mockupBody.querySelector('#import-dropzone');
+    if (dropzone) dropzone.classList.add('active');
+    await this.wait(600);
+    const chip = this.mockupBody.querySelector('#import-file-chip');
+    if (chip) chip.classList.add('visible');
+  }
+
+  renderCredentialsStep() {
+    const creds = this.workflow.credentials;
+    this.mockupBody.innerHTML = `
+      <div style="padding: 8px; overflow-y: auto; max-height: 100%;">
+        <div style="font-size:14px;font-weight:700;color:var(--n8n-text);margin-bottom:12px;">
+          Connect Credentials
+        </div>
+        <div id="cred-fields">
+          ${creds.map((c, i) => {
+            const parts = c.split(' \u2014 ');
+            const name = parts[0] || c;
+            const desc = parts[1] || '';
+            return `
+              <div class="cred-field" data-idx="${i}">
+                <div class="cred-label">${name}</div>
+                <div class="cred-input" data-placeholder="${desc}"></div>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    this.animateCredentials();
+  }
+
+  async animateCredentials() {
+    const fields = this.mockupBody.querySelectorAll('.cred-field');
+    for (let i = 0; i < fields.length; i++) {
+      await this.wait(300);
+      fields[i].classList.add('visible');
+      const input = fields[i].querySelector('.cred-input');
+      if (input) {
+        input.classList.add('typing');
+        const placeholder = input.dataset.placeholder;
+        await this.typeText(input, placeholder, 30);
+        await this.wait(200);
+        input.classList.remove('typing');
+      }
+    }
+  }
+
+  renderConfigureStep() {
+    const configs = this.workflow.configuration.length > 0
+      ? this.workflow.configuration
+      : ['Schedule: Weekdays at 6:00 AM', 'Channel: #sales-alerts', 'Batch size: 10'];
+
+    this.mockupBody.innerHTML = `
+      <div style="padding: 8px; overflow-y: auto; max-height: 100%;">
+        <div style="font-size:14px;font-weight:700;color:var(--n8n-text);margin-bottom:12px;">
+          Configuration
+        </div>
+        <div id="config-fields">
+          ${configs.map((c, i) => {
+            const parts = c.split(':');
+            const label = parts[0].trim();
+            const val = parts.length > 1 ? parts.slice(1).join(':').trim() : '';
+            return `
+              <div class="config-field" data-idx="${i}">
+                <div class="config-label">${label}</div>
+                <div class="config-input">${val}</div>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    this.animateConfig();
+  }
+
+  async animateConfig() {
+    const fields = this.mockupBody.querySelectorAll('.config-field');
+    for (let i = 0; i < fields.length; i++) {
+      await this.wait(400);
+      fields[i].classList.add('visible');
+    }
+  }
+
+  renderActivateStep() {
+    this.mockupBody.innerHTML = `
+      <div class="setup-step-content">
+        <div class="activate-container">
+          <div class="activate-label">Activate Workflow</div>
+          <div class="activate-toggle" id="activate-toggle"></div>
+          <div class="activate-status" id="activate-status">Inactive</div>
+          <div class="activate-check" id="activate-check">&#10003;</div>
+        </div>
+      </div>`;
+    this.animateActivate();
+  }
+
+  async animateActivate() {
+    await this.wait(800);
+    const toggle = this.mockupBody.querySelector('#activate-toggle');
+    const status = this.mockupBody.querySelector('#activate-status');
+    const check = this.mockupBody.querySelector('#activate-check');
+    if (toggle) toggle.classList.add('on');
+    if (status) { status.textContent = 'Active'; status.classList.add('active'); }
+    await this.wait(500);
+    if (check) check.classList.add('visible');
+  }
+
+  async stepForward() {
+    if (this.currentStep < this.totalSteps - 1) {
+      this.showStep(this.currentStep + 1);
+    }
+  }
+
+  stepBack() {
+    if (this.currentStep > 0) {
+      this.showStep(this.currentStep - 1);
+    }
+  }
+
+  async togglePlay() {
+    if (this.playing) {
+      this.stop();
+      return;
+    }
+    this.playing = true;
+    this.playBtn.innerHTML = '&#9646;&#9646;';
+    if (this.currentStep < 0) this.currentStep = -1;
+    while (this.playing && this.currentStep < this.totalSteps - 1) {
+      this.showStep(this.currentStep + 1);
+      if (this.playing) await this.wait(2500);
+    }
+    this.stop();
+  }
+
+  stop() {
+    this.playing = false;
+    if (this.playBtn) this.playBtn.innerHTML = '&#9654;';
+  }
+
+  async typeText(el, text, speed) {
+    el.textContent = '';
+    for (let i = 0; i <= text.length; i++) {
+      if (!this.mockupBody.isConnected) return;
+      el.textContent = text.substring(0, i);
+      await this.wait(speed);
+    }
+  }
+
+  wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+}
+
+// ── Flow Visualization Component ──
+class FlowVisualization {
+  constructor(workflow, container) {
+    this.workflow = workflow;
+    this.container = container;
+    this.nodes = workflow.node_flow;
+    this.currentStep = -1;
+    this.playing = false;
+  }
+
+  init() {
+    this.render();
+  }
+
+  render() {
+    this.container.innerHTML = `
+      <h3 style="margin-bottom:16px;color:var(--pai-dark-blue);">Workflow Flow</h3>
+      <div class="n8n-mockup" style="height:360px;">
+        <div class="n8n-title-bar">
+          <div class="n8n-dots"><span></span><span></span><span></span></div>
+          <div class="n8n-title-text">n8n &mdash; ${this.workflow.name} &mdash; Flow</div>
+        </div>
+        <div class="n8n-body" style="position:relative;overflow:hidden;">
+          <div class="flow-canvas" id="flow-canvas"></div>
+          <div class="flow-desc-text" id="flow-desc-text"></div>
+        </div>
+      </div>
+      <div class="step-desc" id="flow-step-desc"></div>
+      <div class="step-detail" id="flow-step-detail"></div>
+      <div class="playback-controls">
+        <button class="playback-btn" data-action="prev">&#9664;</button>
+        <button class="playback-btn primary" data-action="play" id="flow-play-btn">&#9654;</button>
+        <div class="playback-dots" id="flow-dots"></div>
+        <button class="playback-btn" data-action="next">&#9654;</button>
+      </div>`;
+
+    this.canvas = this.container.querySelector('#flow-canvas');
+    this.descText = this.container.querySelector('#flow-desc-text');
+    this.stepDesc = this.container.querySelector('#flow-step-desc');
+    this.stepDetail = this.container.querySelector('#flow-step-detail');
+    this.dotsEl = this.container.querySelector('#flow-dots');
+    this.playBtn = this.container.querySelector('#flow-play-btn');
+
+    this.container.querySelector('[data-action="prev"]').onclick = () => this.stepBack();
+    this.container.querySelector('[data-action="play"]').onclick = () => this.togglePlay();
+    this.container.querySelector('[data-action="next"]').onclick = () => this.stepForward();
+
+    this.buildGraph();
+    this.renderDots();
+    this.updateDesc();
+  }
+
+  buildGraph() {
+    const count = this.nodes.length;
+    const canvasW = this.canvas.offsetWidth || 600;
+    const canvasH = 240;
+
+    // Calculate positions
+    const spacing = Math.min(130, (canvasW - 120) / Math.max(count - 1, 1));
+    const startX = Math.max(20, (canvasW - (count - 1) * spacing - 100) / 2);
+    const centerY = canvasH / 2 - 30;
+
+    this.nodePositions = this.nodes.map((n, i) => ({
+      x: startX + i * spacing,
+      y: centerY + (i % 2 === 0 ? 0 : 20),
+      cx: startX + i * spacing + 50,
+      cy: centerY + (i % 2 === 0 ? 0 : 20) + 30
+    }));
+
+    // Build SVG connections
+    let svgPaths = '';
+    for (let i = 0; i < count - 1; i++) {
+      const from = this.nodePositions[i];
+      const to = this.nodePositions[i + 1];
+      const x1 = from.cx + 50;
+      const y1 = from.cy;
+      const x2 = to.cx - 50;
+      const y2 = to.cy;
+      const cpx1 = x1 + (x2 - x1) * 0.4;
+      const cpx2 = x1 + (x2 - x1) * 0.6;
+      const d = `M${x1},${y1} C${cpx1},${y1} ${cpx2},${y2} ${x2},${y2}`;
+      svgPaths += `<path class="svg-path" data-conn="${i}" d="${d}"/>`;
+      svgPaths += `<path class="svg-pulse" data-pulse="${i}" d="${d}"/>`;
+    }
+
+    this.canvas.innerHTML = `
+      <svg viewBox="0 0 ${canvasW} ${canvasH}" preserveAspectRatio="xMidYMid meet">
+        ${svgPaths}
+      </svg>
+      ${this.nodes.map((n, i) => {
+        const pos = this.nodePositions[i];
+        return `<div class="flow-node type-${n.type}" data-node="${i}"
+                     style="left:${pos.x}px;top:${pos.y}px;">
+          ${n.name}
+        </div>`;
+      }).join('')}`;
+
+    // Show all nodes initially
+    setTimeout(() => {
+      this.canvas.querySelectorAll('.flow-node').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 100);
+      });
+    }, 200);
+  }
+
+  renderDots() {
+    let html = '';
+    for (let i = 0; i < this.nodes.length; i++) {
+      const cls = i === this.currentStep ? 'active' : (i < this.currentStep ? 'done' : '');
+      html += `<div class="playback-dot ${cls}"></div>`;
+    }
+    this.dotsEl.innerHTML = html;
+  }
+
+  updateDesc() {
+    if (this.currentStep >= 0 && this.currentStep < this.nodes.length) {
+      const node = this.nodes[this.currentStep];
+      this.stepDesc.textContent = `Step ${node.step}: ${node.name}`;
+      this.stepDetail.textContent = node.description;
+      this.descText.textContent = node.description;
+    } else {
+      this.stepDesc.textContent = 'Click play to animate the workflow flow';
+      this.stepDetail.textContent = '';
+      this.descText.textContent = '';
+    }
+  }
+
+  highlightStep(idx) {
+    // Reset all
+    this.canvas.querySelectorAll('.flow-node').forEach(el => el.classList.remove('active'));
+    this.canvas.querySelectorAll('.svg-path').forEach(el => el.classList.remove('active'));
+    this.canvas.querySelectorAll('.svg-pulse').forEach(el => el.classList.remove('active'));
+
+    // Highlight current node
+    const nodeEl = this.canvas.querySelector(`[data-node="${idx}"]`);
+    if (nodeEl) nodeEl.classList.add('active');
+
+    // Highlight connection coming into this node
+    if (idx > 0) {
+      const conn = this.canvas.querySelector(`[data-conn="${idx - 1}"]`);
+      const pulse = this.canvas.querySelector(`[data-pulse="${idx - 1}"]`);
+      if (conn) conn.classList.add('active');
+      if (pulse) pulse.classList.add('active');
+    }
+
+    // Also highlight all previous connections as done
+    for (let i = 0; i < idx - 1; i++) {
+      const conn = this.canvas.querySelector(`[data-conn="${i}"]`);
+      if (conn) conn.classList.add('active');
+    }
+  }
+
+  stepForward() {
+    if (this.currentStep < this.nodes.length - 1) {
+      this.currentStep++;
+      this.highlightStep(this.currentStep);
+      this.renderDots();
+      this.updateDesc();
+    }
+  }
+
+  stepBack() {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+      this.highlightStep(this.currentStep);
+      this.renderDots();
+      this.updateDesc();
+    }
+  }
+
+  async togglePlay() {
+    if (this.playing) {
+      this.stop();
+      return;
+    }
+    this.playing = true;
+    this.playBtn.innerHTML = '&#9646;&#9646;';
+    if (this.currentStep >= this.nodes.length - 1) {
+      this.currentStep = -1;
+      // Reset visuals
+      this.canvas.querySelectorAll('.flow-node').forEach(el => el.classList.remove('active'));
+      this.canvas.querySelectorAll('.svg-path').forEach(el => el.classList.remove('active'));
+      this.canvas.querySelectorAll('.svg-pulse').forEach(el => el.classList.remove('active'));
+    }
+    while (this.playing && this.currentStep < this.nodes.length - 1) {
+      this.currentStep++;
+      this.highlightStep(this.currentStep);
+      this.renderDots();
+      this.updateDesc();
+      if (this.playing) await this.wait(1500);
+    }
+    this.stop();
+  }
+
+  stop() {
+    this.playing = false;
+    if (this.playBtn) this.playBtn.innerHTML = '&#9654;';
+  }
+
+  wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+}
+
+// ── Init ──
+window.addEventListener('hashchange', handleRoute);
+loadWorkflows();
+</script>
+</body>
+</html>
