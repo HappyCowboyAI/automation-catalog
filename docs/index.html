@@ -3,28 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>People.ai n8n Workflow Catalog</title>
+<title>People.ai Automation Catalog</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
   :root {
-    --pai-primary-blue: #006885;
-    --pai-dark-blue: #00204E;
-    --pai-blue: #0A41AA;
-    --pai-med-blue: #8CB8ED;
-    --pai-light-blue: #CDE6FF;
-    --pai-teal: #00D9D3;
-    --pai-light-teal: #7FECE9;
-    --pai-dark-gray: #54667D;
-    --pai-med-gray: #A9B2BE;
-    --pai-light-gray: #D4D9DE;
-    --pai-off-black: #0A1225;
-    --pai-white: #FFFFFF;
-    --pai-yellow: #E8C031;
-    --pai-orange: #EB8D35;
-    --pai-red: #F8544D;
-    --radius: 8px;
-    --shadow: 0 2px 8px rgba(0,32,78,0.08);
-    --shadow-hover: 0 4px 16px rgba(0,32,78,0.14);
+    --ac-coral: #FF6B6B;
+    --ac-coral-light: #FF8E8E;
+    --ac-coral-dark: #E85555;
+    --ac-salmon: #FFA07A;
+    --ac-cream: #FFF5F2;
+    --ac-warm-white: #FFFAF8;
+    --ac-dark: #2D3436;
+    --ac-dark-secondary: #636E72;
+    --ac-med-gray: #B2BEC3;
+    --ac-light-gray: #DFE6E9;
+    --ac-white: #FFFFFF;
+    --ac-success: #00B894;
+    --ac-warning: #FDCB6E;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(45,52,54,0.06);
+    --shadow-hover: 0 6px 20px rgba(45,52,54,0.12);
     --n8n-bg: #1a1a2e;
     --n8n-surface: #232340;
     --n8n-border: #2e2e4a;
@@ -33,40 +31,52 @@
     --n8n-purple: #a855f7;
     --n8n-orange: #ff9f43;
     --n8n-text: #e0e0f0;
+    --flow-green: #00B894;
+    --flow-blue: #0984E3;
+    --flow-purple: #6C5CE7;
+    --flow-coral: #FF6B6B;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: var(--pai-off-black);
-    background: #F5F7FA;
+    color: var(--ac-dark);
+    background: var(--ac-cream);
     line-height: 1.5;
   }
 
   /* Header */
   .header {
-    background: linear-gradient(135deg, var(--pai-dark-blue) 0%, var(--pai-primary-blue) 100%);
-    color: white;
-    padding: 24px 32px;
+    background: var(--ac-white);
+    color: var(--ac-dark);
+    padding: 20px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 3px solid var(--ac-coral);
+    box-shadow: var(--shadow);
   }
   .header-left { display: flex; align-items: center; gap: 16px; }
   .header-logo {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    opacity: 0.7;
+    color: var(--ac-coral);
   }
-  .header-logo span { color: var(--pai-teal); }
+  .header-logo span { color: var(--ac-coral-dark); }
+  .header-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--ac-light-gray);
+  }
   .header-title {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
+    color: var(--ac-dark);
   }
   .header-subtitle {
     font-size: 13px;
-    opacity: 0.7;
+    color: var(--ac-dark-secondary);
     margin-top: 2px;
   }
   .btn {
@@ -83,37 +93,37 @@
     text-decoration: none;
   }
   .btn-primary {
-    background: var(--pai-teal);
-    color: var(--pai-dark-blue);
+    background: var(--ac-coral);
+    color: var(--ac-white);
   }
-  .btn-primary:hover { background: var(--pai-light-teal); }
+  .btn-primary:hover { background: var(--ac-coral-dark); }
   .btn-secondary {
-    background: rgba(255,255,255,0.15);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.25);
+    background: var(--ac-white);
+    color: var(--ac-coral);
+    border: 1.5px solid var(--ac-coral);
   }
-  .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+  .btn-secondary:hover { background: var(--ac-cream); }
   .btn-outline {
     background: transparent;
-    color: var(--pai-primary-blue);
-    border: 1px solid var(--pai-light-gray);
+    color: var(--ac-dark);
+    border: 1px solid var(--ac-light-gray);
   }
-  .btn-outline:hover { border-color: var(--pai-primary-blue); background: var(--pai-light-blue); }
+  .btn-outline:hover { border-color: var(--ac-coral); color: var(--ac-coral); }
   .btn-copy {
-    background: var(--pai-primary-blue);
+    background: var(--ac-coral);
     color: white;
     padding: 12px 24px;
     font-size: 15px;
   }
-  .btn-copy:hover { background: var(--pai-dark-blue); }
+  .btn-copy:hover { background: var(--ac-coral-dark); }
   .btn-download {
     background: transparent;
-    color: var(--pai-primary-blue);
-    border: 1px solid var(--pai-primary-blue);
+    color: var(--ac-coral);
+    border: 1.5px solid var(--ac-coral);
     padding: 12px 24px;
     font-size: 15px;
   }
-  .btn-download:hover { background: var(--pai-light-blue); }
+  .btn-download:hover { background: var(--ac-cream); }
   .btn-download.disabled, .btn-copy.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -131,16 +141,19 @@
   }
   .search-bar input {
     width: 100%;
-    padding: 10px 16px 10px 40px;
-    border: 1px solid var(--pai-light-gray);
+    padding: 12px 16px 12px 42px;
+    border: 1.5px solid var(--ac-light-gray);
     border-radius: var(--radius);
     font-size: 14px;
-    background: white;
-    color: var(--pai-off-black);
+    background: var(--ac-white);
+    color: var(--ac-dark);
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .search-bar input:focus { border-color: var(--pai-primary-blue); }
+  .search-bar input:focus {
+    border-color: var(--ac-coral);
+    box-shadow: 0 0 0 3px rgba(255,107,107,0.1);
+  }
   .search-bar::before {
     content: '\1F50D';
     position: absolute;
@@ -148,7 +161,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 14px;
-    opacity: 0.5;
+    opacity: 0.4;
   }
 
   /* Filters */
@@ -162,25 +175,25 @@
   .filter-label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     margin-right: 4px;
   }
   .filter-btn {
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 20px;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    border: 1px solid var(--pai-light-gray);
-    background: white;
-    color: var(--pai-dark-gray);
+    border: 1.5px solid var(--ac-light-gray);
+    background: var(--ac-white);
+    color: var(--ac-dark-secondary);
     transition: all 0.2s;
   }
-  .filter-btn:hover { border-color: var(--pai-primary-blue); color: var(--pai-primary-blue); }
+  .filter-btn:hover { border-color: var(--ac-coral); color: var(--ac-coral); }
   .filter-btn.active {
-    background: var(--pai-primary-blue);
-    color: white;
-    border-color: var(--pai-primary-blue);
+    background: var(--ac-coral);
+    color: var(--ac-white);
+    border-color: var(--ac-coral);
   }
 
   /* Card Grid */
@@ -191,24 +204,25 @@
   }
 
   .card {
-    background: white;
+    background: var(--ac-white);
     border-radius: var(--radius);
-    border: 1px solid var(--pai-light-gray);
+    border: 1px solid var(--ac-light-gray);
     padding: 20px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s;
     position: relative;
-    border-left: 4px solid var(--pai-teal);
+    border-left: 4px solid transparent;
   }
   .card:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
+    border-left-color: var(--ac-coral);
   }
 
   .card-number {
     font-size: 12px;
     font-weight: 700;
-    color: var(--pai-med-gray);
+    color: var(--ac-med-gray);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -216,11 +230,11 @@
     font-size: 17px;
     font-weight: 700;
     margin: 4px 0 8px;
-    color: var(--pai-dark-blue);
+    color: var(--ac-dark);
   }
   .card-desc {
     font-size: 13px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -231,22 +245,22 @@
 
   .badge {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px 10px;
     border-radius: 10px;
     font-size: 11px;
     font-weight: 600;
   }
   .badge-trigger {
-    background: #E6F9F0;
-    color: #0a8a5e;
+    background: rgba(255,107,107,0.12);
+    color: var(--ac-coral-dark);
   }
   .badge-output {
-    background: #FFF3E0;
-    color: #B06800;
+    background: rgba(255,160,122,0.15);
+    color: #C06030;
   }
   .badge-category {
-    background: var(--pai-light-blue);
-    color: var(--pai-blue);
+    background: var(--ac-light-gray);
+    color: var(--ac-dark-secondary);
   }
 
   /* Stats bar */
@@ -256,9 +270,9 @@
     padding: 16px 0;
     margin-bottom: 8px;
     font-size: 13px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
   }
-  .stats-bar strong { color: var(--pai-dark-blue); }
+  .stats-bar strong { color: var(--ac-dark); }
 
   /* Detail View */
   .detail-view { display: none; }
@@ -268,7 +282,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--pai-primary-blue);
+    color: var(--ac-coral);
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -278,21 +292,22 @@
   .back-link:hover { text-decoration: underline; }
 
   .detail-header {
-    background: white;
+    background: var(--ac-white);
     border-radius: var(--radius);
-    border: 1px solid var(--pai-light-gray);
+    border: 1px solid var(--ac-light-gray);
     padding: 24px;
     margin-bottom: 20px;
+    box-shadow: var(--shadow);
   }
   .detail-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--pai-dark-blue);
+    color: var(--ac-dark);
     margin-bottom: 8px;
   }
   .detail-desc {
     font-size: 15px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     margin-bottom: 16px;
   }
   .detail-meta-row {
@@ -300,15 +315,15 @@
     gap: 24px;
     flex-wrap: wrap;
     font-size: 13px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
   }
-  .detail-meta-item strong { color: var(--pai-off-black); }
+  .detail-meta-item strong { color: var(--ac-dark); }
 
   /* Tabs */
   .tabs {
     display: flex;
     gap: 0;
-    border-bottom: 2px solid var(--pai-light-gray);
+    border-bottom: 2px solid var(--ac-light-gray);
     margin-bottom: 20px;
   }
   .tab {
@@ -318,26 +333,27 @@
     cursor: pointer;
     border-bottom: 2px solid transparent;
     margin-bottom: -2px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 6px;
   }
-  .tab:hover { color: var(--pai-primary-blue); }
+  .tab:hover { color: var(--ac-coral); }
   .tab.active {
-    color: var(--pai-primary-blue);
-    border-bottom-color: var(--pai-primary-blue);
+    color: var(--ac-coral);
+    border-bottom-color: var(--ac-coral);
   }
 
   .tab-content {
-    background: white;
+    background: var(--ac-white);
     border-radius: var(--radius);
-    border: 1px solid var(--pai-light-gray);
+    border: 1px solid var(--ac-light-gray);
     padding: 24px;
+    box-shadow: var(--shadow);
   }
 
-  /* n8n Mockup */
+  /* n8n Mockup (kept dark for Setup tab) */
   .n8n-mockup {
     border-radius: 10px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.12);
@@ -419,7 +435,7 @@
     border-radius: 8px;
     padding: 24px;
     text-align: center;
-    color: var(--pai-med-gray);
+    color: var(--ac-med-gray);
     font-size: 13px;
     transition: border-color 0.3s, background 0.3s;
   }
@@ -460,7 +476,7 @@
   .cred-label {
     font-size: 11px;
     font-weight: 600;
-    color: var(--pai-med-gray);
+    color: var(--ac-med-gray);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 3px;
@@ -491,7 +507,7 @@
   .config-label {
     font-size: 11px;
     font-weight: 600;
-    color: var(--pai-med-gray);
+    color: var(--ac-med-gray);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 3px;
@@ -548,7 +564,7 @@
   .activate-status {
     font-size: 14px;
     font-weight: 600;
-    color: var(--pai-med-gray);
+    color: var(--ac-med-gray);
     transition: color 0.3s;
   }
   .activate-status.active { color: var(--n8n-green); }
@@ -571,9 +587,9 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid var(--pai-light-gray);
-    background: white;
-    color: var(--pai-dark-blue);
+    border: 1.5px solid var(--ac-light-gray);
+    background: var(--ac-white);
+    color: var(--ac-dark);
     font-size: 12px;
     cursor: pointer;
     display: flex;
@@ -581,16 +597,16 @@
     justify-content: center;
     transition: all 0.2s;
   }
-  .playback-btn:hover { background: var(--pai-light-blue); }
+  .playback-btn:hover { background: var(--ac-cream); border-color: var(--ac-coral); }
   .playback-btn.primary {
     width: 44px;
     height: 44px;
-    background: var(--pai-primary-blue);
+    background: var(--ac-coral);
     color: white;
     border: none;
     font-size: 16px;
   }
-  .playback-btn.primary:hover { background: #005570; }
+  .playback-btn.primary:hover { background: var(--ac-coral-dark); }
   .playback-dots {
     display: flex;
     gap: 6px;
@@ -600,39 +616,69 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #ddd;
+    background: var(--ac-light-gray);
     transition: all 0.3s;
   }
   .playback-dot.active {
-    background: var(--pai-primary-blue);
+    background: var(--ac-coral);
     transform: scale(1.3);
   }
   .playback-dot.done {
-    background: var(--pai-teal);
+    background: var(--ac-success);
   }
   .step-desc {
     text-align: center;
     font-size: 14px;
     font-weight: 600;
-    color: var(--pai-dark-blue);
+    color: var(--ac-dark);
     margin-top: 12px;
     min-height: 20px;
   }
   .step-detail {
     text-align: center;
     font-size: 12px;
-    color: #666;
+    color: var(--ac-dark-secondary);
     margin-top: 4px;
     min-height: 16px;
     margin-bottom: 8px;
   }
 
-  /* Flow Visualization */
+  /* Flow Canvas — n8n editor style, light background */
+  .flow-canvas-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    height: 300px;
+    margin-bottom: 16px;
+    border: 1px solid var(--ac-light-gray);
+    display: flex;
+    flex-direction: column;
+    background: var(--ac-white);
+    box-shadow: var(--shadow);
+  }
+  .flow-canvas-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: #FAFAFA;
+    border-bottom: 1px solid var(--ac-light-gray);
+    font-size: 12px;
+    color: var(--ac-dark-secondary);
+    font-weight: 600;
+  }
+  .flow-canvas-body {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background-color: #FAFBFC;
+    background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
   .flow-canvas {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 280px;
   }
   .flow-canvas svg {
     position: absolute;
@@ -642,80 +688,135 @@
     height: 100%;
     pointer-events: none;
   }
+
+  /* n8n-style nodes */
   .flow-node {
     position: absolute;
-    width: 100px;
-    height: 60px;
-    border-radius: 10px;
-    background: var(--n8n-surface);
-    border: 2px solid var(--n8n-border);
+    width: 52px;
+    height: 42px;
+    border-radius: 8px;
+    background: var(--ac-white);
+    border: 1.5px solid var(--ac-light-gray);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 10px;
     font-weight: 600;
-    color: var(--n8n-text);
-    padding: 4px 6px;
-    transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s;
-    opacity: 0;
-    transform: scale(0.8);
+    color: var(--ac-dark-secondary);
+    padding: 2px;
+    transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s, opacity 0.4s;
+    opacity: 0.4;
     z-index: 2;
-    line-height: 1.2;
+    line-height: 1.1;
+    box-shadow: 0 1px 4px rgba(45,52,54,0.08);
   }
+  .flow-node .node-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    left: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: white;
+    font-weight: 700;
+    z-index: 3;
+  }
+  .flow-node .node-label {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ac-dark-secondary);
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Connection dots */
+  .flow-node .conn-dot-in,
+  .flow-node .conn-dot-out {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ac-light-gray);
+    border: 1.5px solid var(--ac-white);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+  }
+  .flow-node .conn-dot-in { left: -4px; }
+  .flow-node .conn-dot-out { right: -4px; }
+
   .flow-node.visible {
-    opacity: 1;
-    transform: scale(1);
+    opacity: 0.5;
   }
   .flow-node.active {
-    transform: scale(1.08);
-    box-shadow: 0 0 16px rgba(255,255,255,0.15);
+    opacity: 1;
+    transform: scale(1.05);
   }
-  .flow-node.type-trigger { border-color: var(--n8n-green); }
-  .flow-node.type-trigger.active { box-shadow: 0 0 16px rgba(76,217,100,0.3); }
-  .flow-node.type-data { border-color: var(--n8n-blue); }
-  .flow-node.type-data.active { box-shadow: 0 0 16px rgba(91,154,255,0.3); }
-  .flow-node.type-ai { border-color: var(--n8n-purple); }
-  .flow-node.type-ai.active { box-shadow: 0 0 16px rgba(168,85,247,0.3); }
-  .flow-node.type-output { border-color: var(--n8n-orange); }
-  .flow-node.type-output.active { box-shadow: 0 0 16px rgba(255,159,67,0.3); }
+  .flow-node.done {
+    opacity: 1;
+  }
+  .flow-node.type-trigger .node-icon { background: var(--flow-green); }
+  .flow-node.type-trigger.active { border-color: var(--flow-green); box-shadow: 0 0 12px rgba(0,184,148,0.3); }
+  .flow-node.type-trigger.done { border-color: var(--flow-green); }
+
+  .flow-node.type-data .node-icon { background: var(--flow-blue); }
+  .flow-node.type-data.active { border-color: var(--flow-blue); box-shadow: 0 0 12px rgba(9,132,227,0.3); }
+  .flow-node.type-data.done { border-color: var(--flow-blue); }
+
+  .flow-node.type-ai .node-icon { background: var(--flow-purple); }
+  .flow-node.type-ai.active { border-color: var(--flow-purple); box-shadow: 0 0 12px rgba(108,92,231,0.3); }
+  .flow-node.type-ai.done { border-color: var(--flow-purple); }
+
+  .flow-node.type-output .node-icon { background: var(--flow-coral); }
+  .flow-node.type-output.active { border-color: var(--flow-coral); box-shadow: 0 0 12px rgba(255,107,107,0.3); }
+  .flow-node.type-output.done { border-color: var(--flow-coral); }
 
   .flow-desc-text {
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-    right: 12px;
-    font-size: 11px;
-    color: var(--pai-med-gray);
     text-align: center;
+    font-size: 12px;
+    color: var(--ac-dark-secondary);
+    padding: 8px 16px;
     min-height: 30px;
     transition: opacity 0.3s;
   }
 
   .svg-path {
     fill: none;
-    stroke: var(--n8n-border);
+    stroke: var(--ac-light-gray);
     stroke-width: 2;
     transition: stroke 0.4s;
   }
   .svg-path.active {
-    stroke: var(--n8n-orange);
-    stroke-width: 2.5;
+    stroke: var(--ac-med-gray);
+    stroke-width: 2;
   }
-  .svg-pulse {
-    fill: none;
-    stroke: var(--n8n-orange);
-    stroke-width: 3;
-    stroke-dasharray: 8 12;
+  .svg-path.done {
+    stroke: var(--ac-med-gray);
+  }
+  /* Traveling dot animation */
+  .svg-dot {
+    fill: var(--ac-coral);
+    r: 4;
     opacity: 0;
-    transition: opacity 0.3s;
   }
-  .svg-pulse.active {
+  .svg-dot.active {
     opacity: 1;
-    animation: dashPulse 0.8s linear infinite;
   }
-  @keyframes dashPulse {
-    to { stroke-dashoffset: -20; }
+
+  @keyframes travelDot {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
   }
 
   /* Details Tab */
@@ -725,19 +826,19 @@
   .detail-section h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--pai-dark-blue);
+    color: var(--ac-dark);
     margin-bottom: 8px;
   }
   .detail-section ul {
     list-style: disc;
     padding-left: 20px;
     font-size: 14px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     line-height: 1.8;
   }
   .detail-section p {
     font-size: 14px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     line-height: 1.7;
   }
 
@@ -746,7 +847,7 @@
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background: var(--pai-dark-blue);
+    background: var(--ac-dark);
     color: white;
     padding: 12px 20px;
     border-radius: var(--radius);
@@ -759,32 +860,50 @@
   }
   .toast.show { transform: translateY(0); opacity: 1; }
 
-  /* About modal / view */
+  /* About view */
   .about-content {
-    background: white;
+    background: var(--ac-white);
     border-radius: var(--radius);
-    border: 1px solid var(--pai-light-gray);
+    border: 1px solid var(--ac-light-gray);
     padding: 24px;
+    box-shadow: var(--shadow);
   }
   .about-content h2 {
     font-size: 20px;
     font-weight: 700;
-    color: var(--pai-dark-blue);
+    color: var(--ac-dark);
     margin-bottom: 12px;
   }
   .about-content p {
     font-size: 14px;
-    color: var(--pai-dark-gray);
+    color: var(--ac-dark-secondary);
     line-height: 1.7;
     margin-bottom: 12px;
   }
-  .about-content strong { color: var(--pai-off-black); }
+  .about-content strong { color: var(--ac-dark); }
+  .about-content .platform-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+  .about-content .platform-badge.available {
+    background: rgba(0,184,148,0.12);
+    color: #00866A;
+  }
+  .about-content .platform-badge.coming-soon {
+    background: var(--ac-light-gray);
+    color: var(--ac-dark-secondary);
+  }
 
   /* Empty state */
   .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: var(--pai-med-gray);
+    color: var(--ac-med-gray);
   }
 
   /* Coming soon label */
@@ -792,8 +911,8 @@
     display: inline-block;
     font-size: 11px;
     font-weight: 600;
-    color: var(--pai-med-gray);
-    background: var(--pai-light-gray);
+    color: var(--ac-dark-secondary);
+    background: var(--ac-light-gray);
     padding: 2px 8px;
     border-radius: 8px;
     margin-left: 8px;
@@ -801,7 +920,7 @@
 
   /* Print */
   @media print {
-    .header { background: white !important; color: black !important; }
+    .header { background: white !important; color: black !important; border-bottom: 1px solid #ccc !important; }
     .btn, .filters, .toast { display: none !important; }
     .card { break-inside: avoid; border: 1px solid #ccc; }
     body { background: white; }
@@ -812,6 +931,7 @@
     .container { padding: 16px; }
     .card-grid { grid-template-columns: 1fr; }
     .detail-meta-row { flex-direction: column; gap: 8px; }
+    .header-divider { display: none; }
   }
 </style>
 </head>
@@ -822,8 +942,9 @@
     <div>
       <div class="header-logo">people<span>.</span>ai</div>
     </div>
+    <div class="header-divider"></div>
     <div>
-      <div class="header-title">n8n Workflow Catalog</div>
+      <div class="header-title">Automation Catalog</div>
       <div class="header-subtitle">Ready-to-import workflow automations powered by People.ai</div>
     </div>
   </div>
@@ -837,7 +958,7 @@
 <div id="catalog-view" class="container">
   <div class="stats-bar" id="stats-bar"></div>
   <div class="search-bar">
-    <input type="text" id="search-input" placeholder="Search workflows..." oninput="handleSearch()">
+    <input type="text" id="search-input" placeholder="Search automations..." oninput="handleSearch()">
   </div>
   <div class="filters" id="filters"></div>
   <div class="card-grid" id="card-grid"></div>
@@ -853,29 +974,36 @@
 <div id="about-view" class="container detail-view">
   <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
   <div class="about-content">
-    <h2>About the n8n Workflow Catalog</h2>
+    <h2>About the People.ai Automation Catalog</h2>
     <p>
-      This catalog contains ready-to-import n8n workflow automations that leverage the
+      This catalog contains ready-to-import workflow automations that leverage the
       <strong>People.ai MCP</strong> (Model Context Protocol) integration alongside AI models,
       CRM data, and communication tools to deliver actionable sales intelligence.
     </p>
     <p>
-      Each workflow is a complete n8n automation that can be imported directly into your n8n instance.
+      Each workflow is a complete automation that can be imported into your preferred platform.
       Workflows combine People.ai's engagement data with Claude AI to generate insights like daily
       sales digests, meeting briefs, pipeline coaching reports, and account risk alerts.
+    </p>
+    <p style="margin-top:16px;">
+      <strong>Supported Platforms:</strong><br>
+      <span class="platform-badge available">n8n</span>
+      <span class="platform-badge coming-soon">Workato &mdash; Coming Soon</span>
+      <span class="platform-badge coming-soon">Zapier &mdash; Coming Soon</span>
+      <span class="platform-badge coming-soon">Others &mdash; Coming Soon</span>
     </p>
     <p style="margin-top:16px;">
       <strong>How it works:</strong><br>
       1. Browse the catalog and pick a workflow<br>
       2. Download the workflow JSON (Quick Start or Full version)<br>
-      3. Import into your n8n instance<br>
+      3. Import into your automation platform (currently n8n)<br>
       4. Connect your credentials (People.ai MCP, Anthropic, Slack, etc.)<br>
       5. Configure schedule and channel settings<br>
       6. Activate the workflow
     </p>
     <p style="margin-top:16px;">
       <strong>Prerequisites:</strong><br>
-      &bull; An n8n instance (self-hosted or n8n Cloud)<br>
+      &bull; An automation platform instance (n8n self-hosted or Cloud)<br>
       &bull; People.ai MCP credentials<br>
       &bull; Anthropic API key for Claude AI<br>
       &bull; Slack Bot token (for most workflows)<br>
@@ -883,7 +1011,7 @@
     </p>
     <p style="margin-top:16px;">
       <strong>Maintained by:</strong> AI Innovation Team<br>
-      <strong>Slack:</strong> #n8n-workflows
+      <strong>Slack:</strong> #automation-workflows
     </p>
   </div>
 </div>
@@ -896,7 +1024,7 @@ let catalogData = null;
 let currentFilter = 'all';
 let searchQuery = '';
 
-// ── Data Loading ──
+// -- Data Loading --
 async function loadWorkflows() {
   try {
     const res = await fetch('workflows.json');
@@ -909,7 +1037,7 @@ async function loadWorkflows() {
   }
 }
 
-// ── Routing ──
+// -- Routing --
 function navigate(hash) { location.hash = hash; }
 
 function handleRoute() {
@@ -935,7 +1063,7 @@ function handleRoute() {
   }
 }
 
-// ── Catalog Rendering ──
+// -- Catalog Rendering --
 function renderCatalog() {
   if (!catalogData) return;
   renderStats();
@@ -946,7 +1074,7 @@ function renderCatalog() {
 function renderStats() {
   const wf = catalogData.workflows;
   document.getElementById('stats-bar').innerHTML =
-    `<span><strong>${wf.length}</strong> workflows</span>
+    `<span><strong>${wf.length}</strong> automations</span>
      <span><strong>${catalogData.categories.length}</strong> categories</span>`;
 }
 
@@ -982,7 +1110,7 @@ function renderCards() {
 
   if (workflows.length === 0) {
     document.getElementById('card-grid').innerHTML =
-      '<div class="empty-state">No workflows match the selected filters.</div>';
+      '<div class="empty-state">No automations match the selected filters.</div>';
     return;
   }
 
@@ -1003,7 +1131,7 @@ function renderCards() {
   }).join('');
 }
 
-// ── Detail Rendering ──
+// -- Detail Rendering --
 function renderDetail(workflowId) {
   const wf = catalogData.workflows.find(w => w.id === workflowId);
   if (!wf) {
@@ -1019,7 +1147,7 @@ function renderDetail(workflowId) {
     <div class="detail-header">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
         <span class="badge badge-category">${cat ? cat.name : ''}</span>
-        <span style="font-size:12px;color:var(--pai-med-gray);">${wf.id}</span>
+        <span style="font-size:12px;color:var(--ac-med-gray);">${wf.id}</span>
       </div>
       <div class="detail-title">${wf.name}</div>
       <div class="detail-desc">${wf.description}</div>
@@ -1128,7 +1256,7 @@ function renderDetailsTab(wf) {
   container.innerHTML = html;
 }
 
-// ── Toast ──
+// -- Toast --
 function showToast(msg) {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
@@ -1136,7 +1264,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// ── Setup Walkthrough Component ──
+// -- Setup Walkthrough Component (dark n8n mockup preserved) --
 class SetupWalkthrough {
   constructor(workflow, container) {
     this.workflow = workflow;
@@ -1165,7 +1293,7 @@ class SetupWalkthrough {
 
   render() {
     this.container.innerHTML = `
-      <h3 style="margin-bottom:16px;color:var(--pai-dark-blue);">Setup Walkthrough</h3>
+      <h3 style="margin-bottom:16px;color:var(--ac-dark);">Setup Walkthrough</h3>
       <div class="n8n-mockup">
         <div class="n8n-title-bar">
           <div class="n8n-dots"><span></span><span></span><span></span></div>
@@ -1403,7 +1531,7 @@ class SetupWalkthrough {
   wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 }
 
-// ── Flow Visualization Component ──
+// -- Flow Visualization Component (n8n canvas style) --
 class FlowVisualization {
   constructor(workflow, container) {
     this.workflow = workflow;
@@ -1411,24 +1539,34 @@ class FlowVisualization {
     this.nodes = workflow.node_flow;
     this.currentStep = -1;
     this.playing = false;
+    this.animationFrameIds = [];
   }
 
   init() {
     this.render();
   }
 
+  getNodeTypeIcon(type) {
+    switch(type) {
+      case 'trigger': return '\u25B6';
+      case 'data': return '\u2630';
+      case 'ai': return '\u2726';
+      case 'output': return '\u2794';
+      default: return '\u2022';
+    }
+  }
+
   render() {
     this.container.innerHTML = `
-      <h3 style="margin-bottom:16px;color:var(--pai-dark-blue);">Workflow Flow</h3>
-      <div class="n8n-mockup" style="height:360px;">
-        <div class="n8n-title-bar">
-          <div class="n8n-dots"><span></span><span></span><span></span></div>
-          <div class="n8n-title-text">n8n &mdash; ${this.workflow.name} &mdash; Flow</div>
+      <h3 style="margin-bottom:16px;color:var(--ac-dark);">Workflow Flow</h3>
+      <div class="flow-canvas-wrapper">
+        <div class="flow-canvas-header">
+          <span>${this.workflow.name} &mdash; Flow Visualization</span>
         </div>
-        <div class="n8n-body" style="position:relative;overflow:hidden;">
+        <div class="flow-canvas-body">
           <div class="flow-canvas" id="flow-canvas"></div>
-          <div class="flow-desc-text" id="flow-desc-text"></div>
         </div>
+        <div class="flow-desc-text" id="flow-desc-text"></div>
       </div>
       <div class="step-desc" id="flow-step-desc"></div>
       <div class="step-detail" id="flow-step-detail"></div>
@@ -1450,62 +1588,76 @@ class FlowVisualization {
     this.container.querySelector('[data-action="play"]').onclick = () => this.togglePlay();
     this.container.querySelector('[data-action="next"]').onclick = () => this.stepForward();
 
-    this.buildGraph();
-    this.renderDots();
-    this.updateDesc();
+    // Build graph after a tick so the canvas has dimensions
+    requestAnimationFrame(() => {
+      this.buildGraph();
+      this.renderDots();
+      this.updateDesc();
+    });
   }
 
   buildGraph() {
     const count = this.nodes.length;
-    const canvasW = this.canvas.offsetWidth || 600;
-    const canvasH = 240;
+    const canvasRect = this.canvas.parentElement.getBoundingClientRect();
+    const canvasW = canvasRect.width || 600;
+    const canvasH = canvasRect.height || 240;
 
-    // Calculate positions
-    const spacing = Math.min(130, (canvasW - 120) / Math.max(count - 1, 1));
-    const startX = Math.max(20, (canvasW - (count - 1) * spacing - 100) / 2);
-    const centerY = canvasH / 2 - 30;
+    const nodeW = 52;
+    const nodeH = 42;
+    const padding = 50;
+    const spacing = (canvasW - 2 * padding - nodeW) / Math.max(count - 1, 1);
+    const centerY = (canvasH - nodeH) / 2 - 5;
 
     this.nodePositions = this.nodes.map((n, i) => ({
-      x: startX + i * spacing,
-      y: centerY + (i % 2 === 0 ? 0 : 20),
-      cx: startX + i * spacing + 50,
-      cy: centerY + (i % 2 === 0 ? 0 : 20) + 30
+      x: padding + i * spacing,
+      y: centerY,
+      cx: padding + i * spacing + nodeW / 2,
+      cy: centerY + nodeH / 2,
+      right: padding + i * spacing + nodeW,
+      left: padding + i * spacing
     }));
 
-    // Build SVG connections
-    let svgPaths = '';
+    // Build SVG connections with bezier curves
+    let svgContent = '';
     for (let i = 0; i < count - 1; i++) {
       const from = this.nodePositions[i];
       const to = this.nodePositions[i + 1];
-      const x1 = from.cx + 50;
+      const x1 = from.right + 4;
       const y1 = from.cy;
-      const x2 = to.cx - 50;
+      const x2 = to.left - 4;
       const y2 = to.cy;
-      const cpx1 = x1 + (x2 - x1) * 0.4;
-      const cpx2 = x1 + (x2 - x1) * 0.6;
-      const d = `M${x1},${y1} C${cpx1},${y1} ${cpx2},${y2} ${x2},${y2}`;
-      svgPaths += `<path class="svg-path" data-conn="${i}" d="${d}"/>`;
-      svgPaths += `<path class="svg-pulse" data-pulse="${i}" d="${d}"/>`;
+      const dx = (x2 - x1) * 0.5;
+      const d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+      svgContent += `<path class="svg-path" data-conn="${i}" d="${d}" id="conn-path-${i}"/>`;
+      // Traveling dot
+      svgContent += `<circle class="svg-dot" data-dot="${i}" r="4" cx="0" cy="0">
+        <animateMotion dur="0.8s" repeatCount="indefinite" begin="indefinite">
+          <mpath href="#conn-path-${i}"/>
+        </animateMotion>
+      </circle>`;
     }
 
     this.canvas.innerHTML = `
-      <svg viewBox="0 0 ${canvasW} ${canvasH}" preserveAspectRatio="xMidYMid meet">
-        ${svgPaths}
+      <svg viewBox="0 0 ${canvasW} ${canvasH}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
+        ${svgContent}
       </svg>
       ${this.nodes.map((n, i) => {
         const pos = this.nodePositions[i];
         return `<div class="flow-node type-${n.type}" data-node="${i}"
-                     style="left:${pos.x}px;top:${pos.y}px;">
-          ${n.name}
+                     style="left:${pos.x}px;top:${pos.y}px;width:${nodeW}px;height:${nodeH}px;">
+          <span class="node-icon">${this.getNodeTypeIcon(n.type)}</span>
+          <span class="conn-dot-in"></span>
+          <span class="conn-dot-out"></span>
+          <span class="node-label" title="${n.name}">${n.name}</span>
         </div>`;
       }).join('')}`;
 
-    // Show all nodes initially
+    // Show all nodes with initial dim state
     setTimeout(() => {
       this.canvas.querySelectorAll('.flow-node').forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), i * 100);
+        setTimeout(() => el.classList.add('visible'), i * 80);
       });
-    }, 200);
+    }, 100);
   }
 
   renderDots() {
@@ -1531,27 +1683,50 @@ class FlowVisualization {
   }
 
   highlightStep(idx) {
-    // Reset all
-    this.canvas.querySelectorAll('.flow-node').forEach(el => el.classList.remove('active'));
-    this.canvas.querySelectorAll('.svg-path').forEach(el => el.classList.remove('active'));
-    this.canvas.querySelectorAll('.svg-pulse').forEach(el => el.classList.remove('active'));
+    // Reset all nodes
+    this.canvas.querySelectorAll('.flow-node').forEach(el => {
+      el.classList.remove('active');
+      el.classList.remove('done');
+    });
+    // Reset connections
+    this.canvas.querySelectorAll('.svg-path').forEach(el => {
+      el.classList.remove('active');
+      el.classList.remove('done');
+    });
+    // Stop all traveling dots
+    this.canvas.querySelectorAll('.svg-dot').forEach(el => {
+      el.classList.remove('active');
+      const anim = el.querySelector('animateMotion');
+      if (anim) anim.endElement();
+    });
+
+    // Mark completed nodes
+    for (let i = 0; i < idx; i++) {
+      const nodeEl = this.canvas.querySelector(`[data-node="${i}"]`);
+      if (nodeEl) nodeEl.classList.add('done');
+    }
+    // Mark completed connections
+    for (let i = 0; i < idx - 1; i++) {
+      const conn = this.canvas.querySelector(`[data-conn="${i}"]`);
+      if (conn) conn.classList.add('done');
+    }
 
     // Highlight current node
     const nodeEl = this.canvas.querySelector(`[data-node="${idx}"]`);
     if (nodeEl) nodeEl.classList.add('active');
 
-    // Highlight connection coming into this node
+    // Animate connection coming into this node
     if (idx > 0) {
       const conn = this.canvas.querySelector(`[data-conn="${idx - 1}"]`);
-      const pulse = this.canvas.querySelector(`[data-pulse="${idx - 1}"]`);
       if (conn) conn.classList.add('active');
-      if (pulse) pulse.classList.add('active');
-    }
-
-    // Also highlight all previous connections as done
-    for (let i = 0; i < idx - 1; i++) {
-      const conn = this.canvas.querySelector(`[data-conn="${i}"]`);
-      if (conn) conn.classList.add('active');
+      const dot = this.canvas.querySelector(`[data-dot="${idx - 1}"]`);
+      if (dot) {
+        dot.classList.add('active');
+        const anim = dot.querySelector('animateMotion');
+        if (anim) {
+          try { anim.beginElement(); } catch(e) {}
+        }
+      }
     }
   }
 
@@ -1583,9 +1758,19 @@ class FlowVisualization {
     if (this.currentStep >= this.nodes.length - 1) {
       this.currentStep = -1;
       // Reset visuals
-      this.canvas.querySelectorAll('.flow-node').forEach(el => el.classList.remove('active'));
-      this.canvas.querySelectorAll('.svg-path').forEach(el => el.classList.remove('active'));
-      this.canvas.querySelectorAll('.svg-pulse').forEach(el => el.classList.remove('active'));
+      this.canvas.querySelectorAll('.flow-node').forEach(el => {
+        el.classList.remove('active');
+        el.classList.remove('done');
+      });
+      this.canvas.querySelectorAll('.svg-path').forEach(el => {
+        el.classList.remove('active');
+        el.classList.remove('done');
+      });
+      this.canvas.querySelectorAll('.svg-dot').forEach(el => {
+        el.classList.remove('active');
+        const anim = el.querySelector('animateMotion');
+        if (anim) { try { anim.endElement(); } catch(e) {} }
+      });
     }
     while (this.playing && this.currentStep < this.nodes.length - 1) {
       this.currentStep++;
@@ -1605,7 +1790,7 @@ class FlowVisualization {
   wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 }
 
-// ── Init ──
+// -- Init --
 window.addEventListener('hashchange', handleRoute);
 loadWorkflows();
 </script>
