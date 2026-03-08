@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-08T18:39:58.022049+00:00",
+  "_generated": "2026-03-08T18:46:24.128742+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -284,14 +284,14 @@
     {
       "id": "06-executive-inbox",
       "name": "Executive Inbox",
-      "description": "Automates executive email triage by reading unread Gmail messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. The AI Agent analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Messaging channel (Slack, Teams, or Email) or trigger follow-up workflows, ensuring nothing falls through the cracks.",
+      "description": "Automates executive email triage by reading unread email messages, identifying those from customers or prospects, enriching them with CRM context from People.ai, and using AI to classify and route each message. The AI Agent analyzes the email content alongside account history to determine urgency, category (support escalation, deal progression, renewal, executive outreach, etc.), and the appropriate internal channel or person. Routed messages land in the right Messaging channel (Slack, Teams, or Email) or trigger follow-up workflows, ensuring nothing falls through the cracks.",
       "category": "account-monitoring",
       "trigger": "Schedule                                           |",
       "output": "",
       "credentials": [
         "People.ai MCP \u2014 Account context and engagement history",
         "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 LLM for triage and classification",
-        "Gmail \u2014 Executive inbox access",
+        "Email (Gmail, Outlook, IMAP) \u2014 Executive inbox access",
         "Messaging (Slack, Teams, Email) \u2014 Routes messages to appropriate channels",
         "Project Management (Jira, Asana, etc.) \u2014 optional \u2014 Ticket and project context"
       ],
@@ -299,7 +299,7 @@
         {
           "step": 1,
           "name": "Schedule Trigger & Email Fetch",
-          "description": "On a recurring schedule, reads unread emails from the executive's Gmail inbox.",
+          "description": "On a recurring schedule, reads unread emails from the executive's inbox (Gmail, Outlook, or IMAP).",
           "type": "trigger",
           "color": "green"
         },
