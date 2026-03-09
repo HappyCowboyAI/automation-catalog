@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T21:51:48.246330+00:00",
+  "_generated": "2026-03-09T23:10:17.602557+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -86,7 +86,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Aria",
+        "bot_app": true,
+        "content": "\u2600\ufe0f **Good Morning, @sarah.chen** \u2014 Here's your daily digest for **Tuesday, Mar 4**\n\n\ud83d\udcca **PIPELINE MOVEMENT:**\n- **ACME Corp** ===$425,000=== moved to Technical Validation \u2014 @james.park scheduled POC for Thursday\n- **Globex Industries** ===$180,000=== \u2014 Procurement sent redlines on MSA, legal review needed by EOD Wednesday\n- **Initech** ===$92,000=== went dark after demo last Tuesday \u2014 6 days no response from champion\n\n\ud83d\udd14 **ENGAGEMENT HIGHLIGHTS:**\n- @mike.torres (VP Sales, NovaTech) opened your proposal deck 3x yesterday, forwarded to CFO\n- New inbound: Director of Ops at Contoso downloaded whitepaper + visited pricing page\n- Wayne Enterprises champion Sarah Kim accepted your QBR invite for next Monday\n\n\u26a1 **RECOMMENDED ACTIONS:**\n- Follow up with Initech champion \u2014 silence exceeds your 5-day threshold\n- Prep legal response for Globex MSA redlines before Wednesday deadline\n- Send NovaTech CFO a personalized ROI summary while momentum is hot\n\n---\n*Powered by People.ai MCP \u2014 14 accounts tracked, 3 need attention*"
+      },
       "exports": []
     },
     {
@@ -189,7 +194,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Watchdog",
+        "bot_app": true,
+        "content": "\ud83d\udd34 **SILENCE ALERT** \u2014 3 accounts require immediate attention\n\n**GLOBEX INDUSTRIES** | ===$340,000=== | Renewal: 04/2026 | \ud83d\udd34 Critical\n- Last meaningful engagement: **18 days ago** (normally 3-day cadence)\n- Champion @lisa.wong has not opened last 4 emails\n- Contract renewal in 47 days \u2014 no renewal discussion initiated\n- \ud83d\udc49 @david.kim: Schedule a check-in call citing Q2 planning as reason to reconnect\n\n**INITECH** | ===$125,000=== | Renewal: 06/2026 | \ud83d\udfe1 Watch\n- Last engagement: **11 days ago** \u2014 below 7-day norm\n- Executive sponsor Dan Reeves missed scheduled QBR last Friday (no reschedule)\n- Support tickets up 40% this month, but no escalation to account team\n- \ud83d\udc49 @rep.owner: Reach out to secondary contact Maria Santos for a pulse check\n\n**WAYNE ENTERPRISES** | ===$87,000=== | Renewal: 08/2026 | \ud83d\udfe1 Watch\n- Last engagement: **9 days ago** \u2014 champion on PTO until Mar 12 (verified via OOO)\n- Benign silence likely, but 2 open support tickets unresolved for 6+ days\n- \ud83d\udc49 @sarah.chen: Monitor \u2014 flag if silence continues past Mar 14\n\n---\n*Powered by People.ai MCP \u2014 42 accounts scanned, 3 flagged*"
+      },
       "exports": []
     },
     {
@@ -423,7 +433,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Sentinel",
+        "bot_app": true,
+        "content": "\ud83d\udccb **Weekly Churn Risk Scorecard** \u2014 @emily.ross's Portfolio | Week of Mar 3\n\n\ud83d\udd34 **CRITICAL (Score 8-10):**\n- **Dunder Mifflin** | ===$210,000=== ARR | Score: **9/10** | \u2191 from 6 last week\n- Champion departed company 2 weeks ago, no new contact established\n- Product logins down 62% month-over-month\n- 3 unresolved P1 support tickets (oldest: 14 days)\n- \ud83d\udca1 Save play: Emergency exec alignment \u2014 request warm intro to new VP from departing champion\n\n\ud83d\udfe1 **WATCH (Score 5-7):**\n- **Stark Industries** | ===$185,000=== ARR | Score: **6/10** | \u2192 steady\n- Meeting frequency dropped from weekly to biweekly over last month\n- NPS survey response: 6 (down from 8 at last QBR)\n- \ud83d\udca1 Save play: Schedule health check disguised as product roadmap preview\n- **Umbrella Corp** | ===$94,000=== ARR | Score: **5/10** | \u2193 from 7 \u2014 improving\n- Re-engaged after CSM outreach last week \u2014 2 meetings booked\n- Still below usage benchmarks but trending positive\n- \ud83d\udca1 Save play: Continue current re-engagement cadence, introduce new feature set\n\n\ud83d\udfe2 **HEALTHY (Score 1-4):** 11 accounts \u2014 no action needed\n\n---\n*Powered by People.ai MCP \u2014 14 accounts scored, 1 critical, 2 watch*"
+      },
       "exports": []
     },
     {
@@ -690,7 +705,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Debrief",
+        "bot_app": true,
+        "content": "\ud83c\udfc6 **WIN DEBRIEF** \u2014 Globex Industries | ===$340,000=== | Closed Won\n\n\ud83d\udcca **DEAL SNAPSHOT:**\n- Cycle length: 67 days (benchmark: 82 days) \u2014 18% faster than avg\n- Contacts engaged: 9 across 4 departments\n- Total meetings: 14 | Emails: 87 | Multi-thread score: A\n\n\ud83d\udd11 **WHAT WORKED:**\n- Early multi-threading: @sarah.chen engaged VP Engineering and CFO by Week 2 \u2014 both became internal advocates\n- Competitive positioning: Proactively addressed Vendara comparison in Week 3 before prospect raised it\n- Champion enablement: Provided @lisa.wong with internal business case deck she used to sell upward\n\n\u26a0\ufe0f **WHAT ALMOST DERAILED IT:**\n- 11-day gap in Week 4 when champion went on PTO \u2014 no backup contact identified until @james.park escalated\n- Legal review took 9 days (2x benchmark) \u2014 started too late in the process\n- Procurement introduced a new vendor security questionnaire at the 11th hour\n\n\ud83d\udcc8 **KEY TURNING POINTS:**\n- Day 12: CFO Mike Torres joined discovery call \u2014 deal velocity doubled after this meeting\n- Day 34: Champion forwarded internal Slack thread showing 6 stakeholders aligned\n- Day 58: Competitor eliminated from shortlist after technical bake-off win\n\n\ud83d\udc49 **LESSONS FOR THE TEAM:**\n- Start legal/procurement in parallel with technical validation to avoid late-stage delays\n- Always identify a backup champion contact before primary goes on PTO\n- Early CFO engagement correlates with shorter cycles \u2014 replicate this pattern\n\n---\n*Powered by People.ai MCP \u2014 full engagement timeline analyzed*"
+      },
       "exports": []
     },
     {
@@ -799,7 +819,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Atlas",
+        "bot_app": true,
+        "content": "\ud83d\uddfa\ufe0f **Territory Heat Map** \u2014 @james.park | Week of Mar 3\n\n\ud83d\udd25 **HEATING UP:**\n- **NovaTech** ===$275,000=== | \u2191\u2191\u2191 Momentum: +340%\n- 5 new contacts engaged this week (was 1/week average)\n- VP Product requested pricing for enterprise tier \u2014 first executive outreach\n- Inbound demo request from Director of Engineering\n- **Contoso Ltd** ===$150,000=== | \u2191\u2191 Momentum: +180%\n- Champion reopened evaluation after 6 weeks dormant\n- Downloaded 3 technical docs + attended webinar Tuesday\n- Budget cycle starting Q2 \u2014 timing aligns with buying window\n\n\u27a1\ufe0f **STEADY:**\n- **Acme Corp** ===$425,000=== \u2014 On track, weekly cadence maintained\n- **Initrode** ===$88,000=== \u2014 POC in progress, normal engagement pattern\n- 6 other accounts \u2014 no significant changes\n\n\u2744\ufe0f **COOLING DOWN:**\n- **Globex Industries** ===$180,000=== | \u2193\u2193 Momentum: -65%\n- Champion response time went from <1hr to 3+ days this week\n- Missed scheduled check-in Thursday \u2014 no reschedule\n- \u26a1 Action: Send a low-pressure value-add (industry report or case study) to re-engage\n- **Dunder Mifflin** ===$92,000=== | \u2193 Momentum: -40%\n- Went from 3 meetings/week to 0 this week \u2014 possible internal priority shift\n- \u26a1 Action: Reach out to secondary contact for intel on internal dynamics\n\n---\n*Powered by People.ai MCP \u2014 14 accounts analyzed, 2 hot, 2 cold*"
+      },
       "exports": []
     },
     {

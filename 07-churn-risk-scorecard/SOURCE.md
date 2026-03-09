@@ -45,3 +45,33 @@ Generates a weekly churn risk scorecard for the customer success team. The workf
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI risk scoring and analysis
 - **CRM (Salesforce, HubSpot, etc.)** — Active account list and support data
 - **Messaging (Slack, Teams, Email)** — Delivers scorecard to CS managers
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Sentinel-->
+<!--bot-app:true-->
+
+📋 **Weekly Churn Risk Scorecard** — @emily.ross's Portfolio | Week of Mar 3
+
+🔴 **CRITICAL (Score 8-10):**
+- **Dunder Mifflin** | ===$210,000=== ARR | Score: **9/10** | ↑ from 6 last week
+- Champion departed company 2 weeks ago, no new contact established
+- Product logins down 62% month-over-month
+- 3 unresolved P1 support tickets (oldest: 14 days)
+- 💡 Save play: Emergency exec alignment — request warm intro to new VP from departing champion
+
+🟡 **WATCH (Score 5-7):**
+- **Stark Industries** | ===$185,000=== ARR | Score: **6/10** | → steady
+- Meeting frequency dropped from weekly to biweekly over last month
+- NPS survey response: 6 (down from 8 at last QBR)
+- 💡 Save play: Schedule health check disguised as product roadmap preview
+- **Umbrella Corp** | ===$94,000=== ARR | Score: **5/10** | ↓ from 7 — improving
+- Re-engaged after CSM outreach last week — 2 meetings booked
+- Still below usage benchmarks but trending positive
+- 💡 Save play: Continue current re-engagement cadence, introduce new feature set
+
+🟢 **HEALTHY (Score 1-4):** 11 accounts — no action needed
+
+---
+*Powered by People.ai MCP — 14 accounts scored, 1 critical, 2 watch*

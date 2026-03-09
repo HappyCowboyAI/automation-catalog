@@ -41,3 +41,39 @@ Automatically generates a structured win/loss debrief when any deal closes (won 
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI debrief generation
 - **CRM (Salesforce, HubSpot, etc.)** — Deal close webhook and opportunity data
 - **Messaging (Slack, Teams, Email)** — Delivers debriefs to rep, manager, and team
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Debrief-->
+<!--bot-app:true-->
+
+🏆 **WIN DEBRIEF** — Globex Industries | ===$340,000=== | Closed Won
+
+📊 **DEAL SNAPSHOT:**
+- Cycle length: 67 days (benchmark: 82 days) — 18% faster than avg
+- Contacts engaged: 9 across 4 departments
+- Total meetings: 14 | Emails: 87 | Multi-thread score: A
+
+🔑 **WHAT WORKED:**
+- Early multi-threading: @sarah.chen engaged VP Engineering and CFO by Week 2 — both became internal advocates
+- Competitive positioning: Proactively addressed Vendara comparison in Week 3 before prospect raised it
+- Champion enablement: Provided @lisa.wong with internal business case deck she used to sell upward
+
+⚠️ **WHAT ALMOST DERAILED IT:**
+- 11-day gap in Week 4 when champion went on PTO — no backup contact identified until @james.park escalated
+- Legal review took 9 days (2x benchmark) — started too late in the process
+- Procurement introduced a new vendor security questionnaire at the 11th hour
+
+📈 **KEY TURNING POINTS:**
+- Day 12: CFO Mike Torres joined discovery call — deal velocity doubled after this meeting
+- Day 34: Champion forwarded internal Slack thread showing 6 stakeholders aligned
+- Day 58: Competitor eliminated from shortlist after technical bake-off win
+
+👉 **LESSONS FOR THE TEAM:**
+- Start legal/procurement in parallel with technical validation to avoid late-stage delays
+- Always identify a backup champion contact before primary goes on PTO
+- Early CFO engagement correlates with shorter cycles — replicate this pattern
+
+---
+*Powered by People.ai MCP — full engagement timeline analyzed*

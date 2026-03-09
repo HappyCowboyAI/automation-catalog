@@ -41,3 +41,29 @@ Generates a personalized daily sales digest for each enrolled user. At 6 AM on w
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — LLM for digest generation
 - **Messaging (Slack, Teams, Email)** — Delivers digests to subscribers
 - **User Configuration Store (built-in JSON, Supabase, Airtable, or any database)** — Subscriber list storage
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Aria-->
+<!--bot-app:true-->
+
+☀️ **Good Morning, @sarah.chen** — Here's your daily digest for **Tuesday, Mar 4**
+
+📊 **PIPELINE MOVEMENT:**
+- **ACME Corp** ===$425,000=== moved to Technical Validation — @james.park scheduled POC for Thursday
+- **Globex Industries** ===$180,000=== — Procurement sent redlines on MSA, legal review needed by EOD Wednesday
+- **Initech** ===$92,000=== went dark after demo last Tuesday — 6 days no response from champion
+
+🔔 **ENGAGEMENT HIGHLIGHTS:**
+- @mike.torres (VP Sales, NovaTech) opened your proposal deck 3x yesterday, forwarded to CFO
+- New inbound: Director of Ops at Contoso downloaded whitepaper + visited pricing page
+- Wayne Enterprises champion Sarah Kim accepted your QBR invite for next Monday
+
+⚡ **RECOMMENDED ACTIONS:**
+- Follow up with Initech champion — silence exceeds your 5-day threshold
+- Prep legal response for Globex MSA redlines before Wednesday deadline
+- Send NovaTech CFO a personalized ROI summary while momentum is hot
+
+---
+*Powered by People.ai MCP — 14 accounts tracked, 3 need attention*
