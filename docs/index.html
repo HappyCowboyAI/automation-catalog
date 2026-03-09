@@ -716,12 +716,12 @@
     line-height: 1.55;
     font-size: 13px;
   }
-  .slack-mockup-body p { margin: 0 0 8px; }
+  .slack-mockup-body p { margin: 0 0 4px; }
   .slack-mockup-body strong { font-weight: 700; }
   .slack-mockup-body em { font-style: italic; color: var(--ac-dark-secondary); }
-  .slack-mockup-body ul { margin: 2px 0 10px; padding-left: 18px; list-style: disc; }
-  .slack-mockup-body li { margin: 3px 0; }
-  .slack-mockup-body hr { border: none; border-top: 1px solid var(--ac-light-gray); margin: 10px 0; }
+  .slack-mockup-body ul { margin: 0 0 6px; padding-left: 18px; list-style: disc; }
+  .slack-mockup-body li { margin: 1px 0; }
+  .slack-mockup-body hr { border: none; border-top: 1px solid var(--ac-light-gray); margin: 8px 0; }
   .slack-mockup-body .slack-mention {
     background: rgba(29,155,209,0.1);
     color: #1264A3;
@@ -1018,20 +1018,33 @@ function handleSearch() {
 }
 
 function mdToHtml(md) {
-  return md
+  // Inline formatting first
+  let text = md
     .replace(/===(.+?)===/g, '<span class="slack-money">$1</span>')
     .replace(/@([\w.]+)/g, '<span class="slack-mention">@$1</span>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/^---$/gm, '<hr>')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>[\s\S]*?<\/li>)(?=\s*(?:<p>|<hr>|<strong>|$))/g, '<ul>$1</ul>')
-    .split('\n\n').map(p => {
-      p = p.trim();
-      if (!p || p.startsWith('<ul>') || p.startsWith('<hr>')) return p;
-      if (p.startsWith('<li>')) return `<ul>${p}</ul>`;
-      return `<p>${p.replace(/\n/g, '<br>')}</p>`;
-    }).join('');
+    .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+  // Process line by line, grouping consecutive bullets into one <ul>
+  const lines = text.split('\n');
+  let html = '';
+  let inList = false;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    if (trimmed === '---') {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<hr>';
+    } else if (trimmed.startsWith('- ')) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${trimmed.slice(2)}</li>`;
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<p>${trimmed}</p>`;
+    }
+  }
+  if (inList) html += '</ul>';
+  return html;
 }
 
 function renderSlackMockup(sample) {
