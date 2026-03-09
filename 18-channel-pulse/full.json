@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-09T16:12:55.899Z",
+  "updatedAt": "2026-03-09T19:10:52.745Z",
   "createdAt": "2026-03-05T14:52:40.201Z",
   "id": "GEVPltWL6r4SIIaW",
   "name": "Weekly Channel Updates v3 (API-Driven)",
@@ -29,13 +29,13 @@
               "id": "pai-client-id",
               "name": "peopleaiClientId",
               "type": "string",
-              "value": "Yl1JnBIr7yzb"
+              "value": "YOUR_PEOPLEAI_CLIENT_ID"
             },
             {
               "id": "pai-client-secret",
               "name": "peopleaiClientSecret",
               "type": "string",
-              "value": "2rT0SWrgRN9fCYwu1BkFgeaFXeyBGNgTwb5GfeywkIeYEJvE"
+              "value": "YOUR_PEOPLEAI_CLIENT_SECRET"
             },
             {
               "id": "min-renewal-acv",
@@ -72,6 +72,12 @@
               "name": "testAccountName",
               "value": "",
               "type": "string"
+            },
+            {
+              "id": "admin-channel-id",
+              "name": "adminChannelId",
+              "type": "string",
+              "value": "YOUR_SLACK_USER_ID"
             }
           ]
         },
@@ -480,7 +486,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ channel: 'YOUR_SLACK_USER_ID', text: $json.summaryMessage, unfurl_links: false }) }}",
+        "jsonBody": "={{ JSON.stringify({ channel: $('Configuration').first().json.adminChannelId, text: $json.summaryMessage, unfurl_links: false }) }}",
         "options": {}
       },
       "id": "send-run-summary",
@@ -851,7 +857,9 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "triggerCount": 2,
   "tags": []
 }

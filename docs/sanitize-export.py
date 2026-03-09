@@ -30,6 +30,8 @@ ORG_PATTERNS = [
     (r'scottai\.trackslife\.com', 'YOUR_N8N_INSTANCE'),
     (r'C0AGSJ6JAJG', 'YOUR_SLACK_CHANNEL_ID'),
     (r'U061WJ6RMJS', 'YOUR_SLACK_USER_ID'),
+    (r'Yl1JnBIr7yzb', 'YOUR_PEOPLEAI_CLIENT_ID'),
+    (r'2rT0SWrgRN9fCYwu1BkFgeaFXeyBGNgTwb5GfeywkIeYEJvE', 'YOUR_PEOPLEAI_CLIENT_SECRET'),
 ]
 
 
