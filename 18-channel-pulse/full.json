@@ -492,6 +492,118 @@
         432
       ],
       "onError": "continueRegularOutput"
+    },
+    {
+      "id": "sticky-banner-triggers",
+      "name": "1. Triggers & Configuration",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1260,
+        140
+      ],
+      "parameters": {
+        "content": "## 1. Triggers & Configuration\nDual trigger: scheduled interval or on-demand webhook. The **Configuration** node holds all tunables \u2014 update it first.",
+        "height": 160,
+        "width": 560,
+        "color": 1
+      }
+    },
+    {
+      "id": "sticky-banner-data",
+      "name": "2. Data Gathering",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        140
+      ],
+      "parameters": {
+        "content": "## 2. Data Gathering\nAuthenticates with People.ai, queries customer accounts and open renewals, then fetches Slack channel/user mappings to resolve posting targets.",
+        "height": 160,
+        "width": 1100,
+        "color": 1
+      }
+    },
+    {
+      "id": "sticky-banner-ai",
+      "name": "3. AI-Powered Summarization",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        380,
+        110
+      ],
+      "parameters": {
+        "content": "## 3. AI-Powered Summarization\nLoops through each account, builds a prompt with context, sends to Claude via People.ai MCP, then extracts and filters the response.",
+        "height": 160,
+        "width": 1480,
+        "color": 1
+      }
+    },
+    {
+      "id": "sticky-banner-delivery",
+      "name": "4. Delivery & Summary",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1880,
+        110
+      ],
+      "parameters": {
+        "content": "## 4. Delivery & Summary\nFormats Slack message payload, posts to the mapped channel, loops to next account, then sends a run summary when complete.",
+        "height": 160,
+        "width": 1140,
+        "color": 1
+      }
+    },
+    {
+      "id": "sticky-setup-config",
+      "name": "Setup: Configuration",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1020,
+        560
+      ],
+      "parameters": {
+        "content": "**START HERE:** Set your People.ai org ID, Slack bot token, and target account filters before first run.",
+        "height": 140,
+        "width": 340,
+        "color": 3
+      }
+    },
+    {
+      "id": "sticky-setup-llm",
+      "name": "Setup: LLM Model",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        660
+      ],
+      "parameters": {
+        "content": "**LLM Setup:** Set your API key and model. Default: Claude. Swap for OpenAI/Gemini by replacing this node.",
+        "height": 140,
+        "width": 340,
+        "color": 3
+      }
+    },
+    {
+      "id": "sticky-warn-slack-rate",
+      "name": "Warning: Slack Rate Limit",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        440
+      ],
+      "parameters": {
+        "content": "**Rate Limit:** Slack allows ~1 msg/sec. The batch loop handles this, but reduce batch size if you hit 429 errors.",
+        "height": 140,
+        "width": 340,
+        "color": 4
+      }
     }
   ],
   "connections": {
