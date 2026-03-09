@@ -7,7 +7,6 @@ The n8n public API strips credentials from GET responses but validates
 them on PUT. This script resolves credentials by:
   1. Looking for a credentials.json in the workflow folder
   2. Scanning other workflows for nodes with the same name
-  3. Falling back to matching credential type from the credentials list
 
 Usage: python3 docs/push-workflow.py <workflow-folder>
 """
@@ -34,7 +33,7 @@ def api_request(path, method="GET", data=None):
     req.add_header("X-N8N-API-KEY", API_KEY)
     req.add_header("Content-Type", "application/json")
     req.add_header("User-Agent", USER_AGENT)
-    with urlopen(req) as resp:
+    with urlopen(req, timeout=30) as resp:
         return json.loads(resp.read())
 
 
@@ -87,6 +86,8 @@ def resolve_credentials(workflow_id, nodes):
         if node["name"] in cred_by_name:
             node["credentials"] = cred_by_name[node["name"]]
             print(f"    {node['name']}: resolved from sibling workflow")
+        else:
+            print(f"    WARNING: {node['name']} ({node['type']}): no credentials found")
 
     return nodes
 
