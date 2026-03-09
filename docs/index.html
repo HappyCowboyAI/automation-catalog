@@ -1129,16 +1129,16 @@ function renderDetail(workflowId) {
     </div>
 
     <div class="tabs" id="detail-tabs">
-      <div class="tab active" data-tab="setup" onclick="switchTab('setup')">Setup</div>
-      <div class="tab" data-tab="details" onclick="switchTab('details')">Details</div>
+      <div class="tab active" data-tab="details" onclick="switchTab('details')">Details</div>
+      <div class="tab" data-tab="setup" onclick="switchTab('setup')">Setup</div>
     </div>
 
     <div id="tab-panels">
-      <div class="tab-content" data-panel="setup" style="display:block">
-        <div id="setup-walkthrough-container"></div>
-      </div>
-      <div class="tab-content" data-panel="details" style="display:none">
+      <div class="tab-content" data-panel="details" style="display:block">
         <div id="details-content-container"></div>
+      </div>
+      <div class="tab-content" data-panel="setup" style="display:none">
+        <div id="setup-walkthrough-container"></div>
       </div>
     </div>`;
 
