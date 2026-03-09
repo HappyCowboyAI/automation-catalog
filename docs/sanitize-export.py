@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Sanitize n8n workflow JSON exports by stripping credentials,
+Sanitize workflow JSON exports by stripping credentials,
 org-specific data, and sensitive values.
 
 Usage: python3 sanitize-export.py input.json output.json

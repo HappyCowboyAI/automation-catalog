@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Export workflows from n8n and sanitize them.
+Export workflows from automation platform and sanitize them.
 Requires N8N_API_KEY and N8N_BASE_URL environment variables.
 
 Usage: python3 export-workflows.py
@@ -13,7 +13,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 WORKFLOW_MAP = {
-    # n8n workflow ID -> (folder, version)
+    # workflow ID -> (folder, version)
     # FILL IN with your workflow IDs before running
     # 'WORKFLOW_ID': ('01-sales-digest', 'full'),
 }

@@ -1,6 +1,6 @@
-# People.ai n8n Workflow Catalog
+# People.ai Automation Catalog
 
-Ready-to-import n8n workflow automations powered by People.ai. Each workflow connects People.ai CRM intelligence with AI analysis to automate sales workflows.
+Ready-to-import workflow automations powered by People.ai. Each workflow connects People.ai CRM intelligence with AI analysis to automate sales workflows.
 
 ## Workflows
 
@@ -15,15 +15,15 @@ Ready-to-import n8n workflow automations powered by People.ai. Each workflow con
 
 ## Getting Started
 
-1. Browse the [catalog](https://happycowboyai.github.io/n8nWorkflows/)
+1. Browse the [catalog](https://happycowboyai.github.io/automation-catalog/)
 2. Download a workflow JSON (Quick Start or Full version)
-3. Import into your n8n instance
+3. Import into your automation platform
 4. Connect your credentials (People.ai API, Slack, Anthropic, etc.)
 5. Configure and activate
 
 ## Prerequisites
 
-- n8n instance (self-hosted or cloud)
+- Automation platform (self-hosted or cloud)
 - People.ai account with API/MCP access
 - Anthropic API key (for Claude AI nodes)
 - Slack workspace with bot token
@@ -32,7 +32,7 @@ Ready-to-import n8n workflow automations powered by People.ai. Each workflow con
 
 1. Create a numbered folder (e.g., `07-new-workflow/`)
 2. Add `SOURCE.md` with metadata
-3. Export workflow from n8n, sanitize with `docs/sanitize-export.py`
+3. Export workflow from your platform, sanitize with `docs/sanitize-export.py`
 4. Review sanitized JSON for any remaining sensitive data
 5. Run `python3 docs/build-catalog.py` to rebuild the catalog
 

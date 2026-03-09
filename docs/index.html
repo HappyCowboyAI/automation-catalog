@@ -23,14 +23,14 @@
     --radius: 10px;
     --shadow: 0 2px 12px rgba(45,52,54,0.06);
     --shadow-hover: 0 6px 20px rgba(45,52,54,0.12);
-    --n8n-bg: #1a1a2e;
-    --n8n-surface: #232340;
-    --n8n-border: #2e2e4a;
-    --n8n-green: #4cd964;
-    --n8n-blue: #5b9aff;
-    --n8n-purple: #a855f7;
-    --n8n-orange: #ff9f43;
-    --n8n-text: #e0e0f0;
+    --wf-bg: #1a1a2e;
+    --wf-surface: #232340;
+    --wf-border: #2e2e4a;
+    --wf-green: #4cd964;
+    --wf-blue: #5b9aff;
+    --wf-purple: #a855f7;
+    --wf-orange: #ff9f43;
+    --wf-text: #e0e0f0;
     --flow-green: #00B894;
     --flow-blue: #0984E3;
     --flow-purple: #6C5CE7;
@@ -353,46 +353,46 @@
     box-shadow: var(--shadow);
   }
 
-  /* n8n Mockup (kept dark for Setup tab) */
-  .n8n-mockup {
+  /* Workflow Mockup (kept dark for Setup tab) */
+  .wf-mockup {
     border-radius: 10px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.12);
     overflow: hidden;
     height: 360px;
     margin-bottom: 16px;
-    border: 1px solid var(--n8n-border);
+    border: 1px solid var(--wf-border);
     display: flex;
     flex-direction: column;
-    background: var(--n8n-bg);
+    background: var(--wf-bg);
   }
-  .n8n-title-bar {
+  .wf-title-bar {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 8px 12px;
     background: #16162b;
-    border-bottom: 1px solid var(--n8n-border);
+    border-bottom: 1px solid var(--wf-border);
   }
-  .n8n-dots {
+  .wf-dots {
     display: flex;
     gap: 6px;
   }
-  .n8n-dots span {
+  .wf-dots span {
     width: 10px;
     height: 10px;
     border-radius: 50%;
   }
-  .n8n-dots span:nth-child(1) { background: #ff5f57; }
-  .n8n-dots span:nth-child(2) { background: #ffbd2e; }
-  .n8n-dots span:nth-child(3) { background: #28c840; }
-  .n8n-title-text {
+  .wf-dots span:nth-child(1) { background: #ff5f57; }
+  .wf-dots span:nth-child(2) { background: #ffbd2e; }
+  .wf-dots span:nth-child(3) { background: #28c840; }
+  .wf-title-text {
     flex: 1;
     font-size: 12px;
-    color: var(--n8n-text);
+    color: var(--wf-text);
     font-family: monospace;
     opacity: 0.7;
   }
-  .n8n-body {
+  .wf-body {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
@@ -412,8 +412,8 @@
 
   /* Import Dialog Mockup */
   .import-dialog {
-    background: var(--n8n-surface);
-    border: 1px solid var(--n8n-border);
+    background: var(--wf-surface);
+    border: 1px solid var(--wf-border);
     border-radius: 12px;
     padding: 24px;
     width: 320px;
@@ -426,12 +426,12 @@
   .import-dialog-title {
     font-size: 16px;
     font-weight: 700;
-    color: var(--n8n-text);
+    color: var(--wf-text);
     margin-bottom: 12px;
     text-align: center;
   }
   .import-dropzone {
-    border: 2px dashed var(--n8n-border);
+    border: 2px dashed var(--wf-border);
     border-radius: 8px;
     padding: 24px;
     text-align: center;
@@ -440,7 +440,7 @@
     transition: border-color 0.3s, background 0.3s;
   }
   .import-dropzone.active {
-    border-color: var(--n8n-orange);
+    border-color: var(--wf-orange);
     background: rgba(255,159,67,0.08);
   }
   .import-dropzone-icon {
@@ -456,7 +456,7 @@
     background: rgba(255,159,67,0.15);
     border-radius: 16px;
     font-size: 12px;
-    color: var(--n8n-orange);
+    color: var(--wf-orange);
     font-weight: 600;
     margin-top: 12px;
     opacity: 0;
@@ -485,15 +485,15 @@
     width: 100%;
     padding: 7px 10px;
     background: rgba(255,255,255,0.05);
-    border: 1px solid var(--n8n-border);
+    border: 1px solid var(--wf-border);
     border-radius: 6px;
-    color: var(--n8n-text);
+    color: var(--wf-text);
     font-size: 12px;
     font-family: monospace;
     transition: border-color 0.3s;
   }
   .cred-input.typing {
-    border-color: var(--n8n-orange);
+    border-color: var(--wf-orange);
     box-shadow: 0 0 0 2px rgba(255,159,67,0.15);
   }
 
@@ -516,9 +516,9 @@
     width: 100%;
     padding: 7px 10px;
     background: rgba(255,255,255,0.05);
-    border: 1px solid var(--n8n-border);
+    border: 1px solid var(--wf-border);
     border-radius: 6px;
-    color: var(--n8n-text);
+    color: var(--wf-text);
     font-size: 12px;
   }
 
@@ -532,7 +532,7 @@
   .activate-label {
     font-size: 16px;
     font-weight: 700;
-    color: var(--n8n-text);
+    color: var(--wf-text);
   }
   .activate-toggle {
     width: 64px;
@@ -556,7 +556,7 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
   .activate-toggle.on {
-    background: var(--n8n-green);
+    background: var(--wf-green);
   }
   .activate-toggle.on::after {
     transform: translateX(30px);
@@ -567,7 +567,7 @@
     color: var(--ac-med-gray);
     transition: color 0.3s;
   }
-  .activate-status.active { color: var(--n8n-green); }
+  .activate-status.active { color: var(--wf-green); }
   .activate-check {
     font-size: 32px;
     opacity: 0;
@@ -643,7 +643,7 @@
     margin-bottom: 8px;
   }
 
-  /* Flow Canvas — n8n editor style, light background */
+  /* Flow Canvas — workflow editor style, light background */
   .flow-canvas-wrapper {
     border-radius: 12px;
     overflow: hidden;
@@ -687,7 +687,7 @@
     pointer-events: none;
   }
 
-  /* n8n-style nodes — large, readable */
+  /* workflow-style nodes — large, readable */
   .flow-node {
     position: absolute;
     border-radius: 10px;
@@ -987,7 +987,7 @@
     </p>
     <p style="margin-top:16px;">
       <strong>Supported Platforms:</strong><br>
-      <span class="platform-badge available">n8n</span>
+      <span class="platform-badge available">Any (JSON import)</span>
       <span class="platform-badge coming-soon">Workato &mdash; Coming Soon</span>
       <span class="platform-badge coming-soon">Zapier &mdash; Coming Soon</span>
       <span class="platform-badge coming-soon">Others &mdash; Coming Soon</span>
@@ -996,14 +996,14 @@
       <strong>How it works:</strong><br>
       1. Browse the catalog and pick a workflow<br>
       2. Download the workflow JSON (Quick Start or Full version)<br>
-      3. Import into your automation platform (currently n8n)<br>
+      3. Import into your automation platform<br>
       4. Connect your credentials (People.ai MCP, Anthropic, Slack, etc.)<br>
       5. Configure schedule and channel settings<br>
       6. Activate the workflow
     </p>
     <p style="margin-top:16px;">
       <strong>Prerequisites:</strong><br>
-      &bull; An automation platform instance (n8n self-hosted or Cloud)<br>
+      &bull; An automation platform instance (self-hosted or Cloud)<br>
       &bull; People.ai MCP credentials<br>
       &bull; Anthropic API key for Claude AI<br>
       &bull; Slack Bot token (for most workflows)<br>
@@ -1264,7 +1264,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// -- Setup Walkthrough Component (dark n8n mockup preserved) --
+// -- Setup Walkthrough Component (dark mockup preserved) --
 class SetupWalkthrough {
   constructor(workflow, container) {
     this.workflow = workflow;
@@ -1280,7 +1280,7 @@ class SetupWalkthrough {
       'Activate'
     ];
     this.stepDetails = [
-      'Import the workflow JSON into your n8n instance',
+      'Import the workflow JSON into your automation platform',
       'Connect required credential accounts',
       'Set schedule, channels, and preferences',
       'Toggle the workflow active to start automation'
@@ -1294,12 +1294,12 @@ class SetupWalkthrough {
   render() {
     this.container.innerHTML = `
       <h3 style="margin-bottom:16px;color:var(--ac-dark);">Setup Walkthrough</h3>
-      <div class="n8n-mockup">
-        <div class="n8n-title-bar">
-          <div class="n8n-dots"><span></span><span></span><span></span></div>
-          <div class="n8n-title-text">n8n &mdash; ${this.workflow.name}</div>
+      <div class="wf-mockup">
+        <div class="wf-title-bar">
+          <div class="wf-dots"><span></span><span></span><span></span></div>
+          <div class="wf-title-text">Workflow &mdash; ${this.workflow.name}</div>
         </div>
-        <div class="n8n-body" id="setup-mockup-body"></div>
+        <div class="wf-body" id="setup-mockup-body"></div>
       </div>
       <div class="step-desc" id="setup-step-desc"></div>
       <div class="step-detail" id="setup-step-detail"></div>
@@ -1394,7 +1394,7 @@ class SetupWalkthrough {
     const creds = this.workflow.credentials;
     this.mockupBody.innerHTML = `
       <div style="padding: 8px; overflow-y: auto; max-height: 100%;">
-        <div style="font-size:14px;font-weight:700;color:var(--n8n-text);margin-bottom:12px;">
+        <div style="font-size:14px;font-weight:700;color:var(--wf-text);margin-bottom:12px;">
           Connect Credentials
         </div>
         <div id="cred-fields">
@@ -1436,7 +1436,7 @@ class SetupWalkthrough {
 
     this.mockupBody.innerHTML = `
       <div style="padding: 8px; overflow-y: auto; max-height: 100%;">
-        <div style="font-size:14px;font-weight:700;color:var(--n8n-text);margin-bottom:12px;">
+        <div style="font-size:14px;font-weight:700;color:var(--wf-text);margin-bottom:12px;">
           Configuration
         </div>
         <div id="config-fields">
@@ -1531,7 +1531,7 @@ class SetupWalkthrough {
   wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 }
 
-// -- Flow Visualization Component (n8n canvas style) --
+// -- Flow Visualization Component (workflow canvas style) --
 class FlowVisualization {
   constructor(workflow, container) {
     this.workflow = workflow;
