@@ -7,7 +7,7 @@
 | **Workflow ID**| 18-channel-pulse                                   |
 | **Status**     | Active                                             |
 | **Trigger**    | Schedule — Every 60 seconds                        |
-| **Node Count** | 8                                                  |
+| **Node Count** | 22                                                 |
 | **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
 
 ## Description

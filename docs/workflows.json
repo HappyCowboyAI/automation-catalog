@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T16:20:15.509695+00:00",
+  "_generated": "2026-03-09T16:24:53.320252+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -1008,7 +1008,9 @@
         "Account filter: Include/exclude accounts based on tier, owner, or segment"
       ],
       "quick_start_vs_full": "",
-      "exports": []
+      "exports": [
+        "full.json"
+      ]
     }
   ]
 }
