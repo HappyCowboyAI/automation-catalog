@@ -52,15 +52,28 @@ Messaging (Slack channel, Teams channel, or Email)
 ## Sample Output
 
 <!--mockup:slack-->
-<!--bot:Aria-->
+<!--bot:Subplot-->
+<!--bot-app:true-->
 
-**Acme Corp — Weekly Pulse**
+**ACME CORP** | ===$287,500=== | 09/2027 | 🟢 Strong Health
 
-*3 meetings this week* — 2 with VP Engineering (Sarah Chen), 1 with CFO (Mike Torres). Deal advanced from Stage 3 to Stage 4 after technical validation completed. Champion initiated renewal conversation — positive signals.
+🎯 **THIS WEEK'S KEY DEVELOPMENTS:**
+- @sarah.chen leading technical validation with engineering team, completed POC review with positive feedback
+- Mike Torres (CFO) engaged in renewal pricing discussion — first direct involvement in 3 weeks
+- Champion initiated internal advocacy email thread with 4 stakeholders copied
+- @james.park completed security questionnaire ahead of schedule
 
-No activity from economic buyer in 12 days — consider a check-in before QBR.
+🎯 **RISKS & OPPORTUNITIES:**
+- Economic buyer (Mike Torres) had been quiet for 12 days before this week's re-engagement — monitor continuity
+- Competitor Vendara mentioned in internal Slack thread by prospect's IT Director
+- Champion pushing for faster timeline — potential to pull close date forward by 2 weeks
+- Legal review not yet started, could become bottleneck if not initiated this week
 
-**Key Contacts**
-- Sarah Chen (Champion) — Active, 3 touchpoints this week
-- Mike Torres (Economic Buyer) — Quiet, last activity 12 days ago
-- James Park (Technical Eval) — Active, completed POC review
+👉 **NEXT WEEK'S ACTIONS:**
+- @sarah.chen: Schedule executive alignment call with VP Engineering and CFO
+- @james.park: Send legal review package to procurement team
+- @rep.owner: Follow up on competitor mention with champion for positioning guidance
+- @sarah.chen: Prep QBR deck with updated engagement metrics
+
+---
+*Powered by People.ai MCP: please thread comments*

@@ -154,11 +154,13 @@ def parse_source_md(text: str) -> dict:
         m_bot = re.search(r'<!--bot:(\w+)-->', sample_raw)
         if m_bot:
             bot_name = m_bot.group(1)
+        bot_app = bool(re.search(r'<!--bot-app:true-->', sample_raw))
         # Strip HTML comments from content
         content = re.sub(r'<!--.*?-->\n?', '', sample_raw).strip()
         meta["sample_output"] = {
             "mockup": mockup_type,
             "bot_name": bot_name,
+            "bot_app": bot_app,
             "content": content,
         }
     else:

@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T20:53:00.638100+00:00",
+  "_generated": "2026-03-09T21:43:15.162622+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -1027,8 +1027,9 @@
       "quick_start_vs_full": "",
       "sample_output": {
         "mockup": "slack",
-        "bot_name": "Aria",
-        "content": "**Acme Corp \u2014 Weekly Pulse**\n\n*3 meetings this week* \u2014 2 with VP Engineering (Sarah Chen), 1 with CFO (Mike Torres). Deal advanced from Stage 3 to Stage 4 after technical validation completed. Champion initiated renewal conversation \u2014 positive signals.\n\nNo activity from economic buyer in 12 days \u2014 consider a check-in before QBR.\n\n**Key Contacts**\n- Sarah Chen (Champion) \u2014 Active, 3 touchpoints this week\n- Mike Torres (Economic Buyer) \u2014 Quiet, last activity 12 days ago\n- James Park (Technical Eval) \u2014 Active, completed POC review"
+        "bot_name": "Subplot",
+        "bot_app": true,
+        "content": "**ACME CORP** | ===$287,500=== | 09/2027 | \ud83d\udfe2 Strong Health\n\n\ud83c\udfaf **THIS WEEK'S KEY DEVELOPMENTS:**\n- @sarah.chen leading technical validation with engineering team, completed POC review with positive feedback\n- Mike Torres (CFO) engaged in renewal pricing discussion \u2014 first direct involvement in 3 weeks\n- Champion initiated internal advocacy email thread with 4 stakeholders copied\n- @james.park completed security questionnaire ahead of schedule\n\n\ud83c\udfaf **RISKS & OPPORTUNITIES:**\n- Economic buyer (Mike Torres) had been quiet for 12 days before this week's re-engagement \u2014 monitor continuity\n- Competitor Vendara mentioned in internal Slack thread by prospect's IT Director\n- Champion pushing for faster timeline \u2014 potential to pull close date forward by 2 weeks\n- Legal review not yet started, could become bottleneck if not initiated this week\n\n\ud83d\udc49 **NEXT WEEK'S ACTIONS:**\n- @sarah.chen: Schedule executive alignment call with VP Engineering and CFO\n- @james.park: Send legal review package to procurement team\n- @rep.owner: Follow up on competitor mention with champion for positioning guidance\n- @sarah.chen: Prep QBR deck with updated engagement metrics\n\n---\n*Powered by People.ai MCP: please thread comments*"
       },
       "exports": [
         "full.json"
