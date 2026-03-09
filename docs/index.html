@@ -995,7 +995,7 @@
     <p style="margin-top:16px;">
       <strong>How it works:</strong><br>
       1. Browse the catalog and pick a workflow<br>
-      2. Download the workflow JSON (Quick Start or Full version)<br>
+      2. Download the workflow JSON<br>
       3. Import into your automation platform<br>
       4. Connect your credentials (People.ai MCP, Anthropic, Slack, etc.)<br>
       5. Configure schedule and channel settings<br>
@@ -1232,15 +1232,6 @@ function renderDetailsTab(wf) {
       </div>`;
   }
 
-  if (wf.quick_start_vs_full) {
-    html += `
-      <div class="detail-section">
-        <h3>Quick Start vs Full Version</h3>
-        <p>${wf.quick_start_vs_full}</p>
-      </div>`;
-  }
-
-  const hasQuickStart = wf.exports && wf.exports.includes('quick-start.json');
   const hasFull = wf.exports && wf.exports.includes('full.json');
   const rawBase = 'https://raw.githubusercontent.com/HappyCowboyAI/automation-catalog/main';
 
@@ -1248,13 +1239,9 @@ function renderDetailsTab(wf) {
     <div class="detail-section">
       <h3>Download Workflow</h3>
       <div class="btn-actions">
-        ${hasQuickStart
-          ? `<a href="${rawBase}/${wf.id}/quick-start.json" download class="btn btn-copy">Download Quick Start</a>`
-          : `<button class="btn btn-copy disabled">Download Quick Start <span class="coming-soon-label">Coming Soon</span></button>`
-        }
         ${hasFull
-          ? `<a href="${rawBase}/${wf.id}/full.json" download class="btn btn-download">Download Full Version</a>`
-          : `<button class="btn btn-download disabled">Download Full Version <span class="coming-soon-label">Coming Soon</span></button>`
+          ? `<a href="${rawBase}/${wf.id}/full.json" download class="btn btn-copy">Download Workflow</a>`
+          : `<button class="btn btn-copy disabled">Download Workflow <span class="coming-soon-label">Coming Soon</span></button>`
         }
       </div>
     </div>`;
