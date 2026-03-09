@@ -143,6 +143,27 @@ def parse_source_md(text: str) -> dict:
         "quick start vs full", ""
     ).strip()
 
+    # --- Sample Output ---
+    sample_raw = sections.get("sample output", "").strip()
+    if sample_raw:
+        mockup_type = "slack"
+        bot_name = "Aria"
+        m_type = re.search(r'<!--mockup:(\w+)-->', sample_raw)
+        if m_type:
+            mockup_type = m_type.group(1)
+        m_bot = re.search(r'<!--bot:(\w+)-->', sample_raw)
+        if m_bot:
+            bot_name = m_bot.group(1)
+        # Strip HTML comments from content
+        content = re.sub(r'<!--.*?-->\n?', '', sample_raw).strip()
+        meta["sample_output"] = {
+            "mockup": mockup_type,
+            "bot_name": bot_name,
+            "content": content,
+        }
+    else:
+        meta["sample_output"] = None
+
     return meta
 
 
@@ -307,6 +328,7 @@ def build_workflow_entry(folder: Path) -> dict | None:
         "node_flow": meta.get("node_flow", []),
         "configuration": meta.get("configuration", []),
         "quick_start_vs_full": meta.get("quick_start_vs_full", ""),
+        "sample_output": meta.get("sample_output"),
         "exports": export_names,
     }
     return entry

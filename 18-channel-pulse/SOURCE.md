@@ -48,3 +48,19 @@ Messaging (Slack channel, Teams channel, or Email)
 - Channel mapping: Map accounts to their internal Slack/Teams channels
 - Update format: Customize the summary template and level of detail
 - Account filter: Include/exclude accounts based on tier, owner, or segment
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Aria-->
+
+**Acme Corp — Weekly Pulse**
+
+*3 meetings this week* — 2 with VP Engineering (Sarah Chen), 1 with CFO (Mike Torres). Deal advanced from Stage 3 to Stage 4 after technical validation completed. Champion initiated renewal conversation — positive signals.
+
+No activity from economic buyer in 12 days — consider a check-in before QBR.
+
+**Key Contacts**
+- Sarah Chen (Champion) — Active, 3 touchpoints this week
+- Mike Torres (Economic Buyer) — Quiet, last activity 12 days ago
+- James Park (Technical Eval) — Active, completed POC review

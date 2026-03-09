@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T19:04:45.744400+00:00",
+  "_generated": "2026-03-09T20:51:24.094829+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -86,6 +86,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -133,6 +134,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -187,6 +189,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -241,6 +244,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -294,6 +298,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -356,6 +361,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -417,6 +423,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -471,6 +478,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -525,6 +533,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -578,6 +587,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -632,6 +642,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -679,6 +690,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -733,6 +745,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -786,6 +799,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -841,6 +855,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -895,6 +910,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -942,6 +958,7 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
+      "sample_output": null,
       "exports": []
     },
     {
@@ -1008,6 +1025,11 @@
         "Account filter: Include/exclude accounts based on tier, owner, or segment"
       ],
       "quick_start_vs_full": "",
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Aria",
+        "content": "**Acme Corp \u2014 Weekly Pulse**\n\n*3 meetings this week* \u2014 2 with VP Engineering (Sarah Chen), 1 with CFO (Mike Torres). Deal advanced from Stage 3 to Stage 4 after technical validation completed. Champion initiated renewal conversation \u2014 positive signals.\n\nNo activity from economic buyer in 12 days \u2014 consider a check-in before QBR.\n\n**Key Contacts**\n- Sarah Chen (Champion) \u2014 Active, 3 touchpoints this week\n- Mike Torres (Economic Buyer) \u2014 Quiet, last activity 12 days ago\n- James Park (Technical Eval) \u2014 Active, completed POC review"
+      },
       "exports": [
         "full.json"
       ]
