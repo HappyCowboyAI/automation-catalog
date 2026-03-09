@@ -21,16 +21,24 @@ CREDENTIAL_PATTERNS = [
 ]
 
 STRIP_FIELDS = ['credentials', 'webhookId']
+STRIP_TOP_LEVEL = ['shared', 'staticData', 'activeVersion', 'activeVersionId',
+                    'versionId', 'versionCounter']
 
 ORG_PATTERNS = [
     (r'scott\.metcalf@people\.ai', 'YOUR_EMAIL'),
+    (r'metcalf\.scott@gmail\.com', 'YOUR_EMAIL'),
     (r'scottai\.trackslife\.com', 'YOUR_N8N_INSTANCE'),
+    (r'C0AGSJ6JAJG', 'YOUR_SLACK_CHANNEL_ID'),
+    (r'U061WJ6RMJS', 'YOUR_SLACK_USER_ID'),
 ]
 
 
 def sanitize(data):
     if 'pinData' in data:
         del data['pinData']
+    for field in STRIP_TOP_LEVEL:
+        if field in data:
+            del data[field]
     for node in data.get('nodes', []):
         for field in STRIP_FIELDS:
             if field in node:
