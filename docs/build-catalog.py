@@ -319,6 +319,20 @@ def build_workflow_entry(folder: Path) -> dict | None:
             print(f"    - {issue}")
         return None  # will cause a hard fail later
 
+    # Detect platform exports
+    PLATFORM_FILES = {
+        "n8n": "full.json",
+        "langgraph": "langgraph_*.py",
+        "claude-agent": "claude_agent_*.py",
+        "openai-agent": "openai_agent_*.py",
+        "recipe-card": "recipe-card.md",
+    }
+    platforms = {}
+    for platform_id, pattern in PLATFORM_FILES.items():
+        matches = sorted(folder.glob(pattern))
+        if matches:
+            platforms[platform_id] = matches[0].name
+
     entry = {
         "id": folder.name,
         "name": meta.get("name", folder.name),
@@ -332,6 +346,7 @@ def build_workflow_entry(folder: Path) -> dict | None:
         "quick_start_vs_full": meta.get("quick_start_vs_full", ""),
         "sample_output": meta.get("sample_output"),
         "exports": export_names,
+        "platforms": platforms,
     }
     return entry
 

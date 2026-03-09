@@ -662,6 +662,52 @@
     margin-bottom: 8px;
   }
 
+  /* Platform Selector */
+  .platform-selector {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .platform-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--ac-light-gray);
+    background: var(--ac-white);
+    color: var(--ac-med-gray);
+    transition: all 0.15s;
+  }
+  .platform-pill:hover {
+    border-color: var(--ac-coral);
+    color: var(--ac-dark);
+  }
+  .platform-pill.active {
+    border-color: var(--ac-coral);
+    background: var(--ac-coral);
+    color: white;
+  }
+  .platform-pill .pill-icon {
+    font-size: 14px;
+  }
+  .platform-download-area {
+    margin-top: 8px;
+  }
+  .platform-download-area .btn {
+    margin-right: 8px;
+  }
+  .platform-note {
+    font-size: 12px;
+    color: var(--ac-med-gray);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
   /* Sample Output Mockups */
   .slack-mockup {
     background: var(--ac-white);
@@ -1190,19 +1236,40 @@ function renderDetailsTab(wf) {
       </div>`;
   }
 
-  const hasFull = wf.exports && wf.exports.includes('full.json');
   const rawBase = 'https://raw.githubusercontent.com/HappyCowboyAI/automation-catalog/main';
+  const platforms = wf.platforms || {};
+  const PLATFORM_META = {
+    'n8n':          { label: 'n8n',             icon: '⚡', note: 'Import JSON directly into n8n' },
+    'langgraph':    { label: 'LangGraph',       icon: '🔗', note: 'Python — requires langgraph, langchain-anthropic' },
+    'claude-agent': { label: 'Claude Agent',    icon: '🤖', note: 'Python — requires claude-agent-sdk' },
+    'openai-agent': { label: 'OpenAI Agent',    icon: '🧠', note: 'Python — requires openai-agents' },
+    'recipe-card':  { label: 'Recipe Card',     icon: '📋', note: 'Step-by-step guide for Make, Power Automate, Zapier' },
+  };
+  const availablePlatforms = Object.keys(PLATFORM_META).filter(p => platforms[p]);
+  const defaultPlatform = availablePlatforms.includes('n8n') ? 'n8n' : availablePlatforms[0] || '';
 
-  leftHtml += `
-    <div class="detail-section">
-      <h3>Download Workflow</h3>
-      <div class="btn-actions">
-        ${hasFull
-          ? `<a href="${rawBase}/${wf.id}/full.json" download class="btn btn-copy">Download Workflow</a>`
-          : `<button class="btn btn-copy disabled">Download Workflow <span class="coming-soon-label">Coming Soon</span></button>`
-        }
-      </div>
-    </div>`;
+  if (availablePlatforms.length > 0) {
+    const pills = availablePlatforms.map(p => {
+      const m = PLATFORM_META[p];
+      const active = p === defaultPlatform ? ' active' : '';
+      return `<span class="platform-pill${active}" data-platform="${p}" onclick="selectPlatform('${wf.id}','${p}')"><span class="pill-icon">${m.icon}</span>${m.label}</span>`;
+    }).join('');
+
+    leftHtml += `
+      <div class="detail-section">
+        <h3>Download Workflow</h3>
+        <div class="platform-selector">${pills}</div>
+        <div class="platform-download-area" id="platform-download-${wf.id}"></div>
+      </div>`;
+  } else {
+    leftHtml += `
+      <div class="detail-section">
+        <h3>Download Workflow</h3>
+        <div class="btn-actions">
+          <button class="btn btn-copy disabled">Download Workflow <span class="coming-soon-label">Coming Soon</span></button>
+        </div>
+      </div>`;
+  }
 
   if (wf.sample_output) {
     const rightHtml = `
@@ -1216,6 +1283,47 @@ function renderDetailsTab(wf) {
   } else {
     container.innerHTML = leftHtml;
   }
+
+  // Initialize platform selector if present
+  if (defaultPlatform) {
+    setTimeout(() => selectPlatform(wf.id, defaultPlatform), 0);
+  }
+}
+
+function selectPlatform(workflowId, platformId) {
+  const rawBase = 'https://raw.githubusercontent.com/HappyCowboyAI/automation-catalog/main';
+  const wf = catalogData.workflows.find(w => w.id === workflowId);
+  if (!wf || !wf.platforms) return;
+
+  const PLATFORM_META = {
+    'n8n':          { label: 'n8n',             note: 'Import this JSON directly into your n8n instance.' },
+    'langgraph':    { label: 'LangGraph',       note: 'Python script using LangGraph + LangChain MCP adapters. Requires: langgraph, langchain-anthropic, langchain-mcp-adapters, slack-sdk' },
+    'claude-agent': { label: 'Claude Agent SDK', note: 'Python script using the Claude Agent SDK with native MCP support. Requires: claude-agent-sdk, anthropic, slack-sdk' },
+    'openai-agent': { label: 'OpenAI Agents SDK', note: 'Python script using the OpenAI Agents SDK with MCP support. Requires: openai-agents, slack-sdk' },
+    'recipe-card':  { label: 'Recipe Card',     note: 'Step-by-step rebuild guide for Make, Power Automate, Zapier, and other platforms without native MCP support.' },
+  };
+
+  // Update pill states
+  document.querySelectorAll('.platform-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.dataset.platform === platformId);
+  });
+
+  const area = document.getElementById(`platform-download-${workflowId}`);
+  if (!area) return;
+
+  const fileName = wf.platforms[platformId];
+  const meta = PLATFORM_META[platformId] || {};
+  const url = `${rawBase}/${workflowId}/${fileName}`;
+
+  const isCode = fileName.endsWith('.py');
+  const isMd = fileName.endsWith('.md') && platformId === 'recipe-card';
+  const btnLabel = isCode ? 'Download Script' : isMd ? 'View Recipe Card' : 'Download Workflow';
+
+  area.innerHTML = `
+    <div class="btn-actions">
+      <a href="${url}" ${isMd ? 'target="_blank"' : 'download'} class="btn btn-copy">${btnLabel}</a>
+    </div>
+    <div class="platform-note">${meta.note || ''}</div>`;
 }
 
 // -- Toast --
