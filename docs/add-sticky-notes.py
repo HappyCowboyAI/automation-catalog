@@ -114,7 +114,7 @@ def inject_notes(workflow_folder):
     for note_args in notes:
         data["nodes"].append(make_sticky(*note_args))
 
-    json_path.write_text(json.dumps(data, indent=2))
+    json_path.write_text(json.dumps(data, indent=2) + "\n")
     print(f"Injected {len(notes)} sticky notes into {json_path}")
     print(f"  Total nodes: {len(data['nodes'])}")
     return data
