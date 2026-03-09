@@ -42,3 +42,36 @@ Surfaces hidden revenue opportunities by identifying accounts with recent engage
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — LLM for opportunity scoring
 - **Messaging (Slack, Teams, Email)** — Posts discovery results to channel
 - **SMTP** — Email delivery for stakeholder summaries
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Prospector-->
+<!--bot-app:true-->
+
+🔍 **Weekly Opportunity Discovery** — 4 hidden opportunities found
+
+🟢 **HIGH CONFIDENCE:**
+- **NovaTech Solutions** | No open opp | Signal strength: **Strong**
+- 7 meetings in last 30 days with VP Product + Director of Engineering
+- @mike.torres received inbound pricing inquiry last Tuesday
+- Previously churned 18 months ago — re-engagement pattern suggests renewed interest
+- 👉 @sarah.chen: Create opp, estimated ===$200,000=== based on prior deal size + expansion signals
+- **Contoso Ltd** | No open opp | Signal strength: **Strong**
+- Downloaded 4 technical whitepapers + attended webinar last week
+- CTO Maria Santos connected with @james.park on LinkedIn and engaged 2 posts
+- No prior relationship — net new logo opportunity
+- 👉 @james.park: Outbound with personalized demo offer referencing webinar attendance
+
+🟡 **MODERATE CONFIDENCE:**
+- **Initrode Systems** | No open opp | Signal strength: **Moderate**
+- 3 emails exchanged with mid-level contact, but no meetings booked yet
+- Account matches ICP: 500+ employees, Series C, SaaS vertical
+- 👉 @rep.owner: Nurture with case study from similar company, attempt meeting
+- **Pied Piper Inc** | No open opp | Signal strength: **Moderate**
+- CFO visited pricing page 3x this week (tracked via marketing automation)
+- No direct engagement with sales team yet
+- 👉 @david.kim: Warm intro via mutual connection at board level
+
+---
+*Powered by People.ai MCP — 230 accounts scanned, 4 opportunities surfaced*

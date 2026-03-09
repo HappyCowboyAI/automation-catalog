@@ -49,3 +49,35 @@ Automates executive email triage by reading unread email messages, identifying t
 - **Email (Gmail, Outlook, IMAP)** — Executive inbox access
 - **Messaging (Slack, Teams, Email)** — Routes messages to appropriate channels
 - **Project Management (Jira, Asana, etc.) — optional** — Ticket and project context
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Gatekeeper-->
+<!--bot-app:true-->
+
+📬 **Executive Inbox Triage** — 6 emails classified | 2 urgent
+
+🔴 **URGENT — Immediate Action:**
+- **From:** Dan Reeves, VP Engineering @ ACME Corp
+- **Subject:** "Need to discuss contract terms before Friday"
+- **Account:** ===$425,000=== deal in Negotiation stage
+- **Context:** Dan is the economic buyer — first direct email in 3 weeks. People.ai shows 2 missed calls from Dan yesterday
+- 👉 Routed to: #acme-deal-room + @sarah.chen (account owner)
+
+- **From:** Lisa Wong, Director of IT @ Globex Industries
+- **Subject:** "Escalation: Production outage affecting our team"
+- **Account:** ===$340,000=== ARR customer, renewal in 47 days
+- **Context:** 3 open P1 support tickets. Lisa is primary champion — losing her trust during renewal window is critical risk
+- 👉 Routed to: #support-escalations + @ops.lead + @emily.ross (CSM)
+
+🟡 **FOLLOW UP — This Week:**
+- **From:** Kevin Marsh, Security Architect @ NovaTech — requesting SOC2 documentation
+- 👉 Routed to: @james.park (SE) — compliance queue
+- **From:** Maria Santos, COO @ Contoso — intro meeting request
+- 👉 Routed to: @david.kim — new business queue
+
+🟢 **INFORMATIONAL:** 2 emails filed (newsletter from Stark Industries CTO, meeting confirmation from Initech)
+
+---
+*Powered by People.ai MCP — 6 emails triaged, 2 urgent, 2 follow-up, 2 filed*

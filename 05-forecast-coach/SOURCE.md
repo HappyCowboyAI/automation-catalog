@@ -42,3 +42,37 @@ Provides AI-powered coaching insights for sales leaders by analyzing their team'
 - **People.ai MCP** — Pipeline data and engagement metrics
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — LLM for deal health analysis
 - **SMTP** — Email delivery for coaching reports
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Coach-->
+<!--bot-app:true-->
+
+🏈 **Weekly Forecast Coaching Report** — @manager.jen's Team | Week of Mar 3
+
+📊 **PIPELINE SUMMARY:**
+- Team pipeline: ===$2.1M=== across 12 active deals
+- Forecast commit: ===$890,000=== | Best case: ===$1.4M===
+- 3 deals need coaching intervention this week
+
+🔴 **NEEDS ATTENTION:**
+- **ACME Corp** ===$425,000=== | @sarah.chen | Stage: Negotiation
+- Single-threaded to technical champion only — no executive sponsor engaged
+- Close date is Mar 28 but legal review hasn't started
+- 💬 Coach: Ask Sarah who the economic buyer is and why they haven't been engaged yet
+- **Globex Industries** ===$180,000=== | @james.park | Stage: Discovery
+- 4 meetings completed but all with same contact (Director level)
+- No upward access despite 6 weeks in pipeline
+- 💬 Coach: Help James build a multi-threading plan — target VP Engineering via LinkedIn warm intro
+
+🟡 **MONITOR:**
+- **Initech** ===$92,000=== | @david.kim | Stage: POC
+- POC running 1 week behind schedule — customer delayed test environment setup
+- Engagement still strong (3 meetings this week) but timeline risk emerging
+- 💬 Coach: Discuss contingency plan if POC extends past Mar 21 deadline
+
+🟢 **ON TRACK:** 9 deals progressing normally — no coaching needed
+
+---
+*Powered by People.ai MCP — 12 deals analyzed across 4 reps*

@@ -41,3 +41,36 @@ Prepares an AI-generated briefing document before each upcoming meeting. A paren
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — LLM for brief generation
 - **Messaging (Slack, Teams, Email)** — Delivers briefs via Slack, Teams, or Email
 - **User Configuration Store (built-in JSON, Supabase, Airtable, or any database)** — Meeting and user metadata
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Aria-->
+<!--bot-app:true-->
+
+📋 **Meeting Brief** — ACME Corp Technical Review | Today 2:00 PM
+
+👥 **ATTENDEES:**
+- @sarah.chen (Account Owner) + @james.park (SE)
+- Dan Reeves (VP Engineering, ACME) — Decision maker, attended 3 of last 4 calls
+- Lisa Wong (Director of IT, ACME) — Technical champion, drove POC approval
+- New: Kevin Marsh (Security Architect) — First time joining, likely for compliance review
+
+📊 **ACCOUNT CONTEXT:**
+- Deal: ===$425,000=== | Stage: Technical Validation | Close: 04/2026
+- Last meeting (Feb 28): POC results review — positive feedback, 2 action items open
+- Champion @lisa.wong sent internal email to procurement team Monday (good sign)
+- Competitor Vendara still in evaluation — ACME IT Director mentioned them in a Feb 25 email
+
+🎯 **TALKING POINTS:**
+- Address Kevin Marsh's security concerns — prep SOC2 report and data residency docs
+- Follow up on open action item: custom API integration timeline (Dan asked Feb 28)
+- Ask about procurement timeline — Lisa's internal email suggests they're moving forward
+- Subtly position against Vendara: emphasize integration depth and time-to-value
+
+⚠️ **WATCH FOR:**
+- Dan Reeves missed last week's check-in — gauge his engagement level today
+- If security review scope expands, it could push timeline 2-3 weeks
+
+---
+*Powered by People.ai MCP — 47 days of engagement history analyzed*

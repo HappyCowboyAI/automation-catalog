@@ -42,3 +42,38 @@ Performs a weekly pipeline hygiene audit by scanning all open opportunities in t
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI hygiene assessment
 - **CRM (Salesforce, HubSpot, etc.)** — Open pipeline data
 - **Messaging (Slack, Teams, Email)** — Delivers action lists to reps and managers
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Scrub-->
+<!--bot-app:true-->
+
+🧹 **Weekly Deal Hygiene Audit** — @sarah.chen | 4 deals need cleanup
+
+🔴 **CRITICAL — Fix Today:**
+- **Initech** ===$92,000=== | Stage: POC | Close: **Feb 28 (PAST DUE)**
+- Close date is 3 days overdue — update to realistic date or mark as slipped
+- No next steps logged in CRM since Feb 20
+- 👉 Action: Update close date + add next step with owner and due date
+
+- **Wayne Enterprises** ===$87,000=== | Stage: Discovery | Close: Mar 15
+- Single-threaded: Only 1 contact engaged (Sarah Kim, Manager)
+- No executive sponsor identified after 4 weeks in pipeline
+- 👉 Action: Add at least 1 VP+ contact to opportunity. Request intro from Sarah Kim
+
+🟡 **IMPORTANT — Fix This Week:**
+- **NovaTech** ===$275,000=== | Stage: Negotiation | Close: Mar 28
+- Last activity was 8 days ago (email) — below 3-day norm for Negotiation stage
+- Champion is engaged but legal hasn't responded to MSA sent Mar 1
+- 👉 Action: Follow up on MSA status. Log next step: "Legal follow-up by Mar 12"
+
+- **Contoso Ltd** ===$150,000=== | Stage: Qualification | Close: Apr 15
+- Missing fields: Competition (blank), MEDDIC score (incomplete), Champion (not identified)
+- 3 meetings held but discovery notes not logged
+- 👉 Action: Complete MEDDIC fields and log discovery call summaries
+
+🟢 **CLEAN:** 8 deals passed all hygiene checks
+
+---
+*Powered by People.ai MCP — 12 deals audited, 4 flagged, 8 clean*

@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T23:10:17.602557+00:00",
+  "_generated": "2026-03-09T23:24:00.036980+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -139,7 +139,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Aria",
+        "bot_app": true,
+        "content": "\ud83d\udccb **Meeting Brief** \u2014 ACME Corp Technical Review | Today 2:00 PM\n\n\ud83d\udc65 **ATTENDEES:**\n- @sarah.chen (Account Owner) + @james.park (SE)\n- Dan Reeves (VP Engineering, ACME) \u2014 Decision maker, attended 3 of last 4 calls\n- Lisa Wong (Director of IT, ACME) \u2014 Technical champion, drove POC approval\n- New: Kevin Marsh (Security Architect) \u2014 First time joining, likely for compliance review\n\n\ud83d\udcca **ACCOUNT CONTEXT:**\n- Deal: ===$425,000=== | Stage: Technical Validation | Close: 04/2026\n- Last meeting (Feb 28): POC results review \u2014 positive feedback, 2 action items open\n- Champion @lisa.wong sent internal email to procurement team Monday (good sign)\n- Competitor Vendara still in evaluation \u2014 ACME IT Director mentioned them in a Feb 25 email\n\n\ud83c\udfaf **TALKING POINTS:**\n- Address Kevin Marsh's security concerns \u2014 prep SOC2 report and data residency docs\n- Follow up on open action item: custom API integration timeline (Dan asked Feb 28)\n- Ask about procurement timeline \u2014 Lisa's internal email suggests they're moving forward\n- Subtly position against Vendara: emphasize integration depth and time-to-value\n\n\u26a0\ufe0f **WATCH FOR:**\n- Dan Reeves missed last week's check-in \u2014 gauge his engagement level today\n- If security review scope expands, it could push timeline 2-3 weeks\n\n---\n*Powered by People.ai MCP \u2014 47 days of engagement history analyzed*"
+      },
       "exports": []
     },
     {
@@ -254,7 +259,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Prospector",
+        "bot_app": true,
+        "content": "\ud83d\udd0d **Weekly Opportunity Discovery** \u2014 4 hidden opportunities found\n\n\ud83d\udfe2 **HIGH CONFIDENCE:**\n- **NovaTech Solutions** | No open opp | Signal strength: **Strong**\n- 7 meetings in last 30 days with VP Product + Director of Engineering\n- @mike.torres received inbound pricing inquiry last Tuesday\n- Previously churned 18 months ago \u2014 re-engagement pattern suggests renewed interest\n- \ud83d\udc49 @sarah.chen: Create opp, estimated ===$200,000=== based on prior deal size + expansion signals\n- **Contoso Ltd** | No open opp | Signal strength: **Strong**\n- Downloaded 4 technical whitepapers + attended webinar last week\n- CTO Maria Santos connected with @james.park on LinkedIn and engaged 2 posts\n- No prior relationship \u2014 net new logo opportunity\n- \ud83d\udc49 @james.park: Outbound with personalized demo offer referencing webinar attendance\n\n\ud83d\udfe1 **MODERATE CONFIDENCE:**\n- **Initrode Systems** | No open opp | Signal strength: **Moderate**\n- 3 emails exchanged with mid-level contact, but no meetings booked yet\n- Account matches ICP: 500+ employees, Series C, SaaS vertical\n- \ud83d\udc49 @rep.owner: Nurture with case study from similar company, attempt meeting\n- **Pied Piper Inc** | No open opp | Signal strength: **Moderate**\n- CFO visited pricing page 3x this week (tracked via marketing automation)\n- No direct engagement with sales team yet\n- \ud83d\udc49 @david.kim: Warm intro via mutual connection at board level\n\n---\n*Powered by People.ai MCP \u2014 230 accounts scanned, 4 opportunities surfaced*"
+      },
       "exports": []
     },
     {
@@ -308,7 +318,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Coach",
+        "bot_app": true,
+        "content": "\ud83c\udfc8 **Weekly Forecast Coaching Report** \u2014 @manager.jen's Team | Week of Mar 3\n\n\ud83d\udcca **PIPELINE SUMMARY:**\n- Team pipeline: ===$2.1M=== across 12 active deals\n- Forecast commit: ===$890,000=== | Best case: ===$1.4M===\n- 3 deals need coaching intervention this week\n\n\ud83d\udd34 **NEEDS ATTENTION:**\n- **ACME Corp** ===$425,000=== | @sarah.chen | Stage: Negotiation\n- Single-threaded to technical champion only \u2014 no executive sponsor engaged\n- Close date is Mar 28 but legal review hasn't started\n- \ud83d\udcac Coach: Ask Sarah who the economic buyer is and why they haven't been engaged yet\n- **Globex Industries** ===$180,000=== | @james.park | Stage: Discovery\n- 4 meetings completed but all with same contact (Director level)\n- No upward access despite 6 weeks in pipeline\n- \ud83d\udcac Coach: Help James build a multi-threading plan \u2014 target VP Engineering via LinkedIn warm intro\n\n\ud83d\udfe1 **MONITOR:**\n- **Initech** ===$92,000=== | @david.kim | Stage: POC\n- POC running 1 week behind schedule \u2014 customer delayed test environment setup\n- Engagement still strong (3 meetings this week) but timeline risk emerging\n- \ud83d\udcac Coach: Discuss contingency plan if POC extends past Mar 21 deadline\n\n\ud83d\udfe2 **ON TRACK:** 9 deals progressing normally \u2014 no coaching needed\n\n---\n*Powered by People.ai MCP \u2014 12 deals analyzed across 4 reps*"
+      },
       "exports": []
     },
     {
@@ -371,7 +386,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Gatekeeper",
+        "bot_app": true,
+        "content": "\ud83d\udcec **Executive Inbox Triage** \u2014 6 emails classified | 2 urgent\n\n\ud83d\udd34 **URGENT \u2014 Immediate Action:**\n- **From:** Dan Reeves, VP Engineering @ ACME Corp\n- **Subject:** \"Need to discuss contract terms before Friday\"\n- **Account:** ===$425,000=== deal in Negotiation stage\n- **Context:** Dan is the economic buyer \u2014 first direct email in 3 weeks. People.ai shows 2 missed calls from Dan yesterday\n- \ud83d\udc49 Routed to: #acme-deal-room + @sarah.chen (account owner)\n\n- **From:** Lisa Wong, Director of IT @ Globex Industries\n- **Subject:** \"Escalation: Production outage affecting our team\"\n- **Account:** ===$340,000=== ARR customer, renewal in 47 days\n- **Context:** 3 open P1 support tickets. Lisa is primary champion \u2014 losing her trust during renewal window is critical risk\n- \ud83d\udc49 Routed to: #support-escalations + @ops.lead + @emily.ross (CSM)\n\n\ud83d\udfe1 **FOLLOW UP \u2014 This Week:**\n- **From:** Kevin Marsh, Security Architect @ NovaTech \u2014 requesting SOC2 documentation\n- \ud83d\udc49 Routed to: @james.park (SE) \u2014 compliance queue\n- **From:** Maria Santos, COO @ Contoso \u2014 intro meeting request\n- \ud83d\udc49 Routed to: @david.kim \u2014 new business queue\n\n\ud83d\udfe2 **INFORMATIONAL:** 2 emails filed (newsletter from Stark Industries CTO, meeting confirmation from Initech)\n\n---\n*Powered by People.ai MCP \u2014 6 emails triaged, 2 urgent, 2 follow-up, 2 filed*"
+      },
       "exports": []
     },
     {
@@ -493,7 +513,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Renew",
+        "bot_app": true,
+        "content": "\ud83d\udd04 **Renewal Prep Brief** \u2014 Globex Industries | \u23f0 30 Days to Renewal\n\n\ud83d\udcca **ACCOUNT SNAPSHOT:**\n- ARR: ===$340,000=== | Renewal Date: Apr 8, 2026\n- Health Score: 6/10 (down from 8 at last QBR)\n- CSM: @emily.ross | AE: @sarah.chen\n\n\ud83d\udfe2 **STRENGTHS:**\n- Product adoption: 87% feature utilization (above 75% benchmark)\n- Champion Lisa Wong remains actively engaged \u2014 3 meetings in last 2 weeks\n- Expanded usage to 2 new departments since last renewal (Engineering + Marketing)\n- No competitive mentions detected in any communications\n\n\u26a0\ufe0f **RISK FACTORS:**\n- Executive sponsor (VP Ops) has not engaged in 45 days \u2014 previously monthly cadence\n- 3 open support tickets (1 P1 unresolved for 14 days) \u2014 CSAT trending down\n- Finance team asked about multi-year discount options \u2014 could signal price sensitivity\n- Champion mentioned \"evaluating options\" in passing during Feb 22 check-in\n\n\ud83d\udca1 **EXPANSION SIGNALS:**\n- Marketing team requesting API access for additional integrations\n- Lisa Wong asked about enterprise tier features in last meeting\n- Potential upsell: ===$85,000=== if API + enterprise tier added\n\n\ud83d\udccb **RECOMMENDED STRATEGY:**\n- Re-engage VP Ops with exec business review showing ROI metrics\n- Resolve P1 ticket before renewal conversation starts\n- Lead with expansion offer (API + enterprise) to anchor on value, not price\n- Prepare 3-year proposal with graduated discount to address price sensitivity\n\n---\n*Powered by People.ai MCP \u2014 12 months of engagement history analyzed*"
+      },
       "exports": []
     },
     {
@@ -548,7 +573,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Onboard",
+        "bot_app": true,
+        "content": "\ud83d\udc76 **Onboarding Pulse** \u2014 2 new customers need attention\n\n\ud83d\udd34 **GOING DARK \u2014 Immediate Re-engagement Needed:**\n- **Dunder Mifflin** | ===$125,000=== | Closed Won: Feb 3 | Day 34 of 90\n- Post-sale engagement: **0 meetings, 2 emails** (benchmark: 4 meetings, 12 emails by Day 34)\n- Champion Michael Scott hasn't responded to last 3 CSM emails\n- No kickoff meeting scheduled \u2014 implementation hasn't started\n- \ud83d\udc49 @emily.ross: Escalate to sales handoff team. @sarah.chen (AE) should call champion directly \u2014 leverage closing relationship\n\n\ud83d\udfe1 **AT RISK \u2014 Below Engagement Threshold:**\n- **Pied Piper Inc** | ===$88,000=== | Closed Won: Feb 18 | Day 19 of 90\n- Post-sale engagement: 1 meeting, 5 emails (benchmark: 2 meetings, 8 emails by Day 19)\n- Kickoff completed but no follow-up meeting scheduled\n- Technical contact Dinesh Chugtai is responsive via email but hasn't booked implementation session\n- \ud83d\udc49 @david.kim: Send calendar link with 3 time slots for implementation kickoff. Include pre-work checklist to reduce friction\n\n\ud83d\udfe2 **ON TRACK:** 5 accounts progressing normally through onboarding\n- Strongest: Contoso Ltd (Day 12) \u2014 3 meetings already, full team engaged\n\n---\n*Powered by People.ai MCP \u2014 7 accounts in onboarding window monitored*"
+      },
       "exports": []
     },
     {
@@ -602,7 +632,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Tempo",
+        "bot_app": true,
+        "content": "\ud83d\udcc9 **Weekly Activity Gap Report** \u2014 @manager.jen's Team | Week of Mar 3\n\n\ud83d\udcca **TEAM BENCHMARKS:**\n- Avg emails/week: 47 | Top performer: 72 (@sarah.chen)\n- Avg meetings/week: 8 | Top performer: 12 (@james.park)\n- Avg accounts touched: 11 | Top performer: 16 (@sarah.chen)\n\n\ud83d\udd34 **SIGNIFICANT GAPS:**\n- **@david.kim** \u2014 3 gaps identified\n- Emails: 18/week (62% below team avg of 47)\n- Multi-threading: 4 of 6 active deals are single-threaded (team avg: 1.5 single-threaded)\n- No executive outreach on ===$180,000=== Globex deal despite 5 weeks in pipeline\n- \ud83d\udcac Suggested coaching: \"David, I noticed your Globex deal is single-threaded to a Director. What's your plan to get VP-level access? Sarah had success on ACME using the mutual connection approach.\"\n\n\ud83d\udfe1 **MODERATE GAPS:**\n- **@mike.torres** \u2014 1 gap identified\n- Meetings: 4/week (50% below team avg of 8) \u2014 3 cancellations by prospects this week\n- Email and multi-threading metrics are strong\n- \ud83d\udcac Suggested coaching: \"Mike, looks like a few meetings fell through this week. Want to brainstorm ways to reduce cancellation rates? James uses calendar holds that work well.\"\n\n\ud83d\udfe2 **NO GAPS:** @sarah.chen, @james.park \u2014 both at or above benchmarks across all dimensions\n\n---\n*Powered by People.ai MCP \u2014 4 reps analyzed, 2 with coaching opportunities*"
+      },
       "exports": []
     },
     {
@@ -657,7 +692,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Scrub",
+        "bot_app": true,
+        "content": "\ud83e\uddf9 **Weekly Deal Hygiene Audit** \u2014 @sarah.chen | 4 deals need cleanup\n\n\ud83d\udd34 **CRITICAL \u2014 Fix Today:**\n- **Initech** ===$92,000=== | Stage: POC | Close: **Feb 28 (PAST DUE)**\n- Close date is 3 days overdue \u2014 update to realistic date or mark as slipped\n- No next steps logged in CRM since Feb 20\n- \ud83d\udc49 Action: Update close date + add next step with owner and due date\n\n- **Wayne Enterprises** ===$87,000=== | Stage: Discovery | Close: Mar 15\n- Single-threaded: Only 1 contact engaged (Sarah Kim, Manager)\n- No executive sponsor identified after 4 weeks in pipeline\n- \ud83d\udc49 Action: Add at least 1 VP+ contact to opportunity. Request intro from Sarah Kim\n\n\ud83d\udfe1 **IMPORTANT \u2014 Fix This Week:**\n- **NovaTech** ===$275,000=== | Stage: Negotiation | Close: Mar 28\n- Last activity was 8 days ago (email) \u2014 below 3-day norm for Negotiation stage\n- Champion is engaged but legal hasn't responded to MSA sent Mar 1\n- \ud83d\udc49 Action: Follow up on MSA status. Log next step: \"Legal follow-up by Mar 12\"\n\n- **Contoso Ltd** ===$150,000=== | Stage: Qualification | Close: Apr 15\n- Missing fields: Competition (blank), MEDDIC score (incomplete), Champion (not identified)\n- 3 meetings held but discovery notes not logged\n- \ud83d\udc49 Action: Complete MEDDIC fields and log discovery call summaries\n\n\ud83d\udfe2 **CLEAN:** 8 deals passed all hygiene checks\n\n---\n*Powered by People.ai MCP \u2014 12 deals audited, 4 flagged, 8 clean*"
+      },
       "exports": []
     },
     {
@@ -765,7 +805,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Shield",
+        "bot_app": true,
+        "content": "\ud83d\udea8 **Competitive Displacement Alert** \u2014 2 accounts at risk\n\n\ud83d\udd34 **HIGH RISK \u2014 Immediate Defensive Action Required:**\n- **Stark Industries** | ===$185,000=== ARR | Customer since 2024\n- Engagement drop: -74% week-over-week (meetings: 2\u21920, emails: 15\u21924)\n- Competitor signal: \"Vendara demo\" found in CRM meeting title for Mar 12\n- IT Director posted on LinkedIn about \"evaluating modern alternatives\" on Tuesday\n- Champion @lisa.wong response time went from <2hr to 24hr+\n- \ud83d\udc49 @emily.ross + @sarah.chen: Request emergency exec check-in. Prep competitive battlecard. Offer exclusive roadmap preview for Q3 features they requested\n- \ud83d\udc49 @sales.leadership: Approve discount authority up to 15% if needed for retention\n\n\ud83d\udfe1 **ELEVATED RISK \u2014 Monitor Closely:**\n- **Umbrella Corp** | ===$94,000=== ARR | Customer since 2025\n- Engagement drop: -45% week-over-week (meetings on track, but email responses slowing)\n- Competitor signal: Procurement team downloaded comparison matrix from competitor G2 page\n- No direct competitor engagement detected yet \u2014 early warning stage\n- Champion still responsive in meetings but less forthcoming with timeline info\n- \ud83d\udc49 @david.kim: Proactively share customer success metrics and ROI report. Schedule value review before they reach evaluation stage\n\n\ud83d\udfe2 **ALL CLEAR:** 38 accounts show no displacement signals\n\n---\n*Powered by People.ai MCP \u2014 40 accounts monitored, 2 flagged*"
+      },
       "exports": []
     },
     {
@@ -880,7 +925,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Aria",
+        "bot_app": true,
+        "content": "\ud83d\udcd1 **QBR Prep Document** \u2014 ACME Corp | Meeting: Thursday Mar 13, 2:00 PM\n\n\ud83d\udcca **EXECUTIVE SUMMARY:**\n- Account: ACME Corp | ARR: ===$425,000=== | Customer since Jan 2024\n- Health Score: 8/10 (up from 7 last quarter)\n- Quarter highlights: 2 new departments onboarded, feature adoption up 23%\n- Primary risk: Executive sponsor engagement declining (see below)\n\n\ud83d\udcc8 **QUARTER-OVER-QUARTER TRENDS:**\n- Meetings: 18 this quarter vs 14 last quarter (+29%)\n- Contacts engaged: 12 vs 8 (+50%) \u2014 excellent multi-threading growth\n- Email volume: 94 vs 71 (+32%)\n- Support tickets: 4 vs 7 (-43%) \u2014 trending positive\n- NPS: 9 (up from 7) \u2014 driven by successful API launch\n\n\ud83c\udfc6 **KEY WINS THIS QUARTER:**\n- Engineering team (Dan Reeves) completed full platform integration ahead of schedule\n- Marketing department self-onboarded 15 users without CSM assistance\n- Champion Lisa Wong promoted to Senior Director \u2014 expanded influence internally\n- Zero P1 incidents for 90 consecutive days\n\n\u26a0\ufe0f **RISK AREAS:**\n- CFO Mike Torres hasn't attended last 2 monthly check-ins \u2014 re-engage on ROI narrative\n- Competitor Vendara mentioned by IT Director in Feb \u2014 monitor for evaluation signals\n- Contract auto-renewal clause expires Apr 30 \u2014 need renewal commitment before QBR\n\n\ud83c\udfaf **RECOMMENDED TALKING POINTS:**\n- Lead with ROI metrics: $2.3M pipeline influenced, 340 hours saved per quarter\n- Introduce enterprise tier upgrade path (potential ===$120,000=== expansion)\n- Address competitor mention proactively \u2014 show integration depth advantage\n- Request CFO attendance at next monthly check-in to reinforce exec alignment\n\n---\n*Powered by People.ai MCP \u2014 90 days of engagement data compiled*"
+      },
       "exports": []
     },
     {
@@ -935,7 +985,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Sponsor",
+        "bot_app": true,
+        "content": "\ud83d\udc54 **Executive Sponsor Alert** \u2014 3 deals with silent sponsors\n\n\ud83d\udd34 **CRITICAL \u2014 Sponsor Gone Dark:**\n- **ACME Corp** ===$425,000=== | Stage: Negotiation | Close: Mar 28\n- Sponsor: Mike Torres (CFO) \u2014 Last engagement: **22 days ago**\n- Previously: Monthly exec check-in cadence, attended 4 of last 6 meetings\n- Risk: Deal in Negotiation stage without CFO buy-in is a blocker for procurement approval\n- \ud83d\udc49 @sarah.chen: Request warm re-intro through champion Lisa Wong. Prep CFO-specific ROI deck showing 3.2x return on investment\n- \ud83d\udc49 Escalation: If no response by Mar 14, request @vp.sales exec-to-exec outreach\n\n\ud83d\udfe1 **WARNING \u2014 Engagement Declining:**\n- **Globex Industries** ===$340,000=== | Stage: Technical Validation | Close: Apr 15\n- Sponsor: Rachel Green (VP Operations) \u2014 Last engagement: **14 days ago**\n- Previously: Biweekly cadence, but skipped last 2 scheduled calls\n- OOO check: Not on PTO (verified via calendar activity)\n- \ud83d\udc49 @james.park: Send low-pressure value update (industry benchmark report) to re-engage without asking for a meeting\n\n- **NovaTech** ===$275,000=== | Stage: Proposal | Close: Mar 21\n- Sponsor: Tom Bradley (CTO) \u2014 Last engagement: **11 days ago**\n- Tom delegated all technical conversations to Director-level team since Feb 25\n- May be a delegation pattern (positive) or disengagement (negative) \u2014 needs clarification\n- \ud83d\udc49 @mike.torres: Ask technical contact directly: \"Is Tom comfortable with where we are, or does he have questions we should address?\"\n\n\ud83d\udfe2 **ACTIVE SPONSORS:** 8 deals with engaged executives \u2014 no action needed\n\n---\n*Powered by People.ai MCP \u2014 11 strategic deals tracked, 3 sponsors flagged*"
+      },
       "exports": []
     },
     {
@@ -983,7 +1038,12 @@
       ],
       "configuration": [],
       "quick_start_vs_full": "",
-      "sample_output": null,
+      "sample_output": {
+        "mockup": "slack",
+        "bot_name": "Handoff",
+        "bot_app": true,
+        "content": "\ud83e\udd1d **New MQL Handoff** \u2014 Scored & Ready for Outreach\n\n\ud83d\udd25 **HOT HANDOFF** \u2014 Immediate follow-up recommended\n\n**Contoso Ltd** | MQL: Maria Santos, COO | Score: **Hot (9/10)**\n\n\ud83d\udcca **EXISTING RELATIONSHIP HISTORY:**\n- Account has **prior engagement**: 12 meetings + 34 emails over 6 months in 2024\n- Previous opp: ===$150,000=== \u2014 Closed Lost (budget timing, not competitive)\n- Champion from prior deal (Kevin Marsh, Director) still at company and was recently promoted\n- @james.park was the prior AE \u2014 already has relationship context\n\n\ud83c\udfaf **CONTEXT BRIEF FOR @james.park:**\n- Maria Santos (COO) is new to the account since your last engagement \u2014 joined from Globex Industries in Jan 2026\n- She downloaded the enterprise pricing guide + ROI calculator this week\n- Budget cycle: Q2 planning starts next week (per prior intel from Kevin)\n- Prior objection (budget timing) is likely resolved given new fiscal year\n\n\ud83d\udccb **RECOMMENDED FIRST OUTREACH:**\n- Approach: Warm re-engagement \u2014 reference prior relationship with Kevin Marsh\n- Opening: \"Maria, Kevin Marsh suggested I reach out \u2014 we worked together on an evaluation last year and I understand you're exploring solutions for Q2\"\n- Ask: 30-minute discovery call focused on what's changed since last evaluation\n- Urgency: High \u2014 budget cycle window is narrow\n\n---\n*Powered by People.ai MCP \u2014 full account engagement history matched*"
+      },
       "exports": []
     },
     {

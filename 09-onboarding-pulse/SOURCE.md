@@ -43,3 +43,31 @@ Monitors newly closed deals during their first 90 days to detect accounts going 
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI engagement assessment
 - **CRM (Salesforce, HubSpot, etc.)** — Closed-won account data
 - **Messaging (Slack, Teams, Email)** — Alerts to CSMs
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Onboard-->
+<!--bot-app:true-->
+
+👶 **Onboarding Pulse** — 2 new customers need attention
+
+🔴 **GOING DARK — Immediate Re-engagement Needed:**
+- **Dunder Mifflin** | ===$125,000=== | Closed Won: Feb 3 | Day 34 of 90
+- Post-sale engagement: **0 meetings, 2 emails** (benchmark: 4 meetings, 12 emails by Day 34)
+- Champion Michael Scott hasn't responded to last 3 CSM emails
+- No kickoff meeting scheduled — implementation hasn't started
+- 👉 @emily.ross: Escalate to sales handoff team. @sarah.chen (AE) should call champion directly — leverage closing relationship
+
+🟡 **AT RISK — Below Engagement Threshold:**
+- **Pied Piper Inc** | ===$88,000=== | Closed Won: Feb 18 | Day 19 of 90
+- Post-sale engagement: 1 meeting, 5 emails (benchmark: 2 meetings, 8 emails by Day 19)
+- Kickoff completed but no follow-up meeting scheduled
+- Technical contact Dinesh Chugtai is responsive via email but hasn't booked implementation session
+- 👉 @david.kim: Send calendar link with 3 time slots for implementation kickoff. Include pre-work checklist to reduce friction
+
+🟢 **ON TRACK:** 5 accounts progressing normally through onboarding
+- Strongest: Contoso Ltd (Day 12) — 3 meetings already, full team engaged
+
+---
+*Powered by People.ai MCP — 7 accounts in onboarding window monitored*

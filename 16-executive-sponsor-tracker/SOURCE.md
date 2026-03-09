@@ -43,3 +43,37 @@ Monitors executive-level contact engagement across strategic deals to ensure cha
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI risk and re-engagement analysis
 - **CRM (Salesforce, HubSpot, etc.)** — Strategic deal and contact data
 - **Messaging (Slack, Teams, Email)** — Alerts to deal owners and leadership
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Sponsor-->
+<!--bot-app:true-->
+
+👔 **Executive Sponsor Alert** — 3 deals with silent sponsors
+
+🔴 **CRITICAL — Sponsor Gone Dark:**
+- **ACME Corp** ===$425,000=== | Stage: Negotiation | Close: Mar 28
+- Sponsor: Mike Torres (CFO) — Last engagement: **22 days ago**
+- Previously: Monthly exec check-in cadence, attended 4 of last 6 meetings
+- Risk: Deal in Negotiation stage without CFO buy-in is a blocker for procurement approval
+- 👉 @sarah.chen: Request warm re-intro through champion Lisa Wong. Prep CFO-specific ROI deck showing 3.2x return on investment
+- 👉 Escalation: If no response by Mar 14, request @vp.sales exec-to-exec outreach
+
+🟡 **WARNING — Engagement Declining:**
+- **Globex Industries** ===$340,000=== | Stage: Technical Validation | Close: Apr 15
+- Sponsor: Rachel Green (VP Operations) — Last engagement: **14 days ago**
+- Previously: Biweekly cadence, but skipped last 2 scheduled calls
+- OOO check: Not on PTO (verified via calendar activity)
+- 👉 @james.park: Send low-pressure value update (industry benchmark report) to re-engage without asking for a meeting
+
+- **NovaTech** ===$275,000=== | Stage: Proposal | Close: Mar 21
+- Sponsor: Tom Bradley (CTO) — Last engagement: **11 days ago**
+- Tom delegated all technical conversations to Director-level team since Feb 25
+- May be a delegation pattern (positive) or disengagement (negative) — needs clarification
+- 👉 @mike.torres: Ask technical contact directly: "Is Tom comfortable with where we are, or does he have questions we should address?"
+
+🟢 **ACTIVE SPONSORS:** 8 deals with engaged executives — no action needed
+
+---
+*Powered by People.ai MCP — 11 strategic deals tracked, 3 sponsors flagged*

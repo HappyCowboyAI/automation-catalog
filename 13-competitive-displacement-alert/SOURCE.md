@@ -43,3 +43,33 @@ Monitors customer accounts for early signs of competitive displacement. The work
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI displacement analysis
 - **CRM (Salesforce, HubSpot, etc.)** — Competitor signal search
 - **Messaging (Slack, Teams, Email)** — High-priority alerts to account teams
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Shield-->
+<!--bot-app:true-->
+
+🚨 **Competitive Displacement Alert** — 2 accounts at risk
+
+🔴 **HIGH RISK — Immediate Defensive Action Required:**
+- **Stark Industries** | ===$185,000=== ARR | Customer since 2024
+- Engagement drop: -74% week-over-week (meetings: 2→0, emails: 15→4)
+- Competitor signal: "Vendara demo" found in CRM meeting title for Mar 12
+- IT Director posted on LinkedIn about "evaluating modern alternatives" on Tuesday
+- Champion @lisa.wong response time went from <2hr to 24hr+
+- 👉 @emily.ross + @sarah.chen: Request emergency exec check-in. Prep competitive battlecard. Offer exclusive roadmap preview for Q3 features they requested
+- 👉 @sales.leadership: Approve discount authority up to 15% if needed for retention
+
+🟡 **ELEVATED RISK — Monitor Closely:**
+- **Umbrella Corp** | ===$94,000=== ARR | Customer since 2025
+- Engagement drop: -45% week-over-week (meetings on track, but email responses slowing)
+- Competitor signal: Procurement team downloaded comparison matrix from competitor G2 page
+- No direct competitor engagement detected yet — early warning stage
+- Champion still responsive in meetings but less forthcoming with timeline info
+- 👉 @david.kim: Proactively share customer success metrics and ROI report. Schedule value review before they reach evaluation stage
+
+🟢 **ALL CLEAR:** 38 accounts show no displacement signals
+
+---
+*Powered by People.ai MCP — 40 accounts monitored, 2 flagged*

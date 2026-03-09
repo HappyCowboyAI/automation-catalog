@@ -43,3 +43,42 @@ Automatically generates renewal preparation briefs at 60, 30, and 15 days before
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI brief generation
 - **CRM (Salesforce, HubSpot, etc.)** — Renewal dates and account data
 - **Messaging (Slack, Teams, Email)** — Delivers briefs to account teams
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Renew-->
+<!--bot-app:true-->
+
+🔄 **Renewal Prep Brief** — Globex Industries | ⏰ 30 Days to Renewal
+
+📊 **ACCOUNT SNAPSHOT:**
+- ARR: ===$340,000=== | Renewal Date: Apr 8, 2026
+- Health Score: 6/10 (down from 8 at last QBR)
+- CSM: @emily.ross | AE: @sarah.chen
+
+🟢 **STRENGTHS:**
+- Product adoption: 87% feature utilization (above 75% benchmark)
+- Champion Lisa Wong remains actively engaged — 3 meetings in last 2 weeks
+- Expanded usage to 2 new departments since last renewal (Engineering + Marketing)
+- No competitive mentions detected in any communications
+
+⚠️ **RISK FACTORS:**
+- Executive sponsor (VP Ops) has not engaged in 45 days — previously monthly cadence
+- 3 open support tickets (1 P1 unresolved for 14 days) — CSAT trending down
+- Finance team asked about multi-year discount options — could signal price sensitivity
+- Champion mentioned "evaluating options" in passing during Feb 22 check-in
+
+💡 **EXPANSION SIGNALS:**
+- Marketing team requesting API access for additional integrations
+- Lisa Wong asked about enterprise tier features in last meeting
+- Potential upsell: ===$85,000=== if API + enterprise tier added
+
+📋 **RECOMMENDED STRATEGY:**
+- Re-engage VP Ops with exec business review showing ROI metrics
+- Resolve P1 ticket before renewal conversation starts
+- Lead with expansion offer (API + enterprise) to anchor on value, not price
+- Prepare 3-year proposal with graduated discount to address price sensitivity
+
+---
+*Powered by People.ai MCP — 12 months of engagement history analyzed*

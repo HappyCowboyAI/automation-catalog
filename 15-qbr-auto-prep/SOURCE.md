@@ -44,3 +44,44 @@ Automatically prepares quarterly business review materials for every account on 
 - **CRM (Salesforce, HubSpot, etc.)** — Account and opportunity context
 - **Calendar (Google Calendar, Outlook)** — QBR meeting detection
 - **Messaging (Slack, Teams, Email)** — Delivers prep materials to account teams
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:QBR Prep-->
+<!--bot-app:true-->
+
+📑 **QBR Prep Document** — ACME Corp | Meeting: Thursday Mar 13, 2:00 PM
+
+📊 **EXECUTIVE SUMMARY:**
+- Account: ACME Corp | ARR: ===$425,000=== | Customer since Jan 2024
+- Health Score: 8/10 (up from 7 last quarter)
+- Quarter highlights: 2 new departments onboarded, feature adoption up 23%
+- Primary risk: Executive sponsor engagement declining (see below)
+
+📈 **QUARTER-OVER-QUARTER TRENDS:**
+- Meetings: 18 this quarter vs 14 last quarter (+29%)
+- Contacts engaged: 12 vs 8 (+50%) — excellent multi-threading growth
+- Email volume: 94 vs 71 (+32%)
+- Support tickets: 4 vs 7 (-43%) — trending positive
+- NPS: 9 (up from 7) — driven by successful API launch
+
+🏆 **KEY WINS THIS QUARTER:**
+- Engineering team (Dan Reeves) completed full platform integration ahead of schedule
+- Marketing department self-onboarded 15 users without CSM assistance
+- Champion Lisa Wong promoted to Senior Director — expanded influence internally
+- Zero P1 incidents for 90 consecutive days
+
+⚠️ **RISK AREAS:**
+- CFO Mike Torres hasn't attended last 2 monthly check-ins — re-engage on ROI narrative
+- Competitor Vendara mentioned by IT Director in Feb — monitor for evaluation signals
+- Contract auto-renewal clause expires Apr 30 — need renewal commitment before QBR
+
+🎯 **RECOMMENDED TALKING POINTS:**
+- Lead with ROI metrics: $2.3M pipeline influenced, 340 hours saved per quarter
+- Introduce enterprise tier upgrade path (potential ===$120,000=== expansion)
+- Address competitor mention proactively — show integration depth advantage
+- Request CFO attendance at next monthly check-in to reinforce exec alignment
+
+---
+*Powered by People.ai MCP — 90 days of engagement data compiled*

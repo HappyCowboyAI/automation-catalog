@@ -41,3 +41,36 @@ Enriches marketing-qualified leads at the moment of handoff by checking People.a
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI handoff scoring
 - **CRM (Salesforce, HubSpot, etc.)** — MQL data and account lookup
 - **Messaging (Slack, Teams, Email)** — Delivers scored handoff to SDR/AE
+
+## Sample Output
+
+<!--mockup:slack-->
+<!--bot:Handoff-->
+<!--bot-app:true-->
+
+🤝 **New MQL Handoff** — Scored & Ready for Outreach
+
+🔥 **HOT HANDOFF** — Immediate follow-up recommended
+
+**Contoso Ltd** | MQL: Maria Santos, COO | Score: **Hot (9/10)**
+
+📊 **EXISTING RELATIONSHIP HISTORY:**
+- Account has **prior engagement**: 12 meetings + 34 emails over 6 months in 2024
+- Previous opp: ===$150,000=== — Closed Lost (budget timing, not competitive)
+- Champion from prior deal (Kevin Marsh, Director) still at company and was recently promoted
+- @james.park was the prior AE — already has relationship context
+
+🎯 **CONTEXT BRIEF FOR @james.park:**
+- Maria Santos (COO) is new to the account since your last engagement — joined from Globex Industries in Jan 2026
+- She downloaded the enterprise pricing guide + ROI calculator this week
+- Budget cycle: Q2 planning starts next week (per prior intel from Kevin)
+- Prior objection (budget timing) is likely resolved given new fiscal year
+
+📋 **RECOMMENDED FIRST OUTREACH:**
+- Approach: Warm re-engagement — reference prior relationship with Kevin Marsh
+- Opening: "Maria, Kevin Marsh suggested I reach out — we worked together on an evaluation last year and I understand you're exploring solutions for Q2"
+- Ask: 30-minute discovery call focused on what's changed since last evaluation
+- Urgency: High — budget cycle window is narrow
+
+---
+*Powered by People.ai MCP — full account engagement history matched*
