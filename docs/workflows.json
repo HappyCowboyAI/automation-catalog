@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-08T22:20:23.474739+00:00",
+  "_generated": "2026-03-09T16:20:15.509695+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -941,6 +941,72 @@
         }
       ],
       "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "18-channel-pulse",
+      "name": "Channel Pulse",
+      "description": "Sends quick, 60-second scannable updates to internal customer channels with relevant account information from the last 7 days. Designed to keep the extended team and executives abreast of what's happening in key accounts without requiring them to dig through CRM data or attend every meeting.",
+      "category": "account-monitoring",
+      "trigger": "Schedule \u2014 Periodic (configurable interval)",
+      "output": "Messaging (Slack channel, Teams channel, or Email)",
+      "credentials": [
+        "People.ai MCP \u2014 Account activity, engagement signals, and contact data for the last 7 days",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI summarization of account activity into scannable updates",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers updates to internal customer channels"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires on a configurable interval to check for accounts due for an update.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Identify Active Accounts",
+          "description": "Queries People.ai MCP to find accounts with recent activity in the last 7 days.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Gather Account Context",
+          "description": "For each account, pulls engagement data, meeting notes, deal movements, and contact activity from People.ai.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Summarization",
+          "description": "AI Agent synthesizes the raw activity data into a concise, scannable update formatted for quick consumption.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Route to Channel",
+          "description": "Determines the correct internal customer channel for each account.",
+          "type": "output",
+          "color": "orange"
+        },
+        {
+          "step": 6,
+          "name": "Deliver Update",
+          "description": "Posts the formatted update to the appropriate Slack/Teams channel or sends via email.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [
+        "Update interval: How frequently to check for and send account updates",
+        "Lookback window: Number of days of activity to include (default: 7)",
+        "Channel mapping: Map accounts to their internal Slack/Teams channels",
+        "Update format: Customize the summary template and level of detail",
+        "Account filter: Include/exclude accounts based on tier, owner, or segment"
+      ],
       "quick_start_vs_full": "",
       "exports": []
     }
