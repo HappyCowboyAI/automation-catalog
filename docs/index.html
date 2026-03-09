@@ -599,12 +599,12 @@
   }
   .playback-btn:hover { background: var(--ac-cream); border-color: var(--ac-coral); }
   .playback-btn.primary {
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     background: var(--ac-coral);
     color: white;
     border: none;
-    font-size: 16px;
+    font-size: 13px;
   }
   .playback-btn.primary:hover { background: var(--ac-coral-dark); }
   .playback-dots {
@@ -645,9 +645,8 @@
 
   /* Flow Canvas — n8n editor style, light background */
   .flow-canvas-wrapper {
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    height: 300px;
     margin-bottom: 16px;
     border: 1px solid var(--ac-light-gray);
     display: flex;
@@ -659,26 +658,25 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 14px;
-    background: #FAFAFA;
+    padding: 10px 16px;
+    background: #F8F9FA;
     border-bottom: 1px solid var(--ac-light-gray);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--ac-dark-secondary);
     font-weight: 600;
   }
   .flow-canvas-body {
-    flex: 1;
     position: relative;
     overflow: hidden;
     background-color: #FAFBFC;
-    background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+    background-size: 24px 24px;
+    padding: 40px 24px 24px;
   }
 
   .flow-canvas {
     position: relative;
     width: 100%;
-    height: 100%;
   }
   .flow-canvas svg {
     position: absolute;
@@ -689,134 +687,136 @@
     pointer-events: none;
   }
 
-  /* n8n-style nodes */
+  /* n8n-style nodes — large, readable */
   .flow-node {
     position: absolute;
-    width: 52px;
-    height: 42px;
-    border-radius: 8px;
+    border-radius: 10px;
     background: var(--ac-white);
-    border: 1.5px solid var(--ac-light-gray);
+    border: 2px solid var(--ac-light-gray);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--ac-dark-secondary);
-    padding: 2px;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
     transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s, opacity 0.4s;
-    opacity: 0.4;
+    opacity: 0.35;
     z-index: 2;
-    line-height: 1.1;
-    box-shadow: 0 1px 4px rgba(45,52,54,0.08);
+    box-shadow: 0 2px 8px rgba(45,52,54,0.06);
+    cursor: pointer;
   }
-  .flow-node .node-icon {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    position: absolute;
-    left: -9px;
-    top: 50%;
-    transform: translateY(-50%);
+  .flow-node .node-icon-box {
+    width: 40px;
+    min-width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 9px;
     color: white;
-    font-weight: 700;
-    z-index: 3;
+    flex-shrink: 0;
+  }
+  .flow-node .node-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+    padding: 8px 12px 8px 10px;
+    background: var(--ac-white);
+    position: relative;
+    z-index: 1;
+    border-radius: 0 8px 8px 0;
   }
   .flow-node .node-label {
-    position: absolute;
-    bottom: -18px;
-    left: 50%;
-    transform: translateX(-50%);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ac-dark);
     white-space: nowrap;
+  }
+  .flow-node .node-sublabel {
     font-size: 10px;
-    font-weight: 500;
     color: var(--ac-dark-secondary);
-    max-width: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  /* Connection dots */
-  .flow-node .conn-dot-in,
-  .flow-node .conn-dot-out {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--ac-light-gray);
-    border: 1.5px solid var(--ac-white);
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 4;
-  }
-  .flow-node .conn-dot-in { left: -4px; }
-  .flow-node .conn-dot-out { right: -4px; }
-
   .flow-node.visible {
-    opacity: 0.5;
+    opacity: 0.45;
   }
   .flow-node.active {
     opacity: 1;
-    transform: scale(1.05);
+    transform: translateY(-2px);
   }
   .flow-node.done {
     opacity: 1;
   }
-  .flow-node.type-trigger .node-icon { background: var(--flow-green); }
-  .flow-node.type-trigger.active { border-color: var(--flow-green); box-shadow: 0 0 12px rgba(0,184,148,0.3); }
+
+  /* Type colors — icon box backgrounds */
+  .flow-node.type-trigger .node-icon-box { background: var(--flow-green); }
+  .flow-node.type-trigger.active { border-color: var(--flow-green); box-shadow: 0 4px 20px rgba(0,184,148,0.25); }
   .flow-node.type-trigger.done { border-color: var(--flow-green); }
 
-  .flow-node.type-data .node-icon { background: var(--flow-blue); }
-  .flow-node.type-data.active { border-color: var(--flow-blue); box-shadow: 0 0 12px rgba(9,132,227,0.3); }
+  .flow-node.type-data .node-icon-box { background: var(--flow-blue); }
+  .flow-node.type-data.active { border-color: var(--flow-blue); box-shadow: 0 4px 20px rgba(9,132,227,0.25); }
   .flow-node.type-data.done { border-color: var(--flow-blue); }
 
-  .flow-node.type-ai .node-icon { background: var(--flow-purple); }
-  .flow-node.type-ai.active { border-color: var(--flow-purple); box-shadow: 0 0 12px rgba(108,92,231,0.3); }
+  .flow-node.type-ai .node-icon-box { background: var(--flow-purple); }
+  .flow-node.type-ai.active { border-color: var(--flow-purple); box-shadow: 0 4px 20px rgba(108,92,231,0.25); }
   .flow-node.type-ai.done { border-color: var(--flow-purple); }
 
-  .flow-node.type-output .node-icon { background: var(--flow-coral); }
-  .flow-node.type-output.active { border-color: var(--flow-coral); box-shadow: 0 0 12px rgba(255,107,107,0.3); }
+  .flow-node.type-output .node-icon-box { background: var(--flow-coral); }
+  .flow-node.type-output.active { border-color: var(--flow-coral); box-shadow: 0 4px 20px rgba(255,107,107,0.25); }
   .flow-node.type-output.done { border-color: var(--flow-coral); }
 
-  .flow-desc-text {
-    text-align: center;
-    font-size: 12px;
-    color: var(--ac-dark-secondary);
-    padding: 8px 16px;
-    min-height: 30px;
-    transition: opacity 0.3s;
+  /* Active node description bar */
+  .flow-desc-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #F0F2F5;
+    border-top: 1px solid var(--ac-light-gray);
+    min-height: 50px;
+    transition: all 0.3s;
+  }
+  .flow-desc-bar .desc-step-badge {
+    background: var(--ac-coral);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .flow-desc-bar .desc-text {
+    font-size: 13px;
+    color: var(--ac-dark);
+    line-height: 1.4;
   }
 
+  /* SVG connectors */
   .svg-path {
     fill: none;
-    stroke: var(--ac-light-gray);
-    stroke-width: 2;
-    transition: stroke 0.4s;
+    stroke: #D5D8DC;
+    stroke-width: 2.5;
+    transition: stroke 0.4s, stroke-width 0.3s;
   }
   .svg-path.active {
-    stroke: var(--ac-med-gray);
-    stroke-width: 2;
+    stroke: var(--ac-coral);
+    stroke-width: 3;
   }
   .svg-path.done {
     stroke: var(--ac-med-gray);
+    stroke-width: 2.5;
   }
   /* Traveling dot animation */
   .svg-dot {
     fill: var(--ac-coral);
-    r: 4;
+    r: 5;
     opacity: 0;
   }
   .svg-dot.active {
     opacity: 1;
   }
 
-  @keyframes travelDot {
-    0% { offset-distance: 0%; }
-    100% { offset-distance: 100%; }
+  @keyframes pulseGlow {
+    0%, 100% { filter: drop-shadow(0 0 3px currentColor); }
+    50% { filter: drop-shadow(0 0 8px currentColor); }
   }
 
   /* Details Tab */
@@ -1548,39 +1548,51 @@ class FlowVisualization {
 
   getNodeTypeIcon(type) {
     switch(type) {
-      case 'trigger': return '\u25B6';
-      case 'data': return '\u2630';
-      case 'ai': return '\u2726';
-      case 'output': return '\u2794';
-      default: return '\u2022';
+      case 'trigger': return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polygon points="5,3 19,12 5,21"/></svg>';
+      case 'data': return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>';
+      case 'ai': return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>';
+      case 'output': return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>';
+      default: return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>';
+    }
+  }
+
+  getNodeTypeSublabel(type) {
+    switch(type) {
+      case 'trigger': return 'Trigger';
+      case 'data': return 'Data';
+      case 'ai': return 'AI Agent';
+      case 'output': return 'Output';
+      default: return 'Node';
     }
   }
 
   render() {
     this.container.innerHTML = `
-      <h3 style="margin-bottom:16px;color:var(--ac-dark);">Workflow Flow</h3>
       <div class="flow-canvas-wrapper">
         <div class="flow-canvas-header">
-          <span>${this.workflow.name} &mdash; Flow Visualization</span>
+          <span>${this.workflow.name}</span>
+          <div style="margin-left:auto;display:flex;gap:6px;align-items:center;">
+            <button class="playback-btn" data-action="prev" title="Previous step">&#9664;</button>
+            <button class="playback-btn primary" data-action="play" id="flow-play-btn" title="Play animation">&#9654;</button>
+            <button class="playback-btn" data-action="next" title="Next step">&#9654;</button>
+          </div>
         </div>
         <div class="flow-canvas-body">
           <div class="flow-canvas" id="flow-canvas"></div>
         </div>
-        <div class="flow-desc-text" id="flow-desc-text"></div>
+        <div class="flow-desc-bar" id="flow-desc-bar">
+          <span class="desc-step-badge" id="flow-step-badge" style="display:none;"></span>
+          <span class="desc-text" id="flow-desc-text">Click play or step through the workflow</span>
+        </div>
       </div>
-      <div class="step-desc" id="flow-step-desc"></div>
-      <div class="step-detail" id="flow-step-detail"></div>
-      <div class="playback-controls">
-        <button class="playback-btn" data-action="prev">&#9664;</button>
-        <button class="playback-btn primary" data-action="play" id="flow-play-btn">&#9654;</button>
+      <div class="playback-controls" style="margin-top:8px;">
         <div class="playback-dots" id="flow-dots"></div>
-        <button class="playback-btn" data-action="next">&#9654;</button>
       </div>`;
 
     this.canvas = this.container.querySelector('#flow-canvas');
+    this.descBar = this.container.querySelector('#flow-desc-bar');
     this.descText = this.container.querySelector('#flow-desc-text');
-    this.stepDesc = this.container.querySelector('#flow-step-desc');
-    this.stepDetail = this.container.querySelector('#flow-step-detail');
+    this.stepBadge = this.container.querySelector('#flow-step-badge');
     this.dotsEl = this.container.querySelector('#flow-dots');
     this.playBtn = this.container.querySelector('#flow-play-btn');
 
@@ -1588,7 +1600,6 @@ class FlowVisualization {
     this.container.querySelector('[data-action="play"]').onclick = () => this.togglePlay();
     this.container.querySelector('[data-action="next"]').onclick = () => this.stepForward();
 
-    // Build graph after a tick so the canvas has dimensions
     requestAnimationFrame(() => {
       this.buildGraph();
       this.renderDots();
@@ -1598,39 +1609,67 @@ class FlowVisualization {
 
   buildGraph() {
     const count = this.nodes.length;
-    const canvasRect = this.canvas.parentElement.getBoundingClientRect();
-    const canvasW = canvasRect.width || 600;
-    const canvasH = canvasRect.height || 240;
+    const nodeW = 220;
+    const nodeH = 48;
+    const hGap = 48;
+    const vGap = 48;
+    const pad = 30;
 
-    const nodeW = 52;
-    const nodeH = 42;
-    const padding = 50;
-    const spacing = (canvasW - 2 * padding - nodeW) / Math.max(count - 1, 1);
-    const centerY = (canvasH - nodeH) / 2 - 5;
+    // Simple left-to-right layout, wrap to next row when needed
+    const containerW = this.canvas.parentElement.offsetWidth || 700;
+    const positions = [];
+    let curX = pad;
+    let curY = pad;
+    let rowStart = 0;
 
-    this.nodePositions = this.nodes.map((n, i) => ({
-      x: padding + i * spacing,
-      y: centerY,
-      cx: padding + i * spacing + nodeW / 2,
-      cy: centerY + nodeH / 2,
-      right: padding + i * spacing + nodeW,
-      left: padding + i * spacing
+    for (let i = 0; i < count; i++) {
+      if (i > rowStart && curX + nodeW > containerW - pad) {
+        curX = pad;
+        curY += nodeH + vGap;
+        rowStart = i;
+      }
+      positions.push({ x: curX, y: curY });
+      curX += nodeW + hGap;
+    }
+
+    const totalW = Math.max(...positions.map(p => p.x + nodeW)) + pad;
+    const totalH = Math.max(...positions.map(p => p.y + nodeH)) + pad;
+
+    this.canvas.style.width = totalW + 'px';
+    this.canvas.style.height = totalH + 'px';
+    this.canvas.parentElement.style.minHeight = totalH + 'px';
+
+    this.nodePositions = positions.map(p => ({
+      x: p.x, y: p.y,
+      cx: p.x + nodeW / 2,
+      cy: p.y + nodeH / 2,
+      right: p.x + nodeW,
+      left: p.x
     }));
 
-    // Build SVG connections with bezier curves
+    // SVG connectors — pixel coordinates, no viewBox
     let svgContent = '';
     for (let i = 0; i < count - 1; i++) {
       const from = this.nodePositions[i];
       const to = this.nodePositions[i + 1];
-      const x1 = from.right + 4;
+      const x1 = from.right;
       const y1 = from.cy;
-      const x2 = to.left - 4;
+      const x2 = to.left;
       const y2 = to.cy;
-      const dx = (x2 - x1) * 0.5;
-      const d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+
+      let d;
+      if (Math.abs(y2 - y1) > 5) {
+        // Row wrap: go right, curve down, then left to next node
+        const peakX = x1 + 40;
+        d = `M${x1},${y1} C${peakX},${y1} ${peakX},${y2} ${x2},${y2}`;
+      } else {
+        // Same row: horizontal bezier
+        const dx = (x2 - x1) * 0.4;
+        d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+      }
+
       svgContent += `<path class="svg-path" data-conn="${i}" d="${d}" id="conn-path-${i}"/>`;
-      // Traveling dot
-      svgContent += `<circle class="svg-dot" data-dot="${i}" r="4" cx="0" cy="0">
+      svgContent += `<circle class="svg-dot" data-dot="${i}" r="5" cx="0" cy="0">
         <animateMotion dur="0.8s" repeatCount="indefinite" begin="indefinite">
           <mpath href="#conn-path-${i}"/>
         </animateMotion>
@@ -1638,24 +1677,24 @@ class FlowVisualization {
     }
 
     this.canvas.innerHTML = `
-      <svg viewBox="0 0 ${canvasW} ${canvasH}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
+      <svg width="${totalW}" height="${totalH}" style="position:absolute;top:0;left:0;pointer-events:none;">
         ${svgContent}
       </svg>
       ${this.nodes.map((n, i) => {
         const pos = this.nodePositions[i];
         return `<div class="flow-node type-${n.type}" data-node="${i}"
                      style="left:${pos.x}px;top:${pos.y}px;width:${nodeW}px;height:${nodeH}px;">
-          <span class="node-icon">${this.getNodeTypeIcon(n.type)}</span>
-          <span class="conn-dot-in"></span>
-          <span class="conn-dot-out"></span>
-          <span class="node-label" title="${n.name}">${n.name}</span>
+          <div class="node-icon-box">${this.getNodeTypeIcon(n.type)}</div>
+          <div class="node-text">
+            <span class="node-label">${n.name}</span>
+            <span class="node-sublabel">${this.getNodeTypeSublabel(n.type)}</span>
+          </div>
         </div>`;
       }).join('')}`;
 
-    // Show all nodes with initial dim state
     setTimeout(() => {
       this.canvas.querySelectorAll('.flow-node').forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), i * 80);
+        setTimeout(() => el.classList.add('visible'), i * 100);
       });
     }, 100);
   }
@@ -1672,13 +1711,12 @@ class FlowVisualization {
   updateDesc() {
     if (this.currentStep >= 0 && this.currentStep < this.nodes.length) {
       const node = this.nodes[this.currentStep];
-      this.stepDesc.textContent = `Step ${node.step}: ${node.name}`;
-      this.stepDetail.textContent = node.description;
-      this.descText.textContent = node.description;
+      this.stepBadge.style.display = '';
+      this.stepBadge.textContent = `Step ${node.step}`;
+      this.descText.innerHTML = `<strong>${node.name}</strong> &mdash; ${node.description}`;
     } else {
-      this.stepDesc.textContent = 'Click play to animate the workflow flow';
-      this.stepDetail.textContent = '';
-      this.descText.textContent = '';
+      this.stepBadge.style.display = 'none';
+      this.descText.textContent = 'Click play or step through the workflow';
     }
   }
 

@@ -25,6 +25,9 @@ CATEGORIES = [
     {"id": "daily-intelligence", "name": "Daily Intelligence", "icon": "sun"},
     {"id": "pipeline-forecasting", "name": "Pipeline & Forecasting", "icon": "trending-up"},
     {"id": "account-monitoring", "name": "Account Monitoring", "icon": "shield"},
+    {"id": "customer-success", "name": "Customer Success", "icon": "heart"},
+    {"id": "coaching-enablement", "name": "Coaching & Enablement", "icon": "target"},
+    {"id": "strategic-intelligence", "name": "Strategic Intelligence", "icon": "zap"},
 ]
 
 CATEGORY_IDS = {c["id"] for c in CATEGORIES}
@@ -39,9 +42,9 @@ CREDENTIAL_PATTERNS = [
 # Keywords used to classify node types
 NODE_TYPE_KEYWORDS = {
     "trigger": ["trigger", "schedule", "cron", "webhook"],
-    "data":    ["people.ai", "mcp", "fetch", "get", "query", "gmail", "api"],
-    "ai":      ["claude", "ai", "agent", "gpt", "anthropic", "analyze"],
-    "output":  ["slack", "email", "send", "deliver", "post", "alert"],
+    "ai":      ["\\bai\\b", "agent", "claude", "gpt", "anthropic", "analyze", "triage", "classification", "llm", "summariz"],
+    "data":    ["people.ai", "mcp", "fetch", "get", "query", "enrich", "context", "filter", "identify", "code", "conditional", "api", "gather", "pull", "wait", "follow up", "deferred", "compile", "check", "find", "scan", "calculate", "benchmark"],
+    "output":  ["slack", "teams", "send", "deliver", "alert", "route", "channel", "messaging", "notify", "post to"],
 }
 
 NODE_TYPE_COLORS = {
@@ -196,25 +199,45 @@ def _parse_node_flow(text: str) -> list:
 
 
 def _classify_node(name: str, description: str) -> str:
-    """Classify a node type based on keywords in name and description."""
-    combined = (name + " " + description).lower()
-    # Check in priority order: trigger first, then output, ai, data
+    """Classify a node type based on keywords — name takes priority over description."""
+    name_lower = name.lower()
+    desc_lower = description.lower()
+
+    def _match(text, kw):
+        if kw.startswith("\\b"):
+            return bool(re.search(kw, text))
+        return kw in text
+
+    # First pass: classify from name only (most reliable signal)
     for ntype in ["trigger", "output", "ai", "data"]:
         for kw in NODE_TYPE_KEYWORDS[ntype]:
-            if kw in combined:
+            if _match(name_lower, kw):
                 return ntype
+
+    # Second pass: classify from description
+    for ntype in ["trigger", "ai", "data", "output"]:
+        for kw in NODE_TYPE_KEYWORDS[ntype]:
+            if _match(desc_lower, kw):
+                return ntype
+
     return "data"  # default
 
 
 def _infer_category(text: str) -> str:
     """Best-effort category inference from text."""
     t = text.lower()
-    if any(kw in t for kw in ["digest", "daily", "morning", "intelligence"]):
+    if any(kw in t for kw in ["digest", "daily", "morning", "intelligence", "brief"]):
         return "daily-intelligence"
-    if any(kw in t for kw in ["pipeline", "forecast", "deal", "revenue"]):
+    if any(kw in t for kw in ["pipeline", "forecast", "deal", "revenue", "opportunity", "handoff", "mql"]):
         return "pipeline-forecasting"
-    if any(kw in t for kw in ["account", "monitor", "alert", "watch"]):
+    if any(kw in t for kw in ["account", "monitor", "alert", "watch", "silence", "inbox"]):
         return "account-monitoring"
+    if any(kw in t for kw in ["churn", "retention", "renewal", "onboarding", "customer success", "health"]):
+        return "customer-success"
+    if any(kw in t for kw in ["coaching", "enablement", "activity gap", "hygiene", "win/loss", "debrief"]):
+        return "coaching-enablement"
+    if any(kw in t for kw in ["competitive", "territory", "qbr", "displacement", "heat map", "strategic", "sponsor"]):
+        return "strategic-intelligence"
     return "daily-intelligence"  # fallback
 
 

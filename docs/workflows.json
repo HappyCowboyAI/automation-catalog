@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-08T18:46:24.128742+00:00",
+  "_generated": "2026-03-08T22:20:23.474739+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -16,6 +16,21 @@
       "id": "account-monitoring",
       "name": "Account Monitoring",
       "icon": "shield"
+    },
+    {
+      "id": "customer-success",
+      "name": "Customer Success",
+      "icon": "heart"
+    },
+    {
+      "id": "coaching-enablement",
+      "name": "Coaching & Enablement",
+      "icon": "target"
+    },
+    {
+      "id": "strategic-intelligence",
+      "name": "Strategic Intelligence",
+      "icon": "zap"
     }
   ],
   "workflows": [
@@ -51,8 +66,8 @@
           "step": 3,
           "name": "Gather Account Activity",
           "description": "For each user, calls People.ai MCP to pull overnight account updates, engagement signals, and deal movements.",
-          "type": "ai",
-          "color": "purple"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 4,
@@ -98,8 +113,8 @@
           "step": 2,
           "name": "Enrich with Account Context",
           "description": "Calls People.ai MCP to pull recent account activity, engagement timeline, and stakeholder map for the meeting's associated account.",
-          "type": "ai",
-          "color": "purple"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 3,
@@ -145,8 +160,8 @@
           "step": 2,
           "name": "Identify Silent Accounts",
           "description": "Queries People.ai MCP and the Config Store to find accounts with no recent engagement activity, then splits results into batches for processing.",
-          "type": "ai",
-          "color": "purple"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 3,
@@ -199,15 +214,15 @@
           "step": 2,
           "name": "Gather Activity & Pipeline Data",
           "description": "Pulls recent account engagement from People.ai MCP and current open opportunities, then merges the datasets to identify gaps.",
-          "type": "ai",
-          "color": "purple"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 3,
           "name": "Identify Unmatched Accounts",
           "description": "Code and set nodes cross-reference activity against pipeline to find accounts with engagement signals but no open opportunity.",
-          "type": "ai",
-          "color": "purple"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 4,
@@ -252,8 +267,8 @@
           "step": 2,
           "name": "Pull Team Pipeline",
           "description": "Fetches open opportunities for each sales leader's team via People.ai MCP and filters for active, in-progress deals.",
-          "type": "ai",
-          "color": "purple"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 3,
@@ -307,22 +322,22 @@
           "step": 2,
           "name": "Identify Customer Emails",
           "description": "Code and conditional logic filter out internal, automated, and non-customer messages, keeping only emails that warrant attention.",
-          "type": "output",
-          "color": "orange"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 3,
           "name": "Enrich with Account Context",
           "description": "For each customer email, queries People.ai MCP and Project Management (Jira, Asana, etc.) to pull account status, recent activity, open tickets, and relationship history.",
-          "type": "output",
-          "color": "orange"
+          "type": "data",
+          "color": "blue"
         },
         {
           "step": 4,
           "name": "AI Triage & Classification",
           "description": "AI Agent (via agent, structured output parser, and chain) analyzes email content plus account context to assign urgency, category, and routing recommendation.",
-          "type": "output",
-          "color": "orange"
+          "type": "ai",
+          "color": "purple"
         },
         {
           "step": 5,
@@ -335,8 +350,594 @@
           "step": 6,
           "name": "Await & Follow Up",
           "description": "Wait nodes handle deferred actions and ensure follow-up tasks are tracked.",
+          "type": "data",
+          "color": "blue"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "07-churn-risk-scorecard",
+      "name": "Churn Risk Scorecard",
+      "description": "Generates a weekly churn risk scorecard for the customer success team. The workflow pulls engagement trends, support ticket volumes, champion contact activity, and product usage signals from People.ai and the CRM. An AI agent scores each account on a 1-10 churn risk scale, identifies the top risk drivers, and suggests specific save plays. The scorecard is delivered to CS managers via Messaging with accounts ranked by risk severity.",
+      "category": "customer-success",
+      "trigger": "Schedule \u2014 Weekly Monday 7:00 AM                     |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Engagement trends and contact activity",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI risk scoring and analysis",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Active account list and support data",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers scorecard to CS managers"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires weekly on Monday at 7:00 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Fetch Active Accounts",
+          "description": "Queries CRM for all active customer accounts assigned to the CS team.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Enrich with Engagement Data",
+          "description": "For each account, pulls People.ai engagement trends, contact activity changes, and meeting frequency from MCP.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Risk Scoring",
+          "description": "AI Agent analyzes engagement drop-offs, support ticket spikes, champion departures, and usage patterns to assign a 1-10 churn risk score with top risk drivers.",
           "type": "ai",
           "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Compile Scorecard",
+          "description": "Aggregates scored accounts into a ranked scorecard with risk tiers (Critical / Watch / Healthy) and suggested save plays.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 6,
+          "name": "Deliver to CS Managers",
+          "description": "Sends the formatted scorecard via Messaging to each CS manager for their portfolio.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "08-renewal-prep-brief",
+      "name": "Renewal Prep Brief",
+      "description": "Automatically generates renewal preparation briefs at 60, 30, and 15 days before each account's renewal date. The workflow queries the CRM for upcoming renewals, enriches each account with People.ai engagement trends, support history, expansion signals, and key contact activity. An AI agent produces a structured brief covering account health, risk factors, expansion opportunities, and a recommended renewal strategy. Briefs are delivered to the assigned CSM and account executive via Messaging.",
+      "category": "customer-success",
+      "trigger": "Schedule \u2014 Daily 7:00 AM                             |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Engagement trends and relationship health",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI brief generation",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Renewal dates and account data",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers briefs to account teams"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires daily at 7:00 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Find Upcoming Renewals",
+          "description": "Queries CRM for accounts with renewals in 60, 30, or 15 days, filtering out those already briefed at this milestone.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Enrich with Account Health",
+          "description": "For each renewal account, pulls People.ai engagement trends, support ticket history, champion activity, and expansion signals from MCP.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Brief Generation",
+          "description": "AI Agent synthesizes engagement data into a structured renewal brief with health score, risk factors, expansion opportunities, and recommended strategy.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Deliver to Account Team",
+          "description": "Sends the brief to the assigned CSM and AE via Messaging with the renewal date and urgency tier highlighted.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "09-onboarding-pulse",
+      "name": "Onboarding Pulse",
+      "description": "Monitors newly closed deals during their first 90 days to detect accounts going dark before they become a retention problem. The workflow identifies recently closed-won accounts, checks People.ai engagement data for post-sale activity (meetings booked, emails exchanged, contacts engaged), and flags accounts with below-threshold engagement. An AI agent assesses each flagged account and recommends specific re-engagement actions. Alerts are sent to the CSM and sales handoff team via Messaging.",
+      "category": "customer-success",
+      "trigger": "Schedule \u2014 Daily 8:00 AM                             |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Post-sale engagement tracking",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI engagement assessment",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Closed-won account data",
+        "Messaging (Slack, Teams, Email) \u2014 Alerts to CSMs"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires daily at 8:00 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Find New Customers",
+          "description": "Queries CRM for accounts closed-won in the last 90 days.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Check Post-Sale Engagement",
+          "description": "For each account, pulls People.ai data on meetings, emails, and contact engagement since close date.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Engagement Assessment",
+          "description": "AI Agent evaluates whether engagement is on track, at risk, or dark. Generates re-engagement recommendations for at-risk accounts.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Alert on Silent Accounts",
+          "description": "Sends alerts to the CSM for accounts flagged as at-risk or dark, with specific recommended next steps.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "10-activity-gap-detector",
+      "name": "Activity Gap Detector",
+      "description": "Compares each rep's weekly activity patterns against team benchmarks and top performer profiles using People.ai activity data. Identifies reps with low outbound activity, thin multi-threading on key deals, or single-threaded opportunities missing executive engagement. An AI agent generates personalized coaching nudges for sales managers, highlighting specific gaps and suggesting actionable improvement areas. Delivered weekly to frontline managers via Messaging.",
+      "category": "coaching-enablement",
+      "trigger": "Schedule \u2014 Weekly Friday 8:00 AM                     |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Rep activity and engagement data",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI coaching analysis",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers coaching digests to managers"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires weekly on Friday at 8:00 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Fetch Team Activity",
+          "description": "Pulls People.ai activity data for all reps on the team: emails sent, meetings held, contacts engaged, accounts touched.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Benchmark Analysis",
+          "description": "Code node calculates team averages and top-performer baselines, then flags reps falling below thresholds.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Coaching Insights",
+          "description": "AI Agent analyzes each flagged rep's patterns, identifies specific gaps (e.g., low multi-threading, no exec outreach), and generates coaching recommendations.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Deliver to Managers",
+          "description": "Sends a per-manager coaching digest via Messaging, listing their reps' gaps with suggested conversation starters.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "11-deal-hygiene-audit",
+      "name": "Deal Hygiene Audit",
+      "description": "Performs a weekly pipeline hygiene audit by scanning all open opportunities in the CRM and cross-referencing with People.ai engagement data. Flags deals with stale close dates, no recent activity, missing next steps, single-threaded contacts, or no executive engagement. An AI agent prioritizes the issues and generates a per-rep action list with specific cleanup tasks. Delivered to reps and their managers via Messaging every Monday morning.",
+      "category": "coaching-enablement",
+      "trigger": "Schedule \u2014 Weekly Monday 7:30 AM                     |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Deal engagement and activity data",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI hygiene assessment",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Open pipeline data",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers action lists to reps and managers"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires weekly on Monday at 7:30 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Pull Open Pipeline",
+          "description": "Queries CRM for all open opportunities with their stages, close dates, and assigned reps.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Check Deal Engagement",
+          "description": "For each deal, pulls People.ai data on last activity date, contacts engaged, meeting recency, and email thread status.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Hygiene Assessment",
+          "description": "AI Agent identifies hygiene issues per deal (stale, single-threaded, no exec, past close date) and prioritizes by deal value and stage.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Deliver Action Lists",
+          "description": "Sends a per-rep cleanup checklist via Messaging, CC'ing their manager, with specific actions for each flagged deal.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "12-win-loss-debrief",
+      "name": "Win/Loss Debrief Generator",
+      "description": "Automatically generates a structured win/loss debrief when any deal closes (won or lost). Triggered by a CRM webhook on stage change, the workflow pulls the full engagement timeline from People.ai \u2014 every meeting, email, contact involved, and engagement cadence throughout the deal cycle. An AI agent analyzes the timeline to produce a structured debrief: what worked, where engagement dropped, key turning points, multi-threading effectiveness, and lessons learned. The debrief is delivered to the rep, their manager, and optionally a shared enablement channel.",
+      "category": "coaching-enablement",
+      "trigger": "Webhook \u2014 CRM deal stage change to Closed Won/Lost   |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Full deal engagement timeline",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI debrief generation",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Deal close webhook and opportunity data",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers debriefs to rep, manager, and team"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Webhook Trigger",
+          "description": "Fires when a CRM opportunity moves to Closed Won or Closed Lost.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Fetch Deal Timeline",
+          "description": "Pulls the complete People.ai engagement history for the deal: meetings, emails, contacts, activity cadence over the deal lifecycle.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "AI Debrief Analysis",
+          "description": "AI Agent analyzes the full timeline, identifies key moments (first exec meeting, proposal sent, competitor mention, engagement gaps), and generates a structured debrief.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 4,
+          "name": "Deliver Debrief",
+          "description": "Formats the debrief as a rich message and delivers to the rep, their manager, and the team enablement channel via Messaging.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "13-competitive-displacement-alert",
+      "name": "Competitive Displacement Alert",
+      "description": "Monitors customer accounts for early signs of competitive displacement. The workflow scans People.ai engagement data for accounts where internal engagement has suddenly dropped while simultaneously checking for competitor mentions in email subjects, meeting titles, or CRM notes. An AI agent evaluates the combined signals to assess displacement risk and recommends defensive actions. High-risk alerts are sent immediately to the account owner and their manager via Messaging.",
+      "category": "strategic-intelligence",
+      "trigger": "Schedule \u2014 Daily 7:00 AM                             |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Engagement trend data and drop detection",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI displacement analysis",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Competitor signal search",
+        "Messaging (Slack, Teams, Email) \u2014 High-priority alerts to account teams"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires daily at 7:00 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Scan Engagement Drops",
+          "description": "Queries People.ai for accounts with significant week-over-week engagement declines (meetings, emails, response times).",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Check Competitor Signals",
+          "description": "For flagged accounts, searches CRM notes, email subjects, and meeting titles for competitor name mentions or evaluation-related keywords.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Displacement Assessment",
+          "description": "AI Agent correlates engagement drops with competitor signals, assigns a displacement risk level, and generates a defensive action plan.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Alert Account Team",
+          "description": "Sends high-priority alerts to the account owner and manager via Messaging with risk assessment and recommended defensive plays.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "14-territory-heat-map",
+      "name": "Territory Heat Map",
+      "description": "Generates a weekly territory heat map digest for each rep, showing which accounts in their territory are heating up (increased inbound, new contacts engaging, meeting frequency rising) versus cooling down (declining engagement, unresponsive contacts). The workflow pulls People.ai engagement data across all accounts in each rep's territory, calculates week-over-week momentum scores, and uses an AI agent to summarize trends and recommend where to focus time. Delivered every Monday to help reps prioritize their week.",
+      "category": "strategic-intelligence",
+      "trigger": "Schedule \u2014 Weekly Monday 6:30 AM                     |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Account engagement data across territories",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI territory analysis",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers heat map digests to reps"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires weekly on Monday at 6:30 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Fetch Territory Assignments",
+          "description": "Pulls each rep's assigned accounts from CRM or People.ai territory data.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Calculate Account Momentum",
+          "description": "For each account, queries People.ai for week-over-week engagement changes and calculates a momentum score (heating up / steady / cooling down).",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Territory Summary",
+          "description": "AI Agent analyzes the momentum map, identifies the hottest opportunities and coldest risks, and recommends a prioritized focus list for the week.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Deliver Heat Map Digest",
+          "description": "Sends a per-rep territory digest via Messaging with accounts color-coded by momentum.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "15-qbr-auto-prep",
+      "name": "QBR Auto-Prep",
+      "description": "Automatically prepares quarterly business review materials for every account on an upcoming QBR agenda. The workflow scans the calendar for meetings tagged as QBRs (or matching configurable title patterns), then for each account on the agenda, pulls the full quarter's engagement data from People.ai: meeting frequency, email volume, contacts engaged, key relationship changes, and deal progression. An AI agent generates a structured QBR prep document with executive summary, engagement trends, wins/risks, and talking points. Delivered to the account team 48 hours before the QBR.",
+      "category": "strategic-intelligence",
+      "trigger": "Schedule \u2014 Weekly (configurable to quarterly cadence) |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Quarterly engagement data and relationship maps",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI document generation",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Account and opportunity context",
+        "Calendar (Google Calendar, Outlook) \u2014 QBR meeting detection",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers prep materials to account teams"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires on a configurable schedule to check for upcoming QBRs within the next 48 hours.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Find Upcoming QBRs",
+          "description": "Scans calendar for meetings matching QBR title patterns, extracts the associated account names.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Pull Quarterly Engagement",
+          "description": "For each QBR account, queries People.ai for the full quarter's engagement data: meetings, emails, contact maps, and activity trends.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI QBR Document Generation",
+          "description": "AI Agent produces a structured QBR prep document with executive summary, quarter-over-quarter trends, key wins, risk areas, and recommended talking points.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Deliver Prep Materials",
+          "description": "Sends the QBR prep document to the account team via Messaging 48 hours before the meeting.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "16-executive-sponsor-tracker",
+      "name": "Executive Sponsor Tracker",
+      "description": "Monitors executive-level contact engagement across strategic deals to ensure champion and sponsor relationships stay active. The workflow identifies open opportunities above a configurable deal value threshold, checks People.ai for executive contact engagement (VP+ titles), and flags deals where executive sponsors have gone silent (no meetings or emails in the configured lookback window). An AI agent assesses the risk of each silent-sponsor situation and recommends re-engagement tactics. Alerts are sent to the deal owner and sales leadership via Messaging.",
+      "category": "strategic-intelligence",
+      "trigger": "Schedule \u2014 Daily 7:30 AM                             |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Executive contact engagement data",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI risk and re-engagement analysis",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 Strategic deal and contact data",
+        "Messaging (Slack, Teams, Email) \u2014 Alerts to deal owners and leadership"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Schedule Trigger",
+          "description": "Fires daily at 7:30 AM.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Find Strategic Deals",
+          "description": "Queries CRM for open opportunities above the deal value threshold with identified executive contacts.",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 3,
+          "name": "Check Executive Engagement",
+          "description": "For each deal, pulls People.ai engagement data for VP+ contacts to detect silent sponsors (no activity in lookback window).",
+          "type": "data",
+          "color": "blue"
+        },
+        {
+          "step": 4,
+          "name": "AI Risk & Re-engagement",
+          "description": "AI Agent evaluates the impact of sponsor silence on deal health and generates specific re-engagement tactics per deal.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 5,
+          "name": "Alert Deal Owners",
+          "description": "Sends alerts to deal owners and sales leadership via Messaging for deals with silent executive sponsors.",
+          "type": "output",
+          "color": "orange"
+        }
+      ],
+      "configuration": [],
+      "quick_start_vs_full": "",
+      "exports": []
+    },
+    {
+      "id": "17-marketing-sales-handoff-scorer",
+      "name": "Marketing-to-Sales Handoff Scorer",
+      "description": "Enriches marketing-qualified leads at the moment of handoff by checking People.ai for existing engagement history. When a new MQL is created in the CRM or marketing automation platform, the workflow queries People.ai to see if the account already has relationship history \u2014 prior meetings, email threads, known contacts, or past opportunities. An AI agent scores the handoff quality (hot / warm / cold) and generates a context brief for the receiving SDR or AE, so they never walk into a \"cold\" call that's actually warm. Delivered instantly via Messaging.",
+      "category": "pipeline-forecasting",
+      "trigger": "Webhook \u2014 New MQL created in CRM/MAP                 |",
+      "output": "",
+      "credentials": [
+        "People.ai MCP \u2014 Account engagement history",
+        "LLM API (Claude, OpenAI, Gemini, etc.) \u2014 AI handoff scoring",
+        "CRM (Salesforce, HubSpot, etc.) \u2014 MQL data and account lookup",
+        "Messaging (Slack, Teams, Email) \u2014 Delivers scored handoff to SDR/AE"
+      ],
+      "node_flow": [
+        {
+          "step": 1,
+          "name": "Webhook Trigger",
+          "description": "Fires when a new MQL is created in CRM or marketing automation platform.",
+          "type": "trigger",
+          "color": "green"
+        },
+        {
+          "step": 2,
+          "name": "Enrich with People.ai History",
+          "description": "Queries People.ai for any existing engagement with the MQL's account: past meetings, email history, known contacts, prior opportunities.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 3,
+          "name": "AI Handoff Scoring",
+          "description": "AI Agent evaluates the engagement history to score the handoff (hot / warm / cold) and generates a context brief with key talking points and relationship history.",
+          "type": "ai",
+          "color": "purple"
+        },
+        {
+          "step": 4,
+          "name": "Deliver to SDR/AE",
+          "description": "Sends the scored handoff with context brief to the assigned SDR or AE via Messaging, including recommended first outreach approach.",
+          "type": "output",
+          "color": "orange"
         }
       ],
       "configuration": [],
