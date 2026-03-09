@@ -195,7 +195,7 @@
   /* Card Grid */
   .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
@@ -203,17 +203,35 @@
     background: var(--ac-white);
     border-radius: var(--radius);
     border: 1px solid var(--ac-light-gray);
-    padding: 20px;
     cursor: pointer;
     transition: all 0.25s;
     position: relative;
     border-left: 4px solid transparent;
+    display: flex;
+    overflow: hidden;
   }
   .card:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
     border-left-color: var(--ac-coral);
   }
+  .card-info {
+    flex: 1;
+    padding: 20px;
+    min-width: 0;
+  }
+  .card-preview {
+    flex: 0 0 340px;
+    padding: 16px;
+    background: #F8F9FA;
+    border-left: 1px solid var(--ac-light-gray);
+    display: flex;
+    align-items: center;
+  }
+  .card-preview .slack-mockup {
+    width: 100%;
+  }
+  .card-dots { display: none; }
 
   .card-number {
     font-size: 12px;
@@ -639,6 +657,58 @@
     margin-bottom: 8px;
   }
 
+  /* Sample Output Mockups */
+  .slack-mockup {
+    background: var(--ac-white);
+    border: 1px solid var(--ac-light-gray);
+    border-radius: 8px;
+    font-size: 13px;
+    overflow: hidden;
+  }
+  .slack-mockup-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px 0;
+  }
+  .slack-mockup-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: var(--ac-coral);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .slack-mockup-botname {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ac-dark);
+  }
+  .slack-mockup-time {
+    font-size: 11px;
+    color: var(--ac-med-gray);
+  }
+  .slack-mockup-body {
+    padding: 6px 12px 12px 48px;
+    color: var(--ac-dark);
+    line-height: 1.5;
+    font-size: 12.5px;
+    max-height: 180px;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+  .slack-mockup-body p { margin: 0 0 6px; }
+  .slack-mockup-body strong { font-weight: 700; }
+  .slack-mockup-body em { font-style: italic; color: var(--ac-dark-secondary); }
+  .slack-mockup-body ul { margin: 4px 0; padding-left: 16px; }
+  .slack-mockup-body li { margin: 2px 0; }
+
   /* Details Tab */
   .detail-section {
     margin-bottom: 20px;
@@ -752,6 +822,38 @@
     .card-grid { grid-template-columns: 1fr; }
     .detail-meta-row { flex-direction: column; gap: 8px; }
     .header-divider { display: none; }
+    .card {
+      flex-direction: row;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .card::-webkit-scrollbar { display: none; }
+    .card-info {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+    }
+    .card-preview {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      border-left: none;
+      border-top: none;
+    }
+    .card-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 0 4px;
+    }
+    .card-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ac-light-gray);
+    }
+    .card-dot.active {
+      background: var(--ac-coral);
+    }
   }
 </style>
 </head>
@@ -915,6 +1017,44 @@ function handleSearch() {
   renderCards();
 }
 
+function mdToHtml(md) {
+  return md
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    .split('\n\n').map(p => {
+      if (p.startsWith('<ul>') || p.startsWith('<li>')) return p;
+      return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+    }).join('');
+}
+
+function renderSlackMockup(sample) {
+  const initial = sample.bot_name ? sample.bot_name[0] : 'A';
+  return `
+    <div class="slack-mockup">
+      <div class="slack-mockup-header">
+        <div class="slack-mockup-avatar">${initial}</div>
+        <span class="slack-mockup-botname">${sample.bot_name || 'Bot'}</span>
+        <span class="slack-mockup-time">9:01 AM</span>
+      </div>
+      <div class="slack-mockup-body">${mdToHtml(sample.content)}</div>
+    </div>`;
+}
+
+function initCardSwipe() {
+  if (window.innerWidth > 768) return;
+  document.querySelectorAll('.card').forEach(card => {
+    const dots = card.querySelectorAll('.card-dot');
+    if (dots.length < 2) return;
+    card.addEventListener('scroll', () => {
+      const scrolled = card.scrollLeft > card.offsetWidth * 0.4;
+      dots[0].classList.toggle('active', !scrolled);
+      dots[1].classList.toggle('active', scrolled);
+    });
+  });
+}
+
 function renderCards() {
   let workflows = catalogData.workflows;
 
@@ -937,18 +1077,26 @@ function renderCards() {
   document.getElementById('card-grid').innerHTML = workflows.map(w => {
     const cat = catalogData.categories.find(c => c.id === w.category);
     const triggerShort = w.trigger.replace(/\s*\|.*$/, '').trim();
+    const preview = w.sample_output
+      ? renderSlackMockup(w.sample_output)
+      : '';
     return `
       <div class="card" onclick="navigate('#/workflow/${w.id}')">
-        <div class="card-number">${w.id} &middot; ${cat ? cat.name : ''}</div>
-        <div class="card-name">${w.name}</div>
-        <div class="card-desc">${w.description}</div>
-        <div class="card-meta">
-          <span class="badge badge-trigger">${triggerShort}</span>
-          ${w.output ? `<span class="badge badge-output">${w.output}</span>` : ''}
-          <span class="badge badge-category">${cat ? cat.name : ''}</span>
+        <div class="card-info">
+          <div class="card-number">${w.id} &middot; ${cat ? cat.name : ''}</div>
+          <div class="card-name">${w.name}</div>
+          <div class="card-desc">${w.description}</div>
+          <div class="card-meta">
+            <span class="badge badge-trigger">${triggerShort}</span>
+            ${w.output ? `<span class="badge badge-output">${w.output}</span>` : ''}
+            <span class="badge badge-category">${cat ? cat.name : ''}</span>
+          </div>
         </div>
+        ${preview ? `<div class="card-preview">${preview}</div>` : ''}
+        ${preview ? `<div class="card-dots"><span class="card-dot active"></span><span class="card-dot"></span></div>` : ''}
       </div>`;
   }).join('');
+  initCardSwipe();
 }
 
 // -- Detail Rendering --
