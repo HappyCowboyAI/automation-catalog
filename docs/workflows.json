@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T23:34:41.062219+00:00",
+  "_generated": "2026-03-09T23:46:00.007071+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -93,7 +93,12 @@
         "content": "\u2600\ufe0f **Good Morning, @sarah.chen** \u2014 Here's your daily digest for **Tuesday, Mar 4**\n\n\ud83d\udcca **PIPELINE MOVEMENT:**\n- **ACME Corp** ===$425,000=== moved to Technical Validation \u2014 @james.park scheduled POC for Thursday\n- **Globex Industries** ===$180,000=== \u2014 Procurement sent redlines on MSA, legal review needed by EOD Wednesday\n- **Initech** ===$92,000=== went dark after demo last Tuesday \u2014 6 days no response from champion\n\n\ud83d\udd14 **ENGAGEMENT HIGHLIGHTS:**\n- @mike.torres (VP Sales, NovaTech) opened your proposal deck 3x yesterday, forwarded to CFO\n- New inbound: Director of Ops at Contoso downloaded whitepaper + visited pricing page\n- Wayne Enterprises champion Sarah Kim accepted your QBR invite for next Monday\n\n\u26a1 **RECOMMENDED ACTIONS:**\n- Follow up with Initech champion \u2014 silence exceeds your 5-day threshold\n- Prep legal response for Globex MSA redlines before Wednesday deadline\n- Send NovaTech CFO a personalized ROI summary while momentum is hot\n\n---\n*Powered by People.ai MCP \u2014 14 accounts tracked, 3 need attention*"
       },
       "exports": [],
-      "platforms": {}
+      "platforms": {
+        "langgraph": "langgraph_sales_digest.py",
+        "claude-agent": "claude_agent_sales_digest.py",
+        "openai-agent": "openai_agent_sales_digest.py",
+        "recipe-card": "recipe-card.md"
+      }
     },
     {
       "id": "02-meeting-brief",
