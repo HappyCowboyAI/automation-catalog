@@ -1242,17 +1242,18 @@ function renderDetailsTab(wf) {
 
   const hasQuickStart = wf.exports && wf.exports.includes('quick-start.json');
   const hasFull = wf.exports && wf.exports.includes('full.json');
+  const rawBase = 'https://raw.githubusercontent.com/HappyCowboyAI/automation-catalog/main';
 
   html += `
     <div class="detail-section">
       <h3>Download Workflow</h3>
       <div class="btn-actions">
         ${hasQuickStart
-          ? `<a href="../${wf.id}/quick-start.json" download class="btn btn-copy">Download Quick Start</a>`
+          ? `<a href="${rawBase}/${wf.id}/quick-start.json" download class="btn btn-copy">Download Quick Start</a>`
           : `<button class="btn btn-copy disabled">Download Quick Start <span class="coming-soon-label">Coming Soon</span></button>`
         }
         ${hasFull
-          ? `<a href="../${wf.id}/full.json" download class="btn btn-download">Download Full Version</a>`
+          ? `<a href="${rawBase}/${wf.id}/full.json" download class="btn btn-download">Download Full Version</a>`
           : `<button class="btn btn-download disabled">Download Full Version <span class="coming-soon-label">Coming Soon</span></button>`
         }
       </div>
