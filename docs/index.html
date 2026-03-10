@@ -992,8 +992,28 @@
   <div style="max-width:900px;">
     <h2 style="margin-bottom:8px;">Setup Guides</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:28px;">
-      Step-by-step configuration guides for each delivery platform. Pick the one your team uses.
+      Step-by-step configuration guides for the services that power these workflows.
     </p>
+
+    <h3 style="margin-bottom:12px;color:var(--ac-coral);">Data Source</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:28px;">
+
+      <a href="#/guides/peopleai-mcp" style="text-decoration:none;color:inherit;">
+        <div style="background:var(--ac-white);border:2px solid var(--ac-coral);border-radius:var(--radius);padding:24px;transition:box-shadow .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)'" onmouseout="this.style.boxShadow='none'">
+          <div style="font-size:32px;margin-bottom:12px;">🧠</div>
+          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">People.ai MCP</div>
+          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+            Core data source for all workflows. MCP server setup, authentication, available tools, and platform integration.
+          </div>
+          <div style="margin-top:12px;">
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-coral);border-radius:4px;color:white;font-weight:600;">Required for all workflows</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <h3 style="margin-bottom:12px;color:var(--ac-coral);">Delivery Platforms</h3>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
 
       <a href="#/guides/slack-bot-setup" style="text-decoration:none;color:inherit;">
@@ -1048,6 +1068,274 @@
         </div>
       </a>
 
+    </div>
+  </div>
+</div>
+
+<!-- People.ai MCP Setup Guide -->
+<div id="guide-peopleai-mcp-view" class="container detail-view">
+  <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
+  <div class="about-content" style="max-width:800px;">
+    <h2>People.ai MCP Setup Guide</h2>
+    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+      The <strong>People.ai Model Context Protocol (MCP)</strong> server is the core data source
+      for every workflow in this catalog. It provides AI agents with direct access to account
+      activity, engagement data, opportunity status, and contact intelligence.
+    </p>
+
+    <div style="margin-top:8px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>What is MCP?</strong> Model Context Protocol is an open standard that lets AI agents
+      call external tools and data sources. People.ai's MCP server exposes sales intelligence
+      as tools that agents can invoke during reasoning — no custom API integration code needed.
+    </div>
+
+    <!-- ============ AVAILABLE TOOLS ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">Available MCP Tools</h3>
+    <p style="margin:8px 0;">The People.ai MCP server exposes these tools to connected agents:</p>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
+      <thead>
+        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+          <th style="padding:10px 12px;text-align:left;">Tool</th>
+          <th style="padding:10px 12px;text-align:left;">Description</th>
+          <th style="padding:10px 12px;text-align:left;">Used By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>find_account</code></td>
+          <td style="padding:10px 12px;">Search for accounts by name or domain</td>
+          <td style="padding:10px 12px;">All workflows</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>get_account_status</code></td>
+          <td style="padding:10px 12px;">Account health, engagement score, risk signals</td>
+          <td style="padding:10px 12px;">Silence Monitor, Churn Risk</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>get_recent_account_activity</code></td>
+          <td style="padding:10px 12px;">Meetings, emails, calls in a time window</td>
+          <td style="padding:10px 12px;">Sales Digest, Channel Pulse</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>get_opportunity_status</code></td>
+          <td style="padding:10px 12px;">Deal stage, amount, close date, activity</td>
+          <td style="padding:10px 12px;">Forecast Coach, Deal Hygiene</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>get_recent_opportunity_activity</code></td>
+          <td style="padding:10px 12px;">Recent deal-level interactions and changes</td>
+          <td style="padding:10px 12px;">Opportunity Discovery, Win/Loss</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>get_engaged_people</code></td>
+          <td style="padding:10px 12px;">Contacts with recent engagement on an account</td>
+          <td style="padding:10px 12px;">Meeting Brief, Sponsor Tracker</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>get_scorecard</code></td>
+          <td style="padding:10px 12px;">Rep and team performance metrics</td>
+          <td style="padding:10px 12px;">Activity Gap, Forecast Coach</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>ask_sales_ai_about_account</code></td>
+          <td style="padding:10px 12px;">Natural language queries about any account</td>
+          <td style="padding:10px 12px;">Executive Inbox, QBR Prep</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>ask_sales_ai_about_opportunity</code></td>
+          <td style="padding:10px 12px;">Natural language queries about any deal</td>
+          <td style="padding:10px 12px;">Forecast Coach, Competitive Alert</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>top_records</code></td>
+          <td style="padding:10px 12px;">Top accounts/opps by activity, risk, or value</td>
+          <td style="padding:10px 12px;">Territory Heat Map</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>account_company_news</code></td>
+          <td style="padding:10px 12px;">Recent news about an account's company</td>
+          <td style="padding:10px 12px;">Meeting Brief, QBR Prep</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ============ GETTING CREDENTIALS ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">1. Obtain MCP Credentials</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Contact your <strong>People.ai account team</strong> or admin to enable MCP access</li>
+      <li>You'll receive:
+        <ul style="margin:4px 0 4px 20px;">
+          <li><strong>MCP Server URL</strong> — the SSE endpoint (e.g., <code>https://mcp.people.ai/v1/sse</code>)</li>
+          <li><strong>Client ID</strong> — your organization's MCP client identifier</li>
+          <li><strong>Client Secret</strong> — authentication secret for the MCP server</li>
+        </ul>
+      </li>
+      <li>Verify access by connecting with any MCP-compatible client</li>
+    </ol>
+
+    <!-- ============ n8n ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">2. Platform Setup</h3>
+
+    <h4 style="margin-top:20px;">n8n (Native MCP Support)</h4>
+    <p style="margin:8px 0;">n8n has built-in MCP client nodes:</p>
+    <ol style="margin:8px 0 16px 20px;line-height:2;">
+      <li>In your workflow, add an <strong>MCP Client Tool</strong> node</li>
+      <li>Set the <strong>SSE URL</strong> to your People.ai MCP server endpoint</li>
+      <li>Configure authentication (Client ID + Secret as headers or query params per your People.ai setup)</li>
+      <li>Connect the MCP Client Tool to your <strong>AI Agent</strong> node</li>
+      <li>The agent can now invoke any People.ai tool during execution</li>
+    </ol>
+    <div style="padding:12px 16px;background:var(--wf-bg);border-radius:var(--radius);margin:8px 0 20px 0;">
+      <span style="color:var(--wf-green);font-weight:600;">Tip:</span>
+      <span style="color:var(--wf-text);font-size:13px;"> When importing catalog workflows (<code>full.json</code>), the MCP Client Tool node is already configured — just add your credentials.</span>
+    </div>
+
+    <h4 style="margin-top:20px;">LangGraph (Python)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">pip install langchain-mcp-adapters
+
+# In your code:
+from langchain_mcp_adapters.client import MultiServerMCPClient
+
+client = MultiServerMCPClient({
+    "peopleai": {
+        "url": os.environ["PEOPLEAI_MCP_URL"],
+        "transport": "sse",
+        "headers": {
+            "X-Client-Id": os.environ["PEOPLEAI_CLIENT_ID"],
+            "X-Client-Secret": os.environ["PEOPLEAI_CLIENT_SECRET"],
+        }
+    }
+})
+tools = await client.get_tools()
+# Bind tools to your LLM: llm.bind_tools(tools)</pre>
+
+    <h4 style="margin-top:20px;">Claude Agent SDK (Python)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">pip install claude-agent-sdk anthropic
+
+from claude_agent_sdk import Agent
+import anthropic
+
+agent = Agent(
+    client=anthropic.Anthropic(),
+    model="claude-sonnet-4-20250514",
+    system="You are a sales intelligence assistant...",
+    tools=[...],  # local tools
+    mcp_servers=[{
+        "name": "peopleai",
+        "url": os.environ["PEOPLEAI_MCP_URL"],
+    }],
+)</pre>
+
+    <h4 style="margin-top:20px;">OpenAI Agents SDK (Python)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">pip install openai-agents
+
+from agents import Agent
+from agents.mcp import MCPServerSse
+
+peopleai_mcp = MCPServerSse(
+    name="peopleai",
+    url=os.environ["PEOPLEAI_MCP_URL"],
+)
+
+agent = Agent(
+    name="Sales Intelligence",
+    instructions="You are a sales intelligence assistant...",
+    tools=[...],  # local tools
+    mcp_servers=[peopleai_mcp],
+)</pre>
+
+    <h4 style="margin-top:20px;">Make / Power Automate / Zapier</h4>
+    <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
+      <strong>MCP is not natively supported</strong> on Make, Power Automate, or Zapier. Options:
+      <ol style="margin:8px 0 0 20px;line-height:2;">
+        <li><strong>MCP-to-REST bridge</strong> — Deploy a lightweight proxy (e.g., <code>mcp-proxy</code>) that translates MCP tool calls to HTTP endpoints</li>
+        <li><strong>n8n as middleware</strong> — n8n handles MCP, exposes results via webhook that Make/PA/Zapier can call</li>
+        <li><strong>People.ai REST API</strong> — If available in your contract, call People.ai APIs directly via HTTP modules</li>
+      </ol>
+    </div>
+
+    <!-- ============ ENV VARS ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">3. Environment Variables</h3>
+    <p style="margin:8px 0;">Set these for Python-based workflows (LangGraph, Claude Agent, OpenAI Agent):</p>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export PEOPLEAI_MCP_URL="https://mcp.people.ai/v1/sse"
+export PEOPLEAI_CLIENT_ID="your-client-id"
+export PEOPLEAI_CLIENT_SECRET="your-client-secret"
+
+# Also needed for the LLM:
+export ANTHROPIC_API_KEY="sk-ant-..."   # for Claude Agent / LangGraph
+export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
+
+    <!-- ============ TESTING ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">4. Verify Your Connection</h3>
+    <p style="margin:8px 0;">Quick test to confirm the MCP server is accessible and returning tools:</p>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;"># Quick verification script
+python3 -c "
+import asyncio, os
+from langchain_mcp_adapters.client import MultiServerMCPClient
+
+async def test():
+    client = MultiServerMCPClient({
+        'peopleai': {
+            'url': os.environ['PEOPLEAI_MCP_URL'],
+            'transport': 'sse',
+        }
+    })
+    tools = await client.get_tools()
+    print(f'Connected! {len(tools)} tools available:')
+    for t in tools:
+        print(f'  - {t.name}')
+
+asyncio.run(test())
+"</pre>
+
+    <!-- ============ TROUBLESHOOTING ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">5. Troubleshooting</h3>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
+      <thead>
+        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+          <th style="padding:10px 12px;text-align:left;">Issue</th>
+          <th style="padding:10px 12px;text-align:left;">Cause</th>
+          <th style="padding:10px 12px;text-align:left;">Fix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">Connection timeout</td>
+          <td style="padding:10px 12px;">MCP URL wrong or network blocked</td>
+          <td style="padding:10px 12px;">Verify URL; check firewall/proxy rules</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>401 Unauthorized</code></td>
+          <td style="padding:10px 12px;">Invalid or expired credentials</td>
+          <td style="padding:10px 12px;">Verify Client ID + Secret with your People.ai admin</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">0 tools returned</td>
+          <td style="padding:10px 12px;">MCP access not provisioned for your org</td>
+          <td style="padding:10px 12px;">Contact People.ai to enable MCP on your account</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">Tool returns empty data</td>
+          <td style="padding:10px 12px;">Account name doesn't match CRM or no activity in window</td>
+          <td style="padding:10px 12px;">Use exact account names from Salesforce; widen the lookback window</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">SSE connection drops</td>
+          <td style="padding:10px 12px;">Long-running connection timed out</td>
+          <td style="padding:10px 12px;">Implement reconnection logic; most SDKs handle this automatically</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">Slow responses</td>
+          <td style="padding:10px 12px;">Large account data or complex queries</td>
+          <td style="padding:10px 12px;">Use specific tool calls (e.g., <code>get_account_status</code>) instead of broad <code>ask_sales_ai</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Security Tip:</strong> MCP credentials grant access to your organization's sales data.
+      Store Client ID and Secret in environment variables or a secret manager — never in source code
+      or workflow JSON files. The catalog's sanitize pipeline strips these automatically during export.
     </div>
   </div>
 </div>
@@ -2031,7 +2319,7 @@ function navigate(hash) { location.hash = hash; }
 
 function handleRoute() {
   const hash = location.hash || '#/';
-  const views = ['catalog-view', 'detail-view', 'about-view', 'guides-view', 'guide-slack-view', 'guide-teams-view', 'guide-google-chat-view', 'guide-email-view'];
+  const views = ['catalog-view', 'detail-view', 'about-view', 'guides-view', 'guide-peopleai-mcp-view', 'guide-slack-view', 'guide-teams-view', 'guide-google-chat-view', 'guide-email-view'];
   views.forEach(v => {
     document.getElementById(v).style.display = 'none';
     document.getElementById(v).classList.remove('active');
@@ -2045,6 +2333,9 @@ function handleRoute() {
   } else if (hash === '#/guides') {
     document.getElementById('guides-view').style.display = 'block';
     document.getElementById('guides-view').classList.add('active');
+  } else if (hash === '#/guides/peopleai-mcp') {
+    document.getElementById('guide-peopleai-mcp-view').style.display = 'block';
+    document.getElementById('guide-peopleai-mcp-view').classList.add('active');
   } else if (hash === '#/guides/slack-bot-setup') {
     document.getElementById('guide-slack-view').style.display = 'block';
     document.getElementById('guide-slack-view').classList.add('active');
