@@ -1,0 +1,432 @@
+{
+  "updatedAt": "2026-03-03T18:19:30.647Z",
+  "createdAt": "2026-02-25T01:41:11.958Z",
+  "id": "Cj4HcHfbzy9OZhwE",
+  "name": "Meeting Brief",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "e6045264-5080-4756-9d9d-24028757ce19",
+      "name": "Workflow Input Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/conversations.open",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ users: $('Workflow Input Trigger').first().json.slackUserId }) }}",
+        "options": {}
+      },
+      "id": "fb625253-816f-4af6-8ae6-ac26b67d9817",
+      "name": "Open Bot DM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        420,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Workflow Input Trigger').first().json;\nconst dmChannel = $('Open Bot DM').first().json.channel?.id || '';\nreturn [{ json: { ...input, channelId: dmChannel } }];"
+      },
+      "id": "7ba83d3e-360f-4915-9361-9d3766cba1eb",
+      "name": "Set Channel ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Workflow Input Trigger').first().json;\n\nconst assistantName = input.assistant_name || 'Aria';\nconst assistantEmoji = input.assistant_emoji || ':robot_face:';\nconst assistantPersona = input.assistant_persona || 'direct, action-oriented, and conversational';\nconst repName = input.repName || (input.email || '').split('@')[0].replace(/\\./g, ' ').replace(/\\b\\w/g, c => c.toUpperCase()) || 'Rep';\nconst timezone = input.timezone || 'America/Los_Angeles';\n\nconst accountName = input.accountName || 'Unknown Account';\nconst meetingSubject = input.meetingSubject || 'Customer Meeting';\nconst meetingTime = input.meetingTime || '';\nconst participants = input.participants || '';\nconst opportunityName = input.opportunityName || '';\nconst opportunityStage = input.opportunityStage || '';\nconst opportunityAmount = input.opportunityAmount || '';\nconst opportunityCloseDate = input.opportunityCloseDate || '';\nconst opportunityEngagement = input.opportunityEngagement || '';\nconst opportunityCrmId = input.opportunityCrmId || '';\nconst hasOpportunity = !!(opportunityName && opportunityName !== 'N/A' && opportunityName.trim());\n\nconst currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });\nconst timeStr = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: timezone });\nconst emojiClean = assistantEmoji.replace(/:/g, '');\n\n// Calculate minutes until meeting\nlet minutesUntil = '';\nif (meetingTime) {\n  const meetingMs = parseInt(meetingTime);\n  if (!isNaN(meetingMs)) {\n    const diffMin = Math.round((meetingMs - Date.now()) / 60000);\n    if (diffMin > 0) minutesUntil = diffMin + ' minutes';\n    else minutesUntil = 'starting now';\n  }\n}\n\n// Build context about the opportunity if available\nlet dealContext = '';\nif (hasOpportunity) {\n  dealContext = `\\n\u2501\u2501\u2501 DEAL CONTEXT \u2501\u2501\u2501\nOpportunity: ${opportunityName}\nStage: ${opportunityStage}\nAmount: ${opportunityAmount}\nClose Date: ${opportunityCloseDate}\nEngagement: ${opportunityEngagement}\n${opportunityCrmId ? 'People.ai: https://app.people.ai/opportunities/' + opportunityCrmId : ''}\n`;\n}\n\nconst blockKitRules = `OUTPUT FORMAT \u2014 CRITICAL:\nRespond with ONLY a valid JSON object. No prose. No explanation. No markdown code fences (no backticks).\n\nYour response must have exactly this shape:\n{\n  \"notification_text\": \"string \u2014 one sentence, shown in push notifications\",\n  \"blocks\": [ array of valid Slack Block Kit blocks ]\n}\n\nBLOCK KIT STRUCTURE RULES:\n- Use a \"header\" block for the message title (plain_text only, emoji: true)\n- Use \"section\" blocks with \"mrkdwn\" text for all body content\n- Use \"divider\" blocks between major sections (maximum 2 per message)\n- Use \"section\" with \"fields\" for two-column data (engagement scores, metrics)\n  - MAXIMUM 10 fields per section block (Slack API hard limit)\n- Use \"context\" block at the bottom for timestamp and data source\n- Maximum 50 blocks per message\n\nMRKDWN RULES (inside all text fields):\n- Bold: *text* \u2014 single asterisks only\n- Line break: \\\\n\n- Blank line: \\\\n\\\\n\n- Bullet points: use the \u2022 character on its own line\n- NO ## headers \u2014 use *bold text* on its own line instead\n- NO **double asterisks**\n- NO standard markdown links [text](url) \u2014 use <https://url|text>\n- NO dash bullets (-)\n\nEMOJI STATUS INDICATORS:\n\ud83d\ude80 Acceleration / strong momentum\n\u26a0\ufe0f Risk pattern detected\n\ud83d\udc8e Hidden upside opportunity\n\ud83d\udd34 Stalled / critical risk\n\u2705 Healthy / on track\n\ud83d\udcc8 Engagement rising\n\ud83d\udcc9 Engagement falling\n\ud83e\udd1d Meeting / relationship building`;\n\nconst systemPrompt = `You are ${assistantName}, a personal sales assistant for ${repName}. You are preparing them for an upcoming customer meeting.\n\nYour personality: ${assistantPersona}\n\nToday is ${currentDate}. ${repName} is in ${timezone}.\n\n\u2501\u2501\u2501 MEETING DETAILS \u2501\u2501\u2501\nSubject: ${meetingSubject}\nAccount: ${accountName}\nTime: ${minutesUntil ? 'In ' + minutesUntil : 'Today'}\nParticipants: ${participants || 'Not available'}\n${dealContext}\n\nYou have access to People.ai MCP tools. Use them to research:\n- The account's engagement history and recent activity (emails, meetings, calls)\n- Each participant's role, title, and recent touchpoints\n- ${hasOpportunity ? 'Deal progression, engagement trends, and risk signals for this opportunity' : 'Any open opportunities or past deals with this account'}\n- Recent account news or changes\n\nPrepare a 90-second meeting prep briefing following this structure:\n\n1. Header \u2014 \"${emojiClean} Meeting Prep \u2014 ${accountName} \u2014 ${assistantName}\"\n2. Account Snapshot (2-3 sentences) \u2014 engagement trend, ${hasOpportunity ? 'deal stage, amount, how the deal is progressing' : 'relationship status, any open opportunities or history'}. Use status indicators.\n3. People in the Room \u2014 for each external participant: who they are, their role, last touchpoint, any signals. If you can't find info, say so briefly.\n4. What to Ask About (2-3 items) \u2014 specific questions based on recent activity, deal status, or engagement patterns. Make these actionable and conversation-ready.\n5. Watch Out For (1-2 items) \u2014 risks, sensitivities, or things that could derail the meeting. Missing activity, declining engagement, competitor signals, etc.\n${hasOpportunity ? '6. Deal Status \u2014 two-column fields: key deal metrics (stage, amount, close date, engagement)' : '6. Account Intel \u2014 two-column fields: key account metrics from People.ai'}\n7. Context footer \u2014 \"People.ai meeting intelligence \u2022 ${currentDate} \u2022 ${timeStr} PT\"\n\nKeep it tight \u2014 they're reading this before walking into the meeting.\n\n${blockKitRules}`;\n\nconst agentPrompt = `Prepare a meeting brief for ${repName} who has a meeting with ${accountName}${minutesUntil ? ' in ' + minutesUntil : ' today'}.\n\nMeeting subject: ${meetingSubject}\nParticipants: ${participants || 'Unknown \u2014 research the account contacts'}\n\nUse the People.ai MCP tools to research:\n1. The account \"${accountName}\" \u2014 engagement history, recent activity\n2. Each participant listed \u2014 role, title, recent touchpoints, engagement\n3. ${hasOpportunity ? 'The opportunity \"' + opportunityName + '\" \u2014 deal health, progression, risks' : 'Any open opportunities or past deals with \"' + accountName + '\"'}\n4. Recent emails, meetings, and calls with this account\n\nThen generate the meeting prep briefing as a Block Kit JSON object following the format in your system instructions. Output ONLY the JSON object, nothing else.`;\n\nreturn [{\n  json: {\n    userId: input.userId,\n    slackUserId: input.slackUserId,\n    channelId: input.channelId,\n    assistantName,\n    assistantEmoji,\n    repName,\n    accountName,\n    systemPrompt,\n    agentPrompt\n  }\n}];\n"
+      },
+      "id": "45d56375-685f-43d5-b297-b7687f3568df",
+      "name": "Resolve Meeting Identity",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Resolve Meeting Identity').first().json.agentPrompt }}",
+        "options": {
+          "systemMessage": "={{ $('Resolve Meeting Identity').first().json.systemPrompt }}"
+        }
+      },
+      "id": "bd6ba582-7614-401c-800f-ed258a2b6b82",
+      "name": "Meeting Brief Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1080,
+        400
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-5-20250929",
+          "cachedResultName": "Claude Sonnet 4.5"
+        },
+        "options": {}
+      },
+      "id": "f62ccc1d-f8b3-46da-9c66-6a200a84c890",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        1088,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://mcp-canary.people.ai/mcp",
+        "authentication": "multipleHeadersAuth",
+        "options": {}
+      },
+      "id": "ed609f80-59df-405a-997a-160c061db0bb",
+      "name": "People.ai MCP",
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse the agent's Block Kit JSON output\nconst agentOutput = $('Digest Agent').first().json.output;\n\nlet parsed;\ntry {\n  // Try to extract JSON from the output \u2014 Claude sometimes wraps it in prose or code fences\n  let cleaned = agentOutput;\n\n  // Remove code fences\n  cleaned = cleaned.replace(/^```json\\s*/i, '').replace(/^```\\s*/i, '').replace(/```\\s*$/i, '').trim();\n\n  // If it doesn't start with {, try to find JSON object in the text\n  if (!cleaned.startsWith('{')) {\n    const jsonMatch = cleaned.match(/\\{[\\s\\S]*\"blocks\"[\\s\\S]*\\}/);\n    if (jsonMatch) {\n      cleaned = jsonMatch[0];\n    }\n  }\n\n  parsed = JSON.parse(cleaned);\n} catch (e) {\n  // Fallback: split raw output into chunks that fit Slack's 3000 char limit per block\n  const maxLen = 2900;\n  const text = agentOutput || 'Briefing generation failed.';\n  const chunks = [];\n  for (let i = 0; i < text.length; i += maxLen) {\n    chunks.push(text.slice(i, i + maxLen));\n  }\n\n  const blocks = chunks.map((chunk, idx) => ({\n    type: \"section\",\n    text: { type: \"mrkdwn\", text: idx === 0 ? chunk : '...' + chunk }\n  }));\n\n  parsed = {\n    notification_text: \"Your briefing is ready\",\n    blocks\n  };\n}\n\n// Enforce Slack limits\nif (parsed.blocks) {\n  parsed.blocks = parsed.blocks.map(block => {\n    // Max 10 fields per section\n    if (block.fields && block.fields.length > 10) {\n      block.fields = block.fields.slice(0, 10);\n    }\n    // Max 3000 chars per text field in section blocks\n    if (block.text && block.text.text && block.text.text.length > 3000) {\n      block.text.text = block.text.text.slice(0, 2997) + '...';\n    }\n    // Max 3000 chars per field text\n    if (block.fields) {\n      block.fields = block.fields.map(f => {\n        if (f.text && f.text.length > 2000) {\n          f.text = f.text.slice(0, 1997) + '...';\n        }\n        return f;\n      });\n    }\n    return block;\n  });\n  // Max 50 blocks\n  if (parsed.blocks.length > 50) {\n    parsed.blocks = parsed.blocks.slice(0, 50);\n  }\n}\n\nreturn [{\n  json: {\n    notificationText: parsed.notification_text || \"Your briefing\",\n    blocks: JSON.stringify(parsed.blocks),\n    rawContent: agentOutput\n  }\n}];"
+      },
+      "id": "3408d4dd-299b-4c0f-8357-d684b4d018b5",
+      "name": "Parse Blocks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/chat.postMessage",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ channel: $('Resolve Meeting Identity').first().json.channelId, text: $('Parse Blocks').first().json.notificationText, username: $('Resolve Meeting Identity').first().json.assistantName, icon_emoji: $('Resolve Meeting Identity').first().json.assistantEmoji, blocks: JSON.parse($('Parse Blocks').first().json.blocks), unfurl_links: false, unfurl_media: false }) }}",
+        "options": {}
+      },
+      "id": "e6f0b172-33bb-4183-a6e8-b59fe74a330e",
+      "name": "Send Meeting Brief",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        400
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Gather data for conversation bookend (Meeting Brief).\n\nconst identity = $('Resolve Meeting Identity').first().json;\nconst sendResult = $('Send Meeting Brief').first().json;\nconst agentOutput = $('Meeting Brief Agent').first().json.output || '';\nconst inputData = $('Workflow Input Trigger').first().json;\n\n// userId and organizationId from input and Resolve Meeting Identity\nconst userId = identity.userId || inputData.userId || null;\nconst organizationId = inputData.organization_id || null;\n\n// Channel and thread_ts from the Slack response\nconst channelId = sendResult.channel || identity.channelId || '';\nconst threadTs = sendResult.ts || '';\n\nconst agentConfig = {\n  model: 'claude-sonnet-4-5-20250929',\n  mcpEndpoint: 'https://mcp.people.ai/mcp',\n  assistantName: identity.assistantName || 'Aria',\n  assistantEmoji: identity.assistantEmoji || ':robot_face:',\n  accountName: identity.accountName || ''\n};\n\n// Meeting brief conversations expire after 4 hours\nconst expiresAt = new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString();\n\n// User message = meeting context (what triggered the brief)\nconst meetingSubject = inputData.meetingSubject || 'Customer Meeting';\nconst accountName = inputData.accountName || identity.accountName || 'Unknown';\nconst participants = inputData.participants || '';\nconst userMessage = 'Meeting prep: ' + meetingSubject + ' with ' + accountName\n  + (participants ? ' (' + participants + ')' : '');\n\nreturn [{\n  json: {\n    organizationId: organizationId,\n    userId: userId,\n    channelId: channelId,\n    threadTs: threadTs,\n    workflowType: 'meeting_prep',\n    agentConfig: agentConfig,\n    expiresAt: expiresAt,\n    userMessage: userMessage,\n    assistantMessage: agentOutput\n  }\n}];\n"
+      },
+      "id": "56850f2a-2868-44fd-8338-405ae70a1949",
+      "name": "Prepare Meeting Brief Conversation Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1800,
+        400
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://rhrlnkbphxntxxxcrgvv.supabase.co/rest/v1/conversations",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  organization_id: $json.organizationId,\n  user_id: $json.userId,\n  slack_channel_id: $json.channelId,\n  slack_thread_ts: $json.threadTs,\n  workflow_type: $json.workflowType,\n  agent_config: $json.agentConfig,\n  status: \"completed\",\n  expires_at: $json.expiresAt\n}) }}",
+        "options": {}
+      },
+      "id": "128df239-5045-4200-afb1-4a11fb7fdcf0",
+      "name": "Create Meeting Brief Conversation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2080,
+        400
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://rhrlnkbphxntxxxcrgvv.supabase.co/rest/v1/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  user_id: $(\"Prepare Meeting Brief Conversation Data\").first().json.userId,\n  message_type: \"conversation\",\n  channel: \"slack\",\n  direction: \"inbound\",\n  content: $(\"Prepare Meeting Brief Conversation Data\").first().json.userMessage,\n  conversation_id: $json.id,\n  slack_thread_ts: $(\"Prepare Meeting Brief Conversation Data\").first().json.threadTs,\n  role: \"user\"\n}) }}",
+        "options": {}
+      },
+      "id": "44819c52-0f81-4f84-8b1f-f2dae9e7f981",
+      "name": "Log Meeting Brief User Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2360,
+        400
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://rhrlnkbphxntxxxcrgvv.supabase.co/rest/v1/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  user_id: $(\"Prepare Meeting Brief Conversation Data\").first().json.userId,\n  message_type: \"conversation\",\n  channel: \"slack\",\n  direction: \"outbound\",\n  content: $(\"Prepare Meeting Brief Conversation Data\").first().json.assistantMessage,\n  conversation_id: $(\"Create Meeting Brief Conversation\").first().json.id,\n  slack_thread_ts: $(\"Prepare Meeting Brief Conversation Data\").first().json.threadTs,\n  role: \"assistant\"\n}) }}",
+        "options": {}
+      },
+      "id": "2c2a11c4-0b1f-437b-b3ae-e25681ef5a3e",
+      "name": "Log Meeting Brief Assistant Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2640,
+        400
+      ],
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Open Bot DM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open Bot DM": {
+      "main": [
+        [
+          {
+            "node": "Set Channel ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Channel ID": {
+      "main": [
+        [
+          {
+            "node": "Resolve Meeting Identity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve Meeting Identity": {
+      "main": [
+        [
+          {
+            "node": "Meeting Brief Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Brief Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Blocks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Meeting Brief Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "People.ai MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "Meeting Brief Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Blocks": {
+      "main": [
+        [
+          {
+            "node": "Send Meeting Brief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Meeting Brief": {
+      "main": [
+        [
+          {
+            "node": "Prepare Meeting Brief Conversation Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Meeting Brief Conversation Data": {
+      "main": [
+        [
+          {
+            "node": "Create Meeting Brief Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Meeting Brief Conversation": {
+      "main": [
+        [
+          {
+            "node": "Log Meeting Brief User Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Meeting Brief User Message": {
+      "main": [
+        [
+          {
+            "node": "Log Meeting Brief Assistant Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "meta": null,
+  "triggerCount": 0,
+  "tags": []
+}

@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-09T23:46:00.007071+00:00",
+  "_generated": "2026-03-10T00:00:27.855545+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -92,8 +92,11 @@
         "bot_app": true,
         "content": "\u2600\ufe0f **Good Morning, @sarah.chen** \u2014 Here's your daily digest for **Tuesday, Mar 4**\n\n\ud83d\udcca **PIPELINE MOVEMENT:**\n- **ACME Corp** ===$425,000=== moved to Technical Validation \u2014 @james.park scheduled POC for Thursday\n- **Globex Industries** ===$180,000=== \u2014 Procurement sent redlines on MSA, legal review needed by EOD Wednesday\n- **Initech** ===$92,000=== went dark after demo last Tuesday \u2014 6 days no response from champion\n\n\ud83d\udd14 **ENGAGEMENT HIGHLIGHTS:**\n- @mike.torres (VP Sales, NovaTech) opened your proposal deck 3x yesterday, forwarded to CFO\n- New inbound: Director of Ops at Contoso downloaded whitepaper + visited pricing page\n- Wayne Enterprises champion Sarah Kim accepted your QBR invite for next Monday\n\n\u26a1 **RECOMMENDED ACTIONS:**\n- Follow up with Initech champion \u2014 silence exceeds your 5-day threshold\n- Prep legal response for Globex MSA redlines before Wednesday deadline\n- Send NovaTech CFO a personalized ROI summary while momentum is hot\n\n---\n*Powered by People.ai MCP \u2014 14 accounts tracked, 3 need attention*"
       },
-      "exports": [],
+      "exports": [
+        "full.json"
+      ],
       "platforms": {
+        "n8n": "full.json",
         "langgraph": "langgraph_sales_digest.py",
         "claude-agent": "claude_agent_sales_digest.py",
         "openai-agent": "openai_agent_sales_digest.py",
@@ -151,8 +154,16 @@
         "bot_app": true,
         "content": "\ud83d\udccb **Meeting Brief** \u2014 ACME Corp Technical Review | Today 2:00 PM\n\n\ud83d\udc65 **ATTENDEES:**\n- @sarah.chen (Account Owner) + @james.park (SE)\n- Dan Reeves (VP Engineering, ACME) \u2014 Decision maker, attended 3 of last 4 calls\n- Lisa Wong (Director of IT, ACME) \u2014 Technical champion, drove POC approval\n- New: Kevin Marsh (Security Architect) \u2014 First time joining, likely for compliance review\n\n\ud83d\udcca **ACCOUNT CONTEXT:**\n- Deal: ===$425,000=== | Stage: Technical Validation | Close: 04/2026\n- Last meeting (Feb 28): POC results review \u2014 positive feedback, 2 action items open\n- Champion @lisa.wong sent internal email to procurement team Monday (good sign)\n- Competitor Vendara still in evaluation \u2014 ACME IT Director mentioned them in a Feb 25 email\n\n\ud83c\udfaf **TALKING POINTS:**\n- Address Kevin Marsh's security concerns \u2014 prep SOC2 report and data residency docs\n- Follow up on open action item: custom API integration timeline (Dan asked Feb 28)\n- Ask about procurement timeline \u2014 Lisa's internal email suggests they're moving forward\n- Subtly position against Vendara: emphasize integration depth and time-to-value\n\n\u26a0\ufe0f **WATCH FOR:**\n- Dan Reeves missed last week's check-in \u2014 gauge his engagement level today\n- If security review scope expands, it could push timeline 2-3 weeks\n\n---\n*Powered by People.ai MCP \u2014 47 days of engagement history analyzed*"
       },
-      "exports": [],
-      "platforms": {}
+      "exports": [
+        "full.json"
+      ],
+      "platforms": {
+        "n8n": "full.json",
+        "langgraph": "langgraph_meeting_brief.py",
+        "claude-agent": "claude_agent_meeting_brief.py",
+        "openai-agent": "openai_agent_meeting_brief.py",
+        "recipe-card": "recipe-card.md"
+      }
     },
     {
       "id": "03-silence-contract-monitor",
@@ -212,8 +223,16 @@
         "bot_app": true,
         "content": "\ud83d\udd34 **SILENCE ALERT** \u2014 3 accounts require immediate attention\n\n**GLOBEX INDUSTRIES** | ===$340,000=== | Renewal: 04/2026 | \ud83d\udd34 Critical\n- Last meaningful engagement: **18 days ago** (normally 3-day cadence)\n- Champion @lisa.wong has not opened last 4 emails\n- Contract renewal in 47 days \u2014 no renewal discussion initiated\n- \ud83d\udc49 @david.kim: Schedule a check-in call citing Q2 planning as reason to reconnect\n\n**INITECH** | ===$125,000=== | Renewal: 06/2026 | \ud83d\udfe1 Watch\n- Last engagement: **11 days ago** \u2014 below 7-day norm\n- Executive sponsor Dan Reeves missed scheduled QBR last Friday (no reschedule)\n- Support tickets up 40% this month, but no escalation to account team\n- \ud83d\udc49 @rep.owner: Reach out to secondary contact Maria Santos for a pulse check\n\n**WAYNE ENTERPRISES** | ===$87,000=== | Renewal: 08/2026 | \ud83d\udfe1 Watch\n- Last engagement: **9 days ago** \u2014 champion on PTO until Mar 12 (verified via OOO)\n- Benign silence likely, but 2 open support tickets unresolved for 6+ days\n- \ud83d\udc49 @sarah.chen: Monitor \u2014 flag if silence continues past Mar 14\n\n---\n*Powered by People.ai MCP \u2014 42 accounts scanned, 3 flagged*"
       },
-      "exports": [],
-      "platforms": {}
+      "exports": [
+        "full.json"
+      ],
+      "platforms": {
+        "n8n": "full.json",
+        "langgraph": "langgraph_silence_monitor.py",
+        "claude-agent": "claude_agent_silence_monitor.py",
+        "openai-agent": "openai_agent_silence_monitor.py",
+        "recipe-card": "recipe-card.md"
+      }
     },
     {
       "id": "04-opportunity-discovery",
@@ -273,8 +292,16 @@
         "bot_app": true,
         "content": "\ud83d\udd0d **Weekly Opportunity Discovery** \u2014 4 hidden opportunities found\n\n\ud83d\udfe2 **HIGH CONFIDENCE:**\n- **NovaTech Solutions** | No open opp | Signal strength: **Strong**\n- 7 meetings in last 30 days with VP Product + Director of Engineering\n- @mike.torres received inbound pricing inquiry last Tuesday\n- Previously churned 18 months ago \u2014 re-engagement pattern suggests renewed interest\n- \ud83d\udc49 @sarah.chen: Create opp, estimated ===$200,000=== based on prior deal size + expansion signals\n- **Contoso Ltd** | No open opp | Signal strength: **Strong**\n- Downloaded 4 technical whitepapers + attended webinar last week\n- CTO Maria Santos connected with @james.park on LinkedIn and engaged 2 posts\n- No prior relationship \u2014 net new logo opportunity\n- \ud83d\udc49 @james.park: Outbound with personalized demo offer referencing webinar attendance\n\n\ud83d\udfe1 **MODERATE CONFIDENCE:**\n- **Initrode Systems** | No open opp | Signal strength: **Moderate**\n- 3 emails exchanged with mid-level contact, but no meetings booked yet\n- Account matches ICP: 500+ employees, Series C, SaaS vertical\n- \ud83d\udc49 @rep.owner: Nurture with case study from similar company, attempt meeting\n- **Pied Piper Inc** | No open opp | Signal strength: **Moderate**\n- CFO visited pricing page 3x this week (tracked via marketing automation)\n- No direct engagement with sales team yet\n- \ud83d\udc49 @david.kim: Warm intro via mutual connection at board level\n\n---\n*Powered by People.ai MCP \u2014 230 accounts scanned, 4 opportunities surfaced*"
       },
-      "exports": [],
-      "platforms": {}
+      "exports": [
+        "full.json"
+      ],
+      "platforms": {
+        "n8n": "full.json",
+        "langgraph": "langgraph_opportunity_discovery.py",
+        "claude-agent": "claude_agent_opportunity_discovery.py",
+        "openai-agent": "openai_agent_opportunity_discovery.py",
+        "recipe-card": "recipe-card.md"
+      }
     },
     {
       "id": "05-forecast-coach",
@@ -333,8 +360,16 @@
         "bot_app": true,
         "content": "\ud83c\udfc8 **Weekly Forecast Coaching Report** \u2014 @manager.jen's Team | Week of Mar 3\n\n\ud83d\udcca **PIPELINE SUMMARY:**\n- Team pipeline: ===$2.1M=== across 12 active deals\n- Forecast commit: ===$890,000=== | Best case: ===$1.4M===\n- 3 deals need coaching intervention this week\n\n\ud83d\udd34 **NEEDS ATTENTION:**\n- **ACME Corp** ===$425,000=== | @sarah.chen | Stage: Negotiation\n- Single-threaded to technical champion only \u2014 no executive sponsor engaged\n- Close date is Mar 28 but legal review hasn't started\n- \ud83d\udcac Coach: Ask Sarah who the economic buyer is and why they haven't been engaged yet\n- **Globex Industries** ===$180,000=== | @james.park | Stage: Discovery\n- 4 meetings completed but all with same contact (Director level)\n- No upward access despite 6 weeks in pipeline\n- \ud83d\udcac Coach: Help James build a multi-threading plan \u2014 target VP Engineering via LinkedIn warm intro\n\n\ud83d\udfe1 **MONITOR:**\n- **Initech** ===$92,000=== | @david.kim | Stage: POC\n- POC running 1 week behind schedule \u2014 customer delayed test environment setup\n- Engagement still strong (3 meetings this week) but timeline risk emerging\n- \ud83d\udcac Coach: Discuss contingency plan if POC extends past Mar 21 deadline\n\n\ud83d\udfe2 **ON TRACK:** 9 deals progressing normally \u2014 no coaching needed\n\n---\n*Powered by People.ai MCP \u2014 12 deals analyzed across 4 reps*"
       },
-      "exports": [],
-      "platforms": {}
+      "exports": [
+        "full.json"
+      ],
+      "platforms": {
+        "n8n": "full.json",
+        "langgraph": "langgraph_forecast_coach.py",
+        "claude-agent": "claude_agent_forecast_coach.py",
+        "openai-agent": "openai_agent_forecast_coach.py",
+        "recipe-card": "recipe-card.md"
+      }
     },
     {
       "id": "06-executive-inbox",
