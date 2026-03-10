@@ -1089,6 +1089,21 @@
       as tools that agents can invoke during reasoning — no custom API integration code needed.
     </div>
 
+    <div style="margin-top:12px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Prerequisites:</strong> An n8n instance (cloud or self-hosted <strong>v1.19.0+</strong>) and an active People.ai account with MCP API access enabled.
+      For the official People.ai guide, see <a href="https://help.people.ai/en/articles/13780674-connect-n8n-to-people-ai" target="_blank" style="color:var(--ac-coral);">Connect n8n to People.ai</a>.
+    </div>
+
+    <!-- ============ WHAT YOU CAN DO ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">What You Can Do</h3>
+    <ul style="margin:8px 0 20px 20px;line-height:2;">
+      <li>Automate sales intelligence workflows like daily account health checks, weekly opportunity reviews, or risk alerts</li>
+      <li>Build AI-powered chatbots for Slack or Teams that answer questions with real CRM data</li>
+      <li>Create coaching automation that analyzes opportunities and generates weekly insights</li>
+      <li>Generate automated reports combining People.ai insights with data from other systems</li>
+      <li>Trigger actions based on sales data like sending alerts when accounts show low engagement</li>
+    </ul>
+
     <!-- ============ AVAILABLE TOOLS ============ -->
     <h3 style="margin-top:28px;color:var(--ac-coral);">Available MCP Tools</h3>
     <p style="margin:8px 0;">The People.ai MCP server exposes these tools to connected agents:</p>
@@ -1138,12 +1153,12 @@
         </tr>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
           <td style="padding:10px 12px;"><code>ask_sales_ai_about_account</code></td>
-          <td style="padding:10px 12px;">Natural language queries about any account</td>
+          <td style="padding:10px 12px;">Natural language queries about any account (10-30s response)</td>
           <td style="padding:10px 12px;">Executive Inbox, QBR Prep</td>
         </tr>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
           <td style="padding:10px 12px;"><code>ask_sales_ai_about_opportunity</code></td>
-          <td style="padding:10px 12px;">Natural language queries about any deal</td>
+          <td style="padding:10px 12px;">Natural language queries about any deal (10-30s response)</td>
           <td style="padding:10px 12px;">Forecast Coach, Competitive Alert</td>
         </tr>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
@@ -1162,47 +1177,112 @@
     <!-- ============ GETTING CREDENTIALS ============ -->
     <h3 style="margin-top:28px;color:var(--ac-coral);">1. Obtain MCP Credentials</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Contact your <strong>People.ai account team</strong> or admin to enable MCP access</li>
-      <li>You'll receive:
+      <li>Contact your <strong>People.ai administrator or CSM</strong> to request MCP API access</li>
+      <li>You'll receive two credentials:
         <ul style="margin:4px 0 4px 20px;">
-          <li><strong>MCP Server URL</strong> — the SSE endpoint (e.g., <code>https://mcp.people.ai/v1/sse</code>)</li>
-          <li><strong>Client ID</strong> — your organization's MCP client identifier</li>
-          <li><strong>Client Secret</strong> — authentication secret for the MCP server</li>
+          <li><strong>Client ID</strong> — your organization's MCP client identifier (e.g., <code>Yl1JnBI...</code>)</li>
+          <li><strong>Client Secret</strong> — authentication secret (e.g., <code>2rT0SWrgR...</code>)</li>
         </ul>
       </li>
-      <li>Verify access by connecting with any MCP-compatible client</li>
+      <li>Store these credentials securely — you'll need them for configuration</li>
     </ol>
+    <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
+      <strong>Important:</strong> MCP credentials are different from People.ai REST API credentials. Make sure you request MCP-specific access.
+    </div>
 
     <!-- ============ n8n ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">2. Platform Setup</h3>
+    <h3 style="margin-top:28px;color:var(--ac-coral);">2. Configure in n8n</h3>
 
-    <h4 style="margin-top:20px;">n8n (Native MCP Support)</h4>
-    <p style="margin:8px 0;">n8n has built-in MCP client nodes:</p>
+    <p style="margin:8px 0;">n8n v1.19.0+ has a built-in MCP Client tool. Here's the exact configuration:</p>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
-      <li>In your workflow, add an <strong>MCP Client Tool</strong> node</li>
-      <li>Set the <strong>SSE URL</strong> to your People.ai MCP server endpoint</li>
-      <li>Configure authentication (Client ID + Secret as headers or query params per your People.ai setup)</li>
-      <li>Connect the MCP Client Tool to your <strong>AI Agent</strong> node</li>
-      <li>The agent can now invoke any People.ai tool during execution</li>
+      <li>Create a new workflow or open an existing one</li>
+      <li>Add an <strong>AI Agent</strong> node (Claude is recommended for complex sales analysis; OpenAI GPT-4 also works)</li>
+      <li>In the AI Agent node, click <strong>Add Tool</strong> and select <strong>MCP Client</strong></li>
+      <li>Configure the MCP Client:
+        <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;">
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+              <td style="padding:8px 12px;font-weight:bold;width:180px;">Connection Name</td>
+              <td style="padding:8px 12px;"><code>People.ai MCP Multi-Header</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+              <td style="padding:8px 12px;font-weight:bold;">Server URL</td>
+              <td style="padding:8px 12px;"><code>https://mcp.people.ai/mcp</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+              <td style="padding:8px 12px;font-weight:bold;">Authentication</td>
+              <td style="padding:8px 12px;"><strong>Multiple Headers Auth</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>Configure <strong>three authentication headers</strong>:
+        <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;">
+          <thead>
+            <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+              <th style="padding:8px 12px;text-align:left;">Header</th>
+              <th style="padding:8px 12px;text-align:left;">Name</th>
+              <th style="padding:8px 12px;text-align:left;">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+              <td style="padding:8px 12px;">Header 1</td>
+              <td style="padding:8px 12px;"><code>PAI-Client-Id</code></td>
+              <td style="padding:8px 12px;">[Your Client ID]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+              <td style="padding:8px 12px;">Header 2</td>
+              <td style="padding:8px 12px;"><code>PAI-Client-Secret</code></td>
+              <td style="padding:8px 12px;">[Your Client Secret]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+              <td style="padding:8px 12px;">Header 3</td>
+              <td style="padding:8px 12px;"><code>Content-Type</code></td>
+              <td style="padding:8px 12px;"><code>application/json</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>Under <strong>Allowed HTTP Request Domains</strong>, select <strong>All</strong> or add <code>mcp.people.ai</code></li>
+      <li>Click <strong>Save</strong> to create the credential</li>
     </ol>
+
+    <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
+      <strong>Header names are case-sensitive.</strong> Use exactly: <code>PAI-Client-Id</code> (not <code>PAI-Client-ID</code> or <code>pai-client-id</code>).
+    </div>
+
     <div style="padding:12px 16px;background:var(--wf-bg);border-radius:var(--radius);margin:8px 0 20px 0;">
       <span style="color:var(--wf-green);font-weight:600;">Tip:</span>
       <span style="color:var(--wf-text);font-size:13px;"> When importing catalog workflows (<code>full.json</code>), the MCP Client Tool node is already configured — just add your credentials.</span>
     </div>
 
+    <!-- ============ AI AGENT PROMPT ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">3. Configure Your AI Agent</h3>
+    <p style="margin:8px 0;">Add a system prompt to your AI Agent that instructs it how to use People.ai tools:</p>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">You are a sales intelligence assistant with access to People.ai CRM data.
+When users ask about accounts, opportunities, or customer activity:
+1) Use People.ai MCP tools to search and retrieve data
+2) Analyze the information and provide strategic insights
+3) Highlight risks, next steps, and key topics
+4) Format responses clearly and actionably</pre>
+
+    <!-- ============ OTHER PLATFORMS ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">4. Other Platforms</h3>
+
     <h4 style="margin-top:20px;">LangGraph (Python)</h4>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">pip install langchain-mcp-adapters
 
-# In your code:
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
 client = MultiServerMCPClient({
     "peopleai": {
-        "url": os.environ["PEOPLEAI_MCP_URL"],
+        "url": "https://mcp.people.ai/mcp",
         "transport": "sse",
         "headers": {
-            "X-Client-Id": os.environ["PEOPLEAI_CLIENT_ID"],
-            "X-Client-Secret": os.environ["PEOPLEAI_CLIENT_SECRET"],
+            "PAI-Client-Id": os.environ["PEOPLEAI_CLIENT_ID"],
+            "PAI-Client-Secret": os.environ["PEOPLEAI_CLIENT_SECRET"],
+            "Content-Type": "application/json",
         }
     }
 })
@@ -1222,7 +1302,12 @@ agent = Agent(
     tools=[...],  # local tools
     mcp_servers=[{
         "name": "peopleai",
-        "url": os.environ["PEOPLEAI_MCP_URL"],
+        "url": "https://mcp.people.ai/mcp",
+        "headers": {
+            "PAI-Client-Id": os.environ["PEOPLEAI_CLIENT_ID"],
+            "PAI-Client-Secret": os.environ["PEOPLEAI_CLIENT_SECRET"],
+            "Content-Type": "application/json",
+        }
     }],
 )</pre>
 
@@ -1234,7 +1319,12 @@ from agents.mcp import MCPServerSse
 
 peopleai_mcp = MCPServerSse(
     name="peopleai",
-    url=os.environ["PEOPLEAI_MCP_URL"],
+    url="https://mcp.people.ai/mcp",
+    headers={
+        "PAI-Client-Id": os.environ["PEOPLEAI_CLIENT_ID"],
+        "PAI-Client-Secret": os.environ["PEOPLEAI_CLIENT_SECRET"],
+        "Content-Type": "application/json",
+    },
 )
 
 agent = Agent(
@@ -1248,48 +1338,35 @@ agent = Agent(
     <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
       <strong>MCP is not natively supported</strong> on Make, Power Automate, or Zapier. Options:
       <ol style="margin:8px 0 0 20px;line-height:2;">
-        <li><strong>MCP-to-REST bridge</strong> — Deploy a lightweight proxy (e.g., <code>mcp-proxy</code>) that translates MCP tool calls to HTTP endpoints</li>
         <li><strong>n8n as middleware</strong> — n8n handles MCP, exposes results via webhook that Make/PA/Zapier can call</li>
-        <li><strong>People.ai REST API</strong> — If available in your contract, call People.ai APIs directly via HTTP modules</li>
+        <li><strong>MCP-to-REST bridge</strong> — Deploy a lightweight proxy that translates MCP tool calls to HTTP endpoints</li>
+        <li><strong>People.ai REST API</strong> — Use the Insights Export REST API for bulk data, combined with MCP for deep intelligence on specific items</li>
       </ol>
     </div>
 
     <!-- ============ ENV VARS ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">3. Environment Variables</h3>
+    <h3 style="margin-top:28px;color:var(--ac-coral);">5. Environment Variables</h3>
     <p style="margin:8px 0;">Set these for Python-based workflows (LangGraph, Claude Agent, OpenAI Agent):</p>
-    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export PEOPLEAI_MCP_URL="https://mcp.people.ai/v1/sse"
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export PEOPLEAI_MCP_URL="https://mcp.people.ai/mcp"
 export PEOPLEAI_CLIENT_ID="your-client-id"
 export PEOPLEAI_CLIENT_SECRET="your-client-secret"
 
 # Also needed for the LLM:
-export ANTHROPIC_API_KEY="sk-ant-..."   # for Claude Agent / LangGraph
+export ANTHROPIC_API_KEY="sk-ant-..."   # for Claude Agent / LangGraph (recommended)
 export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
 
     <!-- ============ TESTING ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">4. Verify Your Connection</h3>
-    <p style="margin:8px 0;">Quick test to confirm the MCP server is accessible and returning tools:</p>
-    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;"># Quick verification script
-python3 -c "
-import asyncio, os
-from langchain_mcp_adapters.client import MultiServerMCPClient
-
-async def test():
-    client = MultiServerMCPClient({
-        'peopleai': {
-            'url': os.environ['PEOPLEAI_MCP_URL'],
-            'transport': 'sse',
-        }
-    })
-    tools = await client.get_tools()
-    print(f'Connected! {len(tools)} tools available:')
-    for t in tools:
-        print(f'  - {t.name}')
-
-asyncio.run(test())
-"</pre>
+    <h3 style="margin-top:28px;color:var(--ac-coral);">6. Test Your Connection</h3>
+    <p style="margin:8px 0;">Try these example queries in n8n or your agent to verify the connection:</p>
+    <ul style="margin:8px 0 16px 20px;line-height:2;">
+      <li><code>"Find the account for [Company Name]"</code></li>
+      <li><code>"What are the risks for opportunity [ID]?"</code></li>
+      <li><code>"Show me recent activity for [Account Name]"</code></li>
+    </ul>
+    <p style="margin:8px 0;">Check the execution log to verify: MCP tools appear in available tools, AI Agent calls them successfully, and data is returned.</p>
 
     <!-- ============ TROUBLESHOOTING ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">5. Troubleshooting</h3>
+    <h3 style="margin-top:28px;color:var(--ac-coral);">7. Troubleshooting</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
         <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
@@ -1300,42 +1377,61 @@ asyncio.run(test())
       </thead>
       <tbody>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
-          <td style="padding:10px 12px;">Connection timeout</td>
-          <td style="padding:10px 12px;">MCP URL wrong or network blocked</td>
-          <td style="padding:10px 12px;">Verify URL; check firewall/proxy rules</td>
+          <td style="padding:10px 12px;">Can't find MCP Client tool</td>
+          <td style="padding:10px 12px;">n8n version below 1.19.0</td>
+          <td style="padding:10px 12px;">Update n8n to v1.19.0 or later</td>
         </tr>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
-          <td style="padding:10px 12px;"><code>401 Unauthorized</code></td>
-          <td style="padding:10px 12px;">Invalid or expired credentials</td>
-          <td style="padding:10px 12px;">Verify Client ID + Secret with your People.ai admin</td>
+          <td style="padding:10px 12px;">Connection failed / server not responding</td>
+          <td style="padding:10px 12px;">Wrong URL or network issue</td>
+          <td style="padding:10px 12px;">Verify URL is exactly <code>https://mcp.people.ai/mcp</code> (no trailing slash). Check firewall/proxy settings for self-hosted n8n.</td>
         </tr>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
-          <td style="padding:10px 12px;">0 tools returned</td>
-          <td style="padding:10px 12px;">MCP access not provisioned for your org</td>
-          <td style="padding:10px 12px;">Contact People.ai to enable MCP on your account</td>
+          <td style="padding:10px 12px;">Authentication failed</td>
+          <td style="padding:10px 12px;">Wrong credentials or header names</td>
+          <td style="padding:10px 12px;">Header names are case-sensitive: <code>PAI-Client-Id</code>, <code>PAI-Client-Secret</code>. Verify MCP-specific credentials (not REST API keys). Check for extra spaces.</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">AI Agent not using People.ai tools</td>
+          <td style="padding:10px 12px;">Prompt too vague or MCP tool not connected</td>
+          <td style="padding:10px 12px;">Be explicit in prompts: "Use the find_account tool to search for [company]." Verify MCP Client is connected to the AI Agent node.</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">Workflow times out</td>
+          <td style="padding:10px 12px;">AI-powered tools (<code>ask_sales_ai_*</code>) take 10-30s</td>
+          <td style="padding:10px 12px;">Increase workflow timeout. Use simpler tools like <code>get_account_status</code> for faster responses.</td>
         </tr>
         <tr style="border-bottom:1px solid var(--ac-light-gray);">
           <td style="padding:10px 12px;">Tool returns empty data</td>
-          <td style="padding:10px 12px;">Account name doesn't match CRM or no activity in window</td>
+          <td style="padding:10px 12px;">Account name mismatch or no activity</td>
           <td style="padding:10px 12px;">Use exact account names from Salesforce; widen the lookback window</td>
-        </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
-          <td style="padding:10px 12px;">SSE connection drops</td>
-          <td style="padding:10px 12px;">Long-running connection timed out</td>
-          <td style="padding:10px 12px;">Implement reconnection logic; most SDKs handle this automatically</td>
-        </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
-          <td style="padding:10px 12px;">Slow responses</td>
-          <td style="padding:10px 12px;">Large account data or complex queries</td>
-          <td style="padding:10px 12px;">Use specific tool calls (e.g., <code>get_account_status</code>) instead of broad <code>ask_sales_ai</code></td>
         </tr>
       </tbody>
     </table>
 
+    <!-- ============ HYBRID APPROACH ============ -->
+    <h3 style="margin-top:28px;color:var(--ac-coral);">8. Combining MCP with REST API</h3>
+    <p style="margin:8px 0;">
+      For best results, use the People.ai <strong>Insights Export REST API</strong> for bulk data extraction
+      and <strong>MCP tools</strong> for deep intelligence on specific items. Example pattern:
+    </p>
+    <ol style="margin:8px 0 16px 20px;line-height:2;">
+      <li>REST API pulls all opportunities closing this quarter</li>
+      <li>n8n logic calculates risk scores</li>
+      <li>MCP tools analyze the top 10 high-risk opportunities</li>
+      <li>n8n formats and sends the report</li>
+    </ol>
+    <p style="margin:8px 0;color:var(--ac-dark-secondary);font-size:13px;">This hybrid approach combines the efficiency of bulk APIs with the intelligence of AI-powered analysis.</p>
+
     <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
-      <strong>Security Tip:</strong> MCP credentials grant access to your organization's sales data.
-      Store Client ID and Secret in environment variables or a secret manager — never in source code
-      or workflow JSON files. The catalog's sanitize pipeline strips these automatically during export.
+      <strong>Security:</strong> Your People.ai data never leaves the secure People.ai environment — n8n workflows only send queries and receive specific responses.
+      All communication uses HTTPS/TLS encryption. Store credentials using n8n's built-in credential system, never in workflow code.
+      The integration respects your People.ai permissions. Rotate Client ID and Secret regularly.
+    </div>
+
+    <div style="margin-top:16px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Need help?</strong> For People.ai API issues, contact your CSM or email <strong>support@people.ai</strong>.
+      For n8n-specific questions, consult the <a href="https://community.n8n.io" target="_blank" style="color:var(--ac-coral);">n8n Community Forum</a>.
     </div>
   </div>
 </div>
