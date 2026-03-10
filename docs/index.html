@@ -919,6 +919,7 @@
   </div>
   <div style="display:flex;gap:8px;">
     <a class="btn btn-secondary" href="#/guides/slack-bot-setup">Slack Setup</a>
+    <a class="btn btn-secondary" href="#/guides/teams-setup">Teams Setup</a>
     <a class="btn btn-secondary" href="#/about">About</a>
     <a class="btn btn-primary" href="https://happycowboyai.github.io/LLMSkills/" target="_blank">LLM Skills</a>
   </div>
@@ -1155,6 +1156,280 @@
   </div>
 </div>
 
+<!-- Teams Setup Guide -->
+<div id="guide-teams-view" class="container detail-view">
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <div class="about-content" style="max-width:800px;">
+    <h2>Microsoft Teams Setup Guide</h2>
+    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+      Workflows in this catalog can deliver results to Microsoft Teams via two methods:
+      <strong>Incoming Webhooks</strong> (quick setup, channel-only) or a
+      <strong>Bot Framework bot</strong> (full-featured, supports DMs and adaptive cards).
+    </p>
+
+    <!-- ============ OPTION A: WEBHOOKS ============ -->
+    <div style="margin-top:8px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Which method should I use?</strong><br>
+      <strong>Incoming Webhook</strong> — Best for channel alerts (Silence Monitor, Opportunity Discovery, Channel Pulse). 5-minute setup, no app registration.<br>
+      <strong>Bot Framework</strong> — Best for DM-based workflows (Sales Digest, Meeting Brief) and rich adaptive cards. Requires Azure AD app registration.
+    </div>
+
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option A: Incoming Webhooks</h2>
+    <p style="color:var(--ac-dark-secondary);margin-bottom:16px;">Fastest way to post messages to a Teams channel. No Azure registration needed.</p>
+
+    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Create a Webhook in Teams</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Open the target Teams channel</li>
+      <li>Click <strong>&#8942;</strong> (more options) next to the channel name &rarr; <strong>Connectors</strong> (or <strong>Manage channel &rarr; Connectors</strong>)</li>
+      <li>Search for <strong>Incoming Webhook</strong> and click <strong>Configure</strong></li>
+      <li>Name it (e.g., <code>Automation Catalog</code>) and optionally upload an icon</li>
+      <li>Click <strong>Create</strong></li>
+      <li>Copy the <strong>Webhook URL</strong> — it looks like:<br>
+        <code style="font-size:12px;">https://outlook.office.com/webhook/...</code></li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">2. Send Messages via Webhook</h3>
+    <p style="margin:8px 0;">POST a JSON payload to the webhook URL. Teams supports two formats:</p>
+
+    <h4 style="margin-top:16px;">Simple Text (MessageCard)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">POST {webhook_url}
+Content-Type: application/json
+
+{
+  "@type": "MessageCard",
+  "summary": "Silence Alert",
+  "themeColor": "FF6B6B",
+  "title": "🔴 SILENCE ALERT — 3 accounts need attention",
+  "text": "**Globex Industries** — 18 days silent..."
+}</pre>
+
+    <h4 style="margin-top:16px;">Adaptive Card (richer formatting)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">POST {webhook_url}
+Content-Type: application/json
+
+{
+  "type": "message",
+  "attachments": [{
+    "contentType": "application/vnd.microsoft.card.adaptive",
+    "content": {
+      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+      "type": "AdaptiveCard",
+      "version": "1.4",
+      "body": [
+        { "type": "TextBlock", "text": "Sales Digest", "weight": "Bolder", "size": "Large" },
+        { "type": "TextBlock", "text": "Your daily summary...", "wrap": true }
+      ]
+    }
+  }]
+}</pre>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Configure in Your Platform</h3>
+
+    <h4 style="margin-top:16px;">n8n</h4>
+    <ol style="margin:8px 0 16px 20px;line-height:2;">
+      <li>Add an <strong>HTTP Request</strong> node</li>
+      <li>Method: <strong>POST</strong></li>
+      <li>URL: paste your webhook URL</li>
+      <li>Body: JSON with MessageCard or Adaptive Card payload</li>
+    </ol>
+
+    <h4 style="margin-top:16px;">Python (LangGraph / Claude Agent / OpenAI Agent)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">import os, json
+from urllib.request import Request, urlopen
+
+webhook_url = os.environ["TEAMS_WEBHOOK_URL"]
+payload = json.dumps({
+    "@type": "MessageCard",
+    "summary": "Alert",
+    "title": "🔴 Silence Alert",
+    "text": message_content,
+}).encode()
+
+req = Request(webhook_url, data=payload,
+              headers={"Content-Type": "application/json"})
+urlopen(req)</pre>
+
+    <h4 style="margin-top:16px;">Make / Power Automate / Zapier</h4>
+    <ul style="margin:8px 0 20px 20px;line-height:2;">
+      <li><strong>Make:</strong> HTTP module &rarr; POST to webhook URL with JSON body</li>
+      <li><strong>Power Automate:</strong> Use the built-in <strong>"Post message in a chat or channel"</strong> action (no webhook needed — native Teams connector)</li>
+      <li><strong>Zapier:</strong> Webhooks by Zapier &rarr; POST to webhook URL, or use Microsoft Teams integration</li>
+    </ul>
+
+    <!-- ============ OPTION B: BOT FRAMEWORK ============ -->
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option B: Bot Framework (Azure AD)</h2>
+    <p style="color:var(--ac-dark-secondary);margin-bottom:16px;">Full-featured bot with DM support, adaptive cards, and proactive messaging. Required for workflows that deliver personalized content to individual users.</p>
+
+    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Register an Azure AD App</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Go to <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" target="_blank" style="color:var(--ac-coral);">Azure Portal &rarr; App Registrations</a></li>
+      <li>Click <strong>New registration</strong></li>
+      <li>Name: <code>Automation Catalog Bot</code></li>
+      <li>Supported account types: <strong>Single tenant</strong> (your org only)</li>
+      <li>Click <strong>Register</strong></li>
+      <li>Note the <strong>Application (client) ID</strong> and <strong>Directory (tenant) ID</strong></li>
+      <li>Go to <strong>Certificates &amp; secrets &rarr; New client secret</strong> — copy the secret value</li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">2. API Permissions</h3>
+    <p style="margin:8px 0;">In your app registration, go to <strong>API permissions &rarr; Add a permission &rarr; Microsoft Graph</strong>:</p>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
+      <thead>
+        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+          <th style="padding:10px 12px;text-align:left;">Permission</th>
+          <th style="padding:10px 12px;text-align:left;">Type</th>
+          <th style="padding:10px 12px;text-align:left;">Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>ChatMessage.Send</code></td>
+          <td style="padding:10px 12px;">Application</td>
+          <td style="padding:10px 12px;">Send messages to chats and channels</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>Chat.Create</code></td>
+          <td style="padding:10px 12px;">Application</td>
+          <td style="padding:10px 12px;">Create 1:1 chats for DM delivery</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>Chat.ReadWrite.All</code></td>
+          <td style="padding:10px 12px;">Application</td>
+          <td style="padding:10px 12px;">Read/write to chats (proactive messaging)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>User.Read.All</code></td>
+          <td style="padding:10px 12px;">Application</td>
+          <td style="padding:10px 12px;">Look up users by email for DM targeting</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>ChannelMessage.Send</code></td>
+          <td style="padding:10px 12px;">Application</td>
+          <td style="padding:10px 12px;">Post to specific team channels</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>Team.ReadBasic.All</code></td>
+          <td style="padding:10px 12px;">Application</td>
+          <td style="padding:10px 12px;">List teams and channels</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin:8px 0;">Click <strong>Grant admin consent</strong> after adding permissions (requires admin role).</p>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Create a Bot Channel Registration</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>In Azure Portal, search for <strong>Azure Bot</strong> and click <strong>Create</strong></li>
+      <li>Link it to the app registration you created in Step 1</li>
+      <li>Under <strong>Channels</strong>, enable <strong>Microsoft Teams</strong></li>
+      <li>Under <strong>Configuration</strong>, set the messaging endpoint if using a custom bot service</li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">4. Install Bot in Teams</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Go to <a href="https://dev.teams.microsoft.com/apps" target="_blank" style="color:var(--ac-coral);">Teams Developer Portal</a></li>
+      <li>Create a new app or import the bot</li>
+      <li>Under <strong>App features &rarr; Bot</strong>, link your Azure Bot registration</li>
+      <li><strong>Publish to your org</strong> or sideload for testing</li>
+      <li>Users can then find and chat with the bot, or add it to channels</li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">5. Configure in Your Platform</h3>
+
+    <h4 style="margin-top:16px;">n8n</h4>
+    <ol style="margin:8px 0 16px 20px;line-height:2;">
+      <li>Add a <strong>Microsoft Teams</strong> node</li>
+      <li>Create a credential with your <strong>Client ID</strong>, <strong>Client Secret</strong>, and <strong>Tenant ID</strong></li>
+      <li>Select action: <strong>Send Message</strong> to channel or chat</li>
+    </ol>
+
+    <h4 style="margin-top:16px;">Python (LangGraph / Claude Agent / OpenAI Agent)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export TEAMS_TENANT_ID="your-tenant-id"
+export TEAMS_CLIENT_ID="your-client-id"
+export TEAMS_CLIENT_SECRET="your-client-secret"
+
+# Python example — send via Graph API
+import msal, requests
+
+app = msal.ConfidentialClientApplication(
+    os.environ["TEAMS_CLIENT_ID"],
+    authority=f"https://login.microsoftonline.com/{os.environ['TEAMS_TENANT_ID']}",
+    client_credential=os.environ["TEAMS_CLIENT_SECRET"],
+)
+token = app.acquire_token_for_client(
+    scopes=["https://graph.microsoft.com/.default"]
+)
+
+requests.post(
+    f"https://graph.microsoft.com/v1.0/teams/{team_id}/channels/{channel_id}/messages",
+    headers={"Authorization": f"Bearer {token['access_token']}"},
+    json={"body": {"content": message_content}},
+)</pre>
+
+    <h4 style="margin-top:16px;">Power Automate (native)</h4>
+    <ul style="margin:8px 0 20px 20px;line-height:2;">
+      <li>Power Automate has a <strong>first-party Teams connector</strong> — no bot registration needed</li>
+      <li>Use <strong>"Post message in a chat or channel"</strong> action</li>
+      <li>Supports adaptive cards via <strong>"Post adaptive card in a chat or channel"</strong></li>
+      <li>For DMs, use <strong>"Post message in a chat or channel"</strong> with <strong>Flow bot</strong> as the poster</li>
+    </ul>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">6. Troubleshooting</h3>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
+      <thead>
+        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+          <th style="padding:10px 12px;text-align:left;">Error</th>
+          <th style="padding:10px 12px;text-align:left;">Cause</th>
+          <th style="padding:10px 12px;text-align:left;">Fix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>403 Forbidden</code></td>
+          <td style="padding:10px 12px;">Missing admin consent on Graph permissions</td>
+          <td style="padding:10px 12px;">Azure Portal &rarr; API permissions &rarr; Grant admin consent</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>404 Not Found</code></td>
+          <td style="padding:10px 12px;">Wrong team/channel ID or bot not installed</td>
+          <td style="padding:10px 12px;">Verify IDs via Graph Explorer; ensure bot is added to the team</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>InvalidAuthenticationToken</code></td>
+          <td style="padding:10px 12px;">Expired or malformed token</td>
+          <td style="padding:10px 12px;">Re-acquire token via MSAL; check client secret expiry</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">Webhook returns <code>400</code></td>
+          <td style="padding:10px 12px;">Malformed JSON payload</td>
+          <td style="padding:10px 12px;">Validate against <a href="https://adaptivecards.io/designer/" target="_blank" style="color:var(--ac-coral);">Adaptive Cards Designer</a></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;">Messages not appearing</td>
+          <td style="padding:10px 12px;">Webhook URL expired or connector removed</td>
+          <td style="padding:10px 12px;">Recreate the Incoming Webhook connector in the channel</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>Throttled (429)</code></td>
+          <td style="padding:10px 12px;">Rate limit exceeded</td>
+          <td style="padding:10px 12px;">Graph API allows ~30 msgs/sec per app; add retry with backoff</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Security Tip:</strong> Store your Client Secret in a vault (Azure Key Vault, env var, or platform credential store).
+      Client secrets expire — set a calendar reminder to rotate before expiry.
+      Never embed secrets in workflow JSON files.
+    </div>
+
+    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Power Automate Users:</strong> You likely don't need any of the above!
+      Power Automate's native Teams connector handles authentication automatically.
+      Just use the <strong>"Post message in a chat or channel"</strong> action and sign in with your Microsoft account.
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
@@ -1181,7 +1456,7 @@ function navigate(hash) { location.hash = hash; }
 
 function handleRoute() {
   const hash = location.hash || '#/';
-  const views = ['catalog-view', 'detail-view', 'about-view', 'guide-slack-view'];
+  const views = ['catalog-view', 'detail-view', 'about-view', 'guide-slack-view', 'guide-teams-view'];
   views.forEach(v => {
     document.getElementById(v).style.display = 'none';
     document.getElementById(v).classList.remove('active');
@@ -1195,6 +1470,9 @@ function handleRoute() {
   } else if (hash === '#/guides/slack-bot-setup') {
     document.getElementById('guide-slack-view').style.display = 'block';
     document.getElementById('guide-slack-view').classList.add('active');
+  } else if (hash === '#/guides/teams-setup') {
+    document.getElementById('guide-teams-view').style.display = 'block';
+    document.getElementById('guide-teams-view').classList.add('active');
   } else if (hash === '#/about') {
     document.getElementById('about-view').style.display = 'block';
     document.getElementById('about-view').classList.add('active');
