@@ -918,6 +918,7 @@
     </div>
   </div>
   <div style="display:flex;gap:8px;">
+    <a class="btn btn-secondary" href="#/guides/slack-bot-setup">Slack Setup</a>
     <a class="btn btn-secondary" href="#/about">About</a>
     <a class="btn btn-primary" href="https://happycowboyai.github.io/LLMSkills/" target="_blank">LLM Skills</a>
   </div>
@@ -985,6 +986,175 @@
   </div>
 </div>
 
+<!-- Slack Bot Setup Guide -->
+<div id="guide-slack-view" class="container detail-view">
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <div class="about-content" style="max-width:800px;">
+    <h2>Slack Bot Setup Guide</h2>
+    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+      Most workflows in this catalog deliver results via Slack. Follow these steps to create
+      and configure a Slack bot with the right permissions.
+    </p>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">1. Create a Slack App</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Go to <a href="https://api.slack.com/apps" target="_blank" style="color:var(--ac-coral);">api.slack.com/apps</a></li>
+      <li>Click <strong>Create New App</strong> &rarr; <strong>From scratch</strong></li>
+      <li>Name it (e.g., <code>Automation Catalog Bot</code>) and select your workspace</li>
+      <li>Click <strong>Create App</strong></li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">2. Configure Bot Token Scopes</h3>
+    <p style="margin:8px 0;">Navigate to <strong>OAuth &amp; Permissions</strong> in the sidebar, scroll to <strong>Bot Token Scopes</strong>, and add:</p>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
+      <thead>
+        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+          <th style="padding:10px 12px;text-align:left;">Scope</th>
+          <th style="padding:10px 12px;text-align:left;">Purpose</th>
+          <th style="padding:10px 12px;text-align:left;">Required By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>chat:write</code></td>
+          <td style="padding:10px 12px;">Send messages to channels and DMs</td>
+          <td style="padding:10px 12px;">All workflows</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>chat:write.customize</code></td>
+          <td style="padding:10px 12px;">Send messages with custom bot name/icon</td>
+          <td style="padding:10px 12px;">All workflows</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>channels:read</code></td>
+          <td style="padding:10px 12px;">List public channels</td>
+          <td style="padding:10px 12px;">Channel-targeted workflows</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>groups:read</code></td>
+          <td style="padding:10px 12px;">List private channels the bot is in</td>
+          <td style="padding:10px 12px;">Private channel delivery</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>im:write</code></td>
+          <td style="padding:10px 12px;">Open and send direct messages</td>
+          <td style="padding:10px 12px;">DM-based workflows (Sales Digest, Meeting Brief)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>users:read</code></td>
+          <td style="padding:10px 12px;">Look up user IDs by name/email</td>
+          <td style="padding:10px 12px;">Subscriber-based workflows</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>users:read.email</code></td>
+          <td style="padding:10px 12px;">Look up users by email address</td>
+          <td style="padding:10px 12px;">Email-to-Slack user mapping</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>files:write</code></td>
+          <td style="padding:10px 12px;">Upload files and snippets</td>
+          <td style="padding:10px 12px;">Workflows with file attachments (QBR Prep)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>reactions:write</code></td>
+          <td style="padding:10px 12px;">Add emoji reactions to messages</td>
+          <td style="padding:10px 12px;">Optional — status indicators</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Install to Workspace</h3>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Scroll up on the <strong>OAuth &amp; Permissions</strong> page</li>
+      <li>Click <strong>Install to Workspace</strong></li>
+      <li>Review the permissions and click <strong>Allow</strong></li>
+      <li>Copy the <strong>Bot User OAuth Token</strong> (starts with <code>xoxb-</code>)</li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">4. Invite Bot to Channels</h3>
+    <p style="margin:8px 0;">The bot can only post to channels it's been invited to:</p>
+    <ul style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Open the target Slack channel</li>
+      <li>Type <code>/invite @Automation Catalog Bot</code> (or your bot's name)</li>
+      <li>For DM-based workflows, no invite is needed — the bot opens DMs directly using <code>im:write</code></li>
+    </ul>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">5. Configure in Your Platform</h3>
+
+    <h4 style="margin-top:16px;">n8n</h4>
+    <ol style="margin:8px 0 16px 20px;line-height:2;">
+      <li>Go to <strong>Settings &rarr; Credentials &rarr; Add Credential</strong></li>
+      <li>Select <strong>Slack API</strong></li>
+      <li>Paste your <code>xoxb-</code> token in the <strong>Access Token</strong> field</li>
+      <li>Click <strong>Save</strong> — the credential is now available to all Slack nodes</li>
+    </ol>
+
+    <h4 style="margin-top:16px;">LangGraph / Claude Agent / OpenAI Agent (Python)</h4>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export SLACK_BOT_TOKEN="xoxb-your-token-here"</pre>
+
+    <h4 style="margin-top:16px;">Make / Power Automate / Zapier</h4>
+    <ul style="margin:8px 0 20px 20px;line-height:2;">
+      <li><strong>Make:</strong> Slack connection &rarr; paste Bot Token</li>
+      <li><strong>Power Automate:</strong> Use the Slack connector with OAuth or paste token in HTTP action</li>
+      <li><strong>Zapier:</strong> Connect Slack account via OAuth flow (scopes configured in the app)</li>
+    </ul>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">6. Bot Display Name &amp; Icon</h3>
+    <p style="margin:8px 0;">To customize how the bot appears in Slack:</p>
+    <ol style="margin:12px 0 20px 20px;line-height:2;">
+      <li>Go to your app at <a href="https://api.slack.com/apps" target="_blank" style="color:var(--ac-coral);">api.slack.com/apps</a></li>
+      <li>Click <strong>Basic Information</strong> in the sidebar</li>
+      <li>Scroll to <strong>Display Information</strong></li>
+      <li>Set the app name, description, icon, and background color</li>
+      <li>Each workflow in this catalog uses a unique bot name (Aria, Watchdog, Prospector, etc.) via the <code>chat:write.customize</code> scope</li>
+    </ol>
+
+    <h3 style="margin-top:24px;color:var(--ac-coral);">7. Troubleshooting</h3>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
+      <thead>
+        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+          <th style="padding:10px 12px;text-align:left;">Error</th>
+          <th style="padding:10px 12px;text-align:left;">Cause</th>
+          <th style="padding:10px 12px;text-align:left;">Fix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>not_in_channel</code></td>
+          <td style="padding:10px 12px;">Bot hasn't been invited to the channel</td>
+          <td style="padding:10px 12px;"><code>/invite @BotName</code> in the channel</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>channel_not_found</code></td>
+          <td style="padding:10px 12px;">Wrong channel ID or channel is private</td>
+          <td style="padding:10px 12px;">Use channel ID (not name) — find it in channel details</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>missing_scope</code></td>
+          <td style="padding:10px 12px;">Required scope not added</td>
+          <td style="padding:10px 12px;">Add the scope, then <strong>reinstall</strong> the app to workspace</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>invalid_auth</code></td>
+          <td style="padding:10px 12px;">Token is wrong, expired, or revoked</td>
+          <td style="padding:10px 12px;">Reinstall app and copy the new token</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+          <td style="padding:10px 12px;"><code>ratelimited</code></td>
+          <td style="padding:10px 12px;">Too many API calls</td>
+          <td style="padding:10px 12px;">Add delays between messages; Slack allows ~1 msg/sec per channel</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Security Tip:</strong> Never commit your <code>xoxb-</code> token to source control.
+      Store it as an environment variable or in your platform's credential store.
+      Rotate tokens immediately if exposed.
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
@@ -1011,7 +1181,7 @@ function navigate(hash) { location.hash = hash; }
 
 function handleRoute() {
   const hash = location.hash || '#/';
-  const views = ['catalog-view', 'detail-view', 'about-view'];
+  const views = ['catalog-view', 'detail-view', 'about-view', 'guide-slack-view'];
   views.forEach(v => {
     document.getElementById(v).style.display = 'none';
     document.getElementById(v).classList.remove('active');
@@ -1022,6 +1192,9 @@ function handleRoute() {
     document.getElementById('detail-view').style.display = 'block';
     document.getElementById('detail-view').classList.add('active');
     renderDetail(id);
+  } else if (hash === '#/guides/slack-bot-setup') {
+    document.getElementById('guide-slack-view').style.display = 'block';
+    document.getElementById('guide-slack-view').classList.add('active');
   } else if (hash === '#/about') {
     document.getElementById('about-view').style.display = 'block';
     document.getElementById('about-view').classList.add('active');
