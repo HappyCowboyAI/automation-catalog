@@ -18,6 +18,8 @@ CREDENTIAL_PATTERNS = [
     (r'sk-ant-[A-Za-z0-9-]+', 'Anthropic API key'),
     (r'ghp_[A-Za-z0-9]{36}', 'GitHub token'),
     (r'gho_[A-Za-z0-9]{36}', 'GitHub OAuth token'),
+    (r'sbp_[A-Za-z0-9]{20,}', 'Supabase key'),
+    (r'[a-z0-9]{20,}\.supabase\.co', 'Supabase instance URL'),
 ]
 
 STRIP_FIELDS = ['credentials', 'webhookId']
@@ -32,6 +34,9 @@ ORG_PATTERNS = [
     (r'U061WJ6RMJS', 'YOUR_SLACK_USER_ID'),
     (r'Yl1JnBIr7yzb', 'YOUR_PEOPLEAI_CLIENT_ID'),
     (r'2rT0SWrgRN9fCYwu1BkFgeaFXeyBGNgTwb5GfeywkIeYEJvE', 'YOUR_PEOPLEAI_CLIENT_SECRET'),
+    (r'rhrlnkbphxntxxxcrgvv\.supabase\.co', 'YOUR_SUPABASE_HOST'),
+    (r'https?://[a-z0-9]+\.supabase\.co/rest/v1/[a-zA-Z_]+', 'https://YOUR_SUPABASE_HOST/rest/v1/YOUR_TABLE'),
+    (r'sbp_[A-Za-z0-9]{20,}', 'YOUR_SUPABASE_KEY'),
 ]
 
 
