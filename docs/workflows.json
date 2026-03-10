@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-03-10T00:00:27.855545+00:00",
+  "_generated": "2026-03-10T00:54:30.031286+00:00",
   "_generator": "docs/build-catalog.py",
   "categories": [
     {
@@ -92,11 +92,8 @@
         "bot_app": true,
         "content": "\u2600\ufe0f **Good Morning, @sarah.chen** \u2014 Here's your daily digest for **Tuesday, Mar 4**\n\n\ud83d\udcca **PIPELINE MOVEMENT:**\n- **ACME Corp** ===$425,000=== moved to Technical Validation \u2014 @james.park scheduled POC for Thursday\n- **Globex Industries** ===$180,000=== \u2014 Procurement sent redlines on MSA, legal review needed by EOD Wednesday\n- **Initech** ===$92,000=== went dark after demo last Tuesday \u2014 6 days no response from champion\n\n\ud83d\udd14 **ENGAGEMENT HIGHLIGHTS:**\n- @mike.torres (VP Sales, NovaTech) opened your proposal deck 3x yesterday, forwarded to CFO\n- New inbound: Director of Ops at Contoso downloaded whitepaper + visited pricing page\n- Wayne Enterprises champion Sarah Kim accepted your QBR invite for next Monday\n\n\u26a1 **RECOMMENDED ACTIONS:**\n- Follow up with Initech champion \u2014 silence exceeds your 5-day threshold\n- Prep legal response for Globex MSA redlines before Wednesday deadline\n- Send NovaTech CFO a personalized ROI summary while momentum is hot\n\n---\n*Powered by People.ai MCP \u2014 14 accounts tracked, 3 need attention*"
       },
-      "exports": [
-        "full.json"
-      ],
+      "exports": [],
       "platforms": {
-        "n8n": "full.json",
         "langgraph": "langgraph_sales_digest.py",
         "claude-agent": "claude_agent_sales_digest.py",
         "openai-agent": "openai_agent_sales_digest.py",
@@ -154,11 +151,8 @@
         "bot_app": true,
         "content": "\ud83d\udccb **Meeting Brief** \u2014 ACME Corp Technical Review | Today 2:00 PM\n\n\ud83d\udc65 **ATTENDEES:**\n- @sarah.chen (Account Owner) + @james.park (SE)\n- Dan Reeves (VP Engineering, ACME) \u2014 Decision maker, attended 3 of last 4 calls\n- Lisa Wong (Director of IT, ACME) \u2014 Technical champion, drove POC approval\n- New: Kevin Marsh (Security Architect) \u2014 First time joining, likely for compliance review\n\n\ud83d\udcca **ACCOUNT CONTEXT:**\n- Deal: ===$425,000=== | Stage: Technical Validation | Close: 04/2026\n- Last meeting (Feb 28): POC results review \u2014 positive feedback, 2 action items open\n- Champion @lisa.wong sent internal email to procurement team Monday (good sign)\n- Competitor Vendara still in evaluation \u2014 ACME IT Director mentioned them in a Feb 25 email\n\n\ud83c\udfaf **TALKING POINTS:**\n- Address Kevin Marsh's security concerns \u2014 prep SOC2 report and data residency docs\n- Follow up on open action item: custom API integration timeline (Dan asked Feb 28)\n- Ask about procurement timeline \u2014 Lisa's internal email suggests they're moving forward\n- Subtly position against Vendara: emphasize integration depth and time-to-value\n\n\u26a0\ufe0f **WATCH FOR:**\n- Dan Reeves missed last week's check-in \u2014 gauge his engagement level today\n- If security review scope expands, it could push timeline 2-3 weeks\n\n---\n*Powered by People.ai MCP \u2014 47 days of engagement history analyzed*"
       },
-      "exports": [
-        "full.json"
-      ],
+      "exports": [],
       "platforms": {
-        "n8n": "full.json",
         "langgraph": "langgraph_meeting_brief.py",
         "claude-agent": "claude_agent_meeting_brief.py",
         "openai-agent": "openai_agent_meeting_brief.py",
@@ -223,11 +217,8 @@
         "bot_app": true,
         "content": "\ud83d\udd34 **SILENCE ALERT** \u2014 3 accounts require immediate attention\n\n**GLOBEX INDUSTRIES** | ===$340,000=== | Renewal: 04/2026 | \ud83d\udd34 Critical\n- Last meaningful engagement: **18 days ago** (normally 3-day cadence)\n- Champion @lisa.wong has not opened last 4 emails\n- Contract renewal in 47 days \u2014 no renewal discussion initiated\n- \ud83d\udc49 @david.kim: Schedule a check-in call citing Q2 planning as reason to reconnect\n\n**INITECH** | ===$125,000=== | Renewal: 06/2026 | \ud83d\udfe1 Watch\n- Last engagement: **11 days ago** \u2014 below 7-day norm\n- Executive sponsor Dan Reeves missed scheduled QBR last Friday (no reschedule)\n- Support tickets up 40% this month, but no escalation to account team\n- \ud83d\udc49 @rep.owner: Reach out to secondary contact Maria Santos for a pulse check\n\n**WAYNE ENTERPRISES** | ===$87,000=== | Renewal: 08/2026 | \ud83d\udfe1 Watch\n- Last engagement: **9 days ago** \u2014 champion on PTO until Mar 12 (verified via OOO)\n- Benign silence likely, but 2 open support tickets unresolved for 6+ days\n- \ud83d\udc49 @sarah.chen: Monitor \u2014 flag if silence continues past Mar 14\n\n---\n*Powered by People.ai MCP \u2014 42 accounts scanned, 3 flagged*"
       },
-      "exports": [
-        "full.json"
-      ],
+      "exports": [],
       "platforms": {
-        "n8n": "full.json",
         "langgraph": "langgraph_silence_monitor.py",
         "claude-agent": "claude_agent_silence_monitor.py",
         "openai-agent": "openai_agent_silence_monitor.py",
