@@ -918,10 +918,7 @@
     </div>
   </div>
   <div style="display:flex;gap:8px;">
-    <a class="btn btn-secondary" href="#/guides/slack-bot-setup">Slack</a>
-    <a class="btn btn-secondary" href="#/guides/teams-setup">Teams</a>
-    <a class="btn btn-secondary" href="#/guides/google-chat-setup">Google Chat</a>
-    <a class="btn btn-secondary" href="#/guides/email-setup">Email</a>
+    <a class="btn btn-secondary" href="#/guides">Setup Guides</a>
     <a class="btn btn-secondary" href="#/about">About</a>
     <a class="btn btn-primary" href="https://happycowboyai.github.io/LLMSkills/" target="_blank">LLM Skills</a>
   </div>
@@ -989,9 +986,75 @@
   </div>
 </div>
 
+<!-- Guides Hub -->
+<div id="guides-view" class="container detail-view">
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <div style="max-width:900px;">
+    <h2 style="margin-bottom:8px;">Setup Guides</h2>
+    <p style="color:var(--ac-dark-secondary);margin-bottom:28px;">
+      Step-by-step configuration guides for each delivery platform. Pick the one your team uses.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+
+      <a href="#/guides/slack-bot-setup" style="text-decoration:none;color:inherit;">
+        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+          <div style="font-size:32px;margin-bottom:12px;">💬</div>
+          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Slack</div>
+          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+            Bot token scopes, app creation, channel invites, and DM delivery setup.
+          </div>
+          <div style="margin-top:12px;">
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">9 scopes covered</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#/guides/teams-setup" style="text-decoration:none;color:inherit;">
+        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+          <div style="font-size:32px;margin-bottom:12px;">🟦</div>
+          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Microsoft Teams</div>
+          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+            Incoming Webhooks for channels, Bot Framework with Azure AD for DMs and adaptive cards.
+          </div>
+          <div style="margin-top:12px;">
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">Webhooks + Bot Framework</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#/guides/google-chat-setup" style="text-decoration:none;color:inherit;">
+        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+          <div style="font-size:32px;margin-bottom:12px;">🟢</div>
+          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Google Chat</div>
+          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+            Space webhooks for alerts, Chat App with GCP service account for proactive DMs.
+          </div>
+          <div style="margin-top:12px;">
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">Webhooks + Chat App</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#/guides/email-setup" style="text-decoration:none;color:inherit;">
+        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+          <div style="font-size:32px;margin-bottom:12px;">📧</div>
+          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Email (SMTP)</div>
+          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+            Gmail, Outlook/M365, and SendGrid setup. Universal fallback for any workflow.
+          </div>
+          <div style="margin-top:12px;">
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">4 providers compared</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
 <!-- Slack Bot Setup Guide -->
 <div id="guide-slack-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Slack Bot Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
@@ -1160,7 +1223,7 @@
 
 <!-- Teams Setup Guide -->
 <div id="guide-teams-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Microsoft Teams Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
@@ -1434,7 +1497,7 @@ requests.post(
 
 <!-- Google Chat Setup Guide -->
 <div id="guide-google-chat-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Google Chat Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
@@ -1656,7 +1719,7 @@ chat.spaces().messages().create(
 
 <!-- Email (SMTP) Setup Guide -->
 <div id="guide-email-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Email Delivery Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
@@ -1968,7 +2031,7 @@ function navigate(hash) { location.hash = hash; }
 
 function handleRoute() {
   const hash = location.hash || '#/';
-  const views = ['catalog-view', 'detail-view', 'about-view', 'guide-slack-view', 'guide-teams-view', 'guide-google-chat-view', 'guide-email-view'];
+  const views = ['catalog-view', 'detail-view', 'about-view', 'guides-view', 'guide-slack-view', 'guide-teams-view', 'guide-google-chat-view', 'guide-email-view'];
   views.forEach(v => {
     document.getElementById(v).style.display = 'none';
     document.getElementById(v).classList.remove('active');
@@ -1979,6 +2042,9 @@ function handleRoute() {
     document.getElementById('detail-view').style.display = 'block';
     document.getElementById('detail-view').classList.add('active');
     renderDetail(id);
+  } else if (hash === '#/guides') {
+    document.getElementById('guides-view').style.display = 'block';
+    document.getElementById('guides-view').classList.add('active');
   } else if (hash === '#/guides/slack-bot-setup') {
     document.getElementById('guide-slack-view').style.display = 'block';
     document.getElementById('guide-slack-view').classList.add('active');
