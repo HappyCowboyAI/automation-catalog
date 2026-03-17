@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>People.ai Automation Catalog</title>
+<title>People.ai Automation Library</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
   :root {
@@ -913,7 +913,7 @@
     </div>
     <div class="header-divider"></div>
     <div>
-      <div class="header-title">Automation Catalog</div>
+      <div class="header-title">Automation Library</div>
       <div class="header-subtitle">Ready-to-import workflow automations powered by People.ai</div>
     </div>
   </div>
@@ -936,17 +936,17 @@
 
 <!-- Detail View -->
 <div id="detail-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Library</a>
   <div id="detail-content"></div>
 </div>
 
 <!-- About View -->
 <div id="about-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Library</a>
   <div class="about-content">
-    <h2>About the People.ai Automation Catalog</h2>
+    <h2>About the People.ai Automation Library</h2>
     <p>
-      This catalog contains ready-to-import workflow automations that leverage the
+      This library contains ready-to-import workflow automations that leverage the
       <strong>People.ai MCP</strong> (Model Context Protocol) integration alongside AI models,
       CRM data, and communication tools to deliver actionable sales intelligence.
     </p>
@@ -964,7 +964,7 @@
     </p>
     <p style="margin-top:16px;">
       <strong>How it works:</strong><br>
-      1. Browse the catalog and pick a workflow<br>
+      1. Browse the library and pick a workflow<br>
       2. Download the workflow JSON<br>
       3. Import into your automation platform<br>
       4. Connect your credentials (People.ai MCP, Anthropic, Slack, etc.)<br>
@@ -988,7 +988,7 @@
 
 <!-- Guides Hub -->
 <div id="guides-view" class="container detail-view">
-  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Catalog</a>
+  <a class="back-link" onclick="navigate('#/')">&#8592; Back to Library</a>
   <div style="max-width:900px;">
     <h2 style="margin-bottom:8px;">Setup Guides</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:28px;">
@@ -1079,7 +1079,7 @@
     <h2>People.ai MCP Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
       The <strong>People.ai Model Context Protocol (MCP)</strong> server is the core data source
-      for every workflow in this catalog. It provides AI agents with direct access to account
+      for every workflow in this library. It provides AI agents with direct access to account
       activity, engagement data, opportunity status, and contact intelligence.
     </p>
 
@@ -1254,7 +1254,7 @@
 
     <div style="padding:12px 16px;background:var(--wf-bg);border-radius:var(--radius);margin:8px 0 20px 0;">
       <span style="color:var(--wf-green);font-weight:600;">Tip:</span>
-      <span style="color:var(--wf-text);font-size:13px;"> When importing catalog workflows (<code>full.json</code>), the MCP Client Tool node is already configured — just add your credentials.</span>
+      <span style="color:var(--wf-text);font-size:13px;"> When importing library workflows (<code>full.json</code>), the MCP Client Tool node is already configured — just add your credentials.</span>
     </div>
 
     <!-- ============ AI AGENT PROMPT ============ -->
@@ -1442,7 +1442,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
   <div class="about-content" style="max-width:800px;">
     <h2>Slack Bot Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
-      Most workflows in this catalog deliver results via Slack. Follow these steps to create
+      Most workflows in this library deliver results via Slack. Follow these steps to create
       and configure a Slack bot with the right permissions.
     </p>
 
@@ -1556,7 +1556,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       <li>Click <strong>Basic Information</strong> in the sidebar</li>
       <li>Scroll to <strong>Display Information</strong></li>
       <li>Set the app name, description, icon, and background color</li>
-      <li>Each workflow in this catalog uses a unique bot name (Aria, Watchdog, Prospector, etc.) via the <code>chat:write.customize</code> scope</li>
+      <li>Each workflow in this library uses a unique bot name (Aria, Watchdog, Prospector, etc.) via the <code>chat:write.customize</code> scope</li>
     </ol>
 
     <h3 style="margin-top:24px;color:var(--ac-coral);">7. Troubleshooting</h3>
@@ -1611,7 +1611,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
   <div class="about-content" style="max-width:800px;">
     <h2>Microsoft Teams Setup Guide</h2>
     <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
-      Workflows in this catalog can deliver results to Microsoft Teams via two methods:
+      Workflows in this library can deliver results to Microsoft Teams via two methods:
       <strong>Incoming Webhooks</strong> (quick setup, channel-only) or a
       <strong>Bot Framework bot</strong> (full-featured, supports DMs and adaptive cards).
     </p>
