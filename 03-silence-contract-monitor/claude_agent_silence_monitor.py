@@ -2,7 +2,7 @@
 Silence & Contract Monitor — Claude Agent SDK Implementation
 
 Monitors accounts for engagement gaps and surfaces churn risk alerts
-using People.ai MCP data and AI-powered risk assessment.
+using Backstory MCP data and AI-powered risk assessment.
 
 Requirements:
     pip install claude-agent-sdk anthropic slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     ALERT_SLACK_CHANNEL  — Slack channel for alerts
 """
 from __future__ import annotations
@@ -27,11 +27,11 @@ SILENCE_THRESHOLD_DAYS = 7
 SYSTEM_PROMPT = """You are a sales intelligence assistant that monitors accounts
 for concerning engagement gaps.
 
-You have access to People.ai via MCP tools to check account engagement, and
+You have access to Backstory via MCP tools to check account engagement, and
 local tools to deliver alerts.
 
 Your workflow:
-1. Query People.ai for all monitored accounts and their last engagement dates
+1. Query Backstory for all monitored accounts and their last engagement dates
 2. Identify accounts silent beyond the threshold (7+ days with no meaningful activity)
 3. For each silent account, assess severity:
    - 🔴 Critical: silence + upcoming renewal/close date + broken normal cadence
@@ -89,7 +89,7 @@ async def run_silence_monitor():
     result = await agent.run(
         f"""Run the Silence & Contract Monitor:
 1. Get silence config via get_silence_config()
-2. Query People.ai MCP for all monitored accounts with engagement timestamps
+2. Query Backstory MCP for all monitored accounts with engagement timestamps
 3. Identify accounts with no meaningful engagement in {SILENCE_THRESHOLD_DAYS}+ days
 4. For each silent account, assess risk severity considering:
    - Days since last engagement vs normal cadence

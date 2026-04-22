@@ -2,7 +2,7 @@
 Silence & Contract Monitor — OpenAI Agents SDK Implementation
 
 Monitors accounts for engagement gaps and surfaces churn risk alerts
-using People.ai MCP data and AI-powered risk assessment.
+using Backstory MCP data and AI-powered risk assessment.
 
 Requirements:
     pip install openai-agents slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     OPENAI_API_KEY       — OpenAI API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     ALERT_SLACK_CHANNEL  — Slack channel for alerts
 """
 from __future__ import annotations
@@ -27,11 +27,11 @@ SILENCE_THRESHOLD_DAYS = 7
 SYSTEM_PROMPT = """You are a sales intelligence assistant that monitors accounts
 for concerning engagement gaps.
 
-You have access to People.ai via MCP tools to check account engagement, and
+You have access to Backstory via MCP tools to check account engagement, and
 local tools to deliver alerts.
 
 Your workflow:
-1. Query People.ai for all monitored accounts and their last engagement dates
+1. Query Backstory for all monitored accounts and their last engagement dates
 2. Identify accounts silent beyond the threshold (7+ days)
 3. Assess severity: 🔴 Critical, 🟡 Watch, 🟢 Benign
 4. Generate alerts with context and recommended re-engagement actions
@@ -86,7 +86,7 @@ async def run_silence_monitor():
         agent,
         f"""Run the Silence & Contract Monitor:
 1. Get config via get_silence_config()
-2. Query People.ai MCP for all monitored accounts with engagement timestamps
+2. Query Backstory MCP for all monitored accounts with engagement timestamps
 3. Identify accounts silent {SILENCE_THRESHOLD_DAYS}+ days
 4. Assess risk severity for each (Critical/Watch/Benign)
 5. Generate consolidated alert grouped by severity

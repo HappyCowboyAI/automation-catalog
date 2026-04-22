@@ -2,7 +2,7 @@
 Channel Pulse — OpenAI Agents SDK Implementation
 
 Sends scannable account updates to internal customer channels by pulling
-engagement data from People.ai via MCP and summarizing with an LLM.
+engagement data from Backstory via MCP and summarizing with an LLM.
 
 Requirements:
     pip install openai-agents slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     OPENAI_API_KEY       — OpenAI API key
     SLACK_BOT_TOKEN      — Slack bot token for posting updates
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
 """
 from __future__ import annotations
 
@@ -35,14 +35,14 @@ CHANNEL_MAP: dict[str, str] = {
 SYSTEM_PROMPT = """You are a sales intelligence assistant that generates
 scannable account updates for internal customer channels.
 
-You have access to People.ai via MCP tools to pull account activity data.
+You have access to Backstory via MCP tools to pull account activity data.
 For each active account, generate an update in this format:
 
 - Lead with account name, deal value, close date, and health indicator
 - Section 1: THIS WEEK'S KEY DEVELOPMENTS (3-5 bullets)
 - Section 2: RISKS & OPPORTUNITIES (3-5 bullets)
 - Section 3: NEXT WEEK'S ACTIONS (3-5 bullets with @owner tags)
-- Footer: "Powered by People.ai MCP: please thread comments"
+- Footer: "Powered by Backstory MCP: please thread comments"
 
 Use emoji section headers. Keep each bullet to one line. Be specific."""
 
@@ -95,7 +95,7 @@ def get_lookback_date() -> str:
 # ---------------------------------------------------------------------------
 
 async def create_agent() -> Agent:
-    """Create the Channel Pulse agent with People.ai MCP + local tools."""
+    """Create the Channel Pulse agent with Backstory MCP + local tools."""
     peopleai_mcp = MCPServerSse(
         name="peopleai",
         url=os.environ["PEOPLEAI_MCP_URL"],
@@ -122,9 +122,9 @@ async def run_channel_pulse():
         agent,
         """Run the Channel Pulse workflow:
 1. Use get_lookback_date() to determine the activity window
-2. Query People.ai MCP to find accounts with recent activity
+2. Query Backstory MCP to find accounts with recent activity
 3. For each active account:
-   a. Pull detailed engagement data from People.ai
+   a. Pull detailed engagement data from Backstory
    b. Generate a scannable channel update
    c. Look up the correct Slack channel with get_channel_for_account()
    d. Post the update using post_to_slack()

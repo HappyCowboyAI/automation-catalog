@@ -30,10 +30,10 @@ Both new users importing workflows and developers customizing them.
    - "Dual trigger: scheduled interval or on-demand webhook. Configuration node holds all tunables — update this first."
 
 2. **"2. Data Gathering"** — above x=-750 to 370
-   - "Authenticates with People.ai, queries customer accounts and open renewals, then fetches Slack channel/user mappings to resolve posting targets."
+   - "Authenticates with Backstory, queries customer accounts and open renewals, then fetches Slack channel/user mappings to resolve posting targets."
 
 3. **"3. AI-Powered Summarization"** — above x=370 to 1840
-   - "Loops through each account, builds a prompt with context, sends to Claude via People.ai MCP, then extracts and filters the response."
+   - "Loops through each account, builds a prompt with context, sends to Claude via Backstory MCP, then extracts and filters the response."
 
 4. **"4. Delivery & Summary"** — above x=1840 to 2960
    - "Formats Slack message payload, posts to the mapped channel, loops to next account, then sends a run summary when complete."
@@ -41,7 +41,7 @@ Both new users importing workflows and developers customizing them.
 ### Setup Callouts (yellow)
 
 5. **Configuration node** (x=-976)
-   - "START HERE: Set your People.ai org ID, Slack bot token, and target account filters before first run."
+   - "START HERE: Set your Backstory org ID, Slack bot token, and target account filters before first run."
 
 6. **Anthropic Chat Model node** (x=1056)
    - "Set your LLM API key and model. Default: Claude. Swap for OpenAI/Gemini by replacing this node."

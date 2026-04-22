@@ -2,7 +2,7 @@
 Silence & Contract Monitor — LangGraph Implementation
 
 Monitors accounts for engagement gaps and surfaces churn risk alerts
-using People.ai MCP data and AI-powered risk assessment.
+using Backstory MCP data and AI-powered risk assessment.
 
 Requirements:
     pip install langgraph langchain-anthropic langchain-core
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
 """
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ SILENCE_THRESHOLD_DAYS = 7
 SYSTEM_PROMPT = """You are a sales intelligence assistant that monitors accounts
 for concerning engagement gaps.
 
-You have access to People.ai via MCP tools. For each silent account, assess:
+You have access to Backstory via MCP tools. For each silent account, assess:
 - Severity (Critical 🔴, Watch 🟡, Benign 🟢) based on silence duration vs normal cadence
 - Context: deal stage, contract renewal date, historical engagement patterns
 - Whether silence is explainable (PTO, holidays, post-close quiet period)
@@ -60,7 +60,7 @@ async def get_peopleai_tools():
 
 
 async def fetch_accounts(state: SilenceMonitorState) -> dict:
-    """Fetch monitored accounts from People.ai."""
+    """Fetch monitored accounts from Backstory."""
     tools = await get_peopleai_tools()
     llm = ChatAnthropic(model="claude-sonnet-4-20250514", temperature=0)
 

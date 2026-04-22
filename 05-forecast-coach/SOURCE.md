@@ -8,16 +8,16 @@
 | **Status**     | Off                                                |
 | **Trigger**    | Schedule — Weekly (Monday)                         |
 | **Node Count** | 19                                                 |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), SMTP |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), SMTP |
 
 ## Description
 
-Provides AI-powered coaching insights for sales leaders by analyzing their team's open pipeline each week. Every Monday, the workflow pulls each leader's team pipeline from People.ai, filters for active deals, and uses the LLM to assess deal health — looking at engagement recency, stakeholder coverage, stage velocity, and risk indicators. The result is a per-leader coaching report delivered via email, highlighting deals that need attention and suggesting specific coaching actions.
+Provides AI-powered coaching insights for sales leaders by analyzing their team's open pipeline each week. Every Monday, the workflow pulls each leader's team pipeline from Backstory, filters for active deals, and uses the LLM to assess deal health — looking at engagement recency, stakeholder coverage, stage velocity, and risk indicators. The result is a per-leader coaching report delivered via email, highlighting deals that need attention and suggesting specific coaching actions.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires every Monday morning.
-2. **Pull Team Pipeline** — Fetches open opportunities for each sales leader's team via People.ai MCP and filters for active, in-progress deals.
+2. **Pull Team Pipeline** — Fetches open opportunities for each sales leader's team via Backstory MCP and filters for active, in-progress deals.
 3. **AI Deal Health Analysis** — AI Agent evaluates each deal across multiple dimensions (engagement, momentum, stakeholder mapping, competitive signals) and generates coaching-ready insights.
 4. **Compile Leader Reports** — Aggregates deal-level insights into a per-leader coaching summary with prioritized action items.
 5. **Deliver via Email** — Sends each sales leader their personalized coaching report via SMTP.
@@ -34,12 +34,12 @@ Provides AI-powered coaching insights for sales leaders by analyzing their team'
 | `set`                 | Variable and parameter configuration      |
 | `agent`               | Orchestrates AI coaching analysis         |
 | `lmChat`              | LLM language model                        |
-| `mcpClientTool`       | People.ai MCP integration                 |
+| `mcpClientTool`       | Backstory MCP integration                 |
 | `emailSend`           | SMTP email delivery                       |
 
 ## Credentials Required
 
-- **People.ai MCP** — Pipeline data and engagement metrics
+- **Backstory MCP** — Pipeline data and engagement metrics
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — LLM for deal health analysis
 - **SMTP** — Email delivery for coaching reports
 
@@ -75,4 +75,4 @@ Provides AI-powered coaching insights for sales leaders by analyzing their team'
 🟢 **ON TRACK:** 9 deals progressing normally — no coaching needed
 
 ---
-*Powered by People.ai MCP — 12 deals analyzed across 4 reps*
+*Powered by Backstory MCP — 12 deals analyzed across 4 reps*

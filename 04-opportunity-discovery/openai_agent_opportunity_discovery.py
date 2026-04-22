@@ -2,7 +2,7 @@
 Opportunity Discovery — OpenAI Agents SDK Implementation
 
 Surfaces hidden revenue opportunities by cross-referencing engagement
-signals from People.ai against the CRM pipeline.
+signals from Backstory against the CRM pipeline.
 
 Requirements:
     pip install openai-agents slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     OPENAI_API_KEY       — OpenAI API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     DISCOVERY_SLACK_CHANNEL — Slack channel for results
 """
 from __future__ import annotations
@@ -27,7 +27,7 @@ from agents.mcp import MCPServerSse
 SYSTEM_PROMPT = """You are a sales intelligence assistant that discovers hidden
 revenue opportunities.
 
-You have access to People.ai via MCP tools to pull engagement data and pipeline,
+You have access to Backstory via MCP tools to pull engagement data and pipeline,
 and local tools to deliver results.
 
 Find accounts with engagement signals but no open opportunity. Analyze signal
@@ -93,8 +93,8 @@ async def run_opportunity_discovery():
     result = await Runner.run(
         agent,
         f"""Run the Opportunity Discovery workflow:
-1. Query People.ai MCP for accounts with engagement in last 30 days
-2. Query People.ai MCP for all open opportunities
+1. Query Backstory MCP for accounts with engagement in last 30 days
+2. Query Backstory MCP for all open opportunities
 3. Cross-reference to find accounts with signals but no open deal
 4. Analyze signal strength for each (meetings, emails, content, seniority)
 5. Generate prioritized report (High 🟢 / Moderate 🟡)

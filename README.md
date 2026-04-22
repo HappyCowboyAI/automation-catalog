@@ -1,6 +1,6 @@
-# People.ai Automation Catalog
+# Backstory Automation Catalog
 
-Ready-to-import workflow automations powered by People.ai. Each workflow connects People.ai CRM intelligence with AI analysis to automate sales workflows.
+Ready-to-import workflow automations powered by Backstory. Each workflow connects Backstory CRM intelligence with AI analysis to automate sales workflows.
 
 ## Workflows
 
@@ -18,13 +18,13 @@ Ready-to-import workflow automations powered by People.ai. Each workflow connect
 1. Browse the [catalog](https://happycowboyai.github.io/automation-catalog/)
 2. Download a workflow JSON (Quick Start or Full version)
 3. Import into your automation platform
-4. Connect your credentials (People.ai API, Slack, Anthropic, etc.)
+4. Connect your credentials (Backstory API, Slack, Anthropic, etc.)
 5. Configure and activate
 
 ## Prerequisites
 
 - Automation platform (self-hosted or cloud)
-- People.ai account with API/MCP access
+- Backstory account with API/MCP access
 - Anthropic API key (for Claude AI nodes)
 - Slack workspace with bot token
 
@@ -42,4 +42,4 @@ All workflow exports are sanitized to remove API keys, tokens, and org-specific 
 
 ## See Also
 
-- [People.ai LLM Skills Catalog](https://happycowboyai.github.io/LLMSkills/) — Interactive AI skills powered by People.ai MCP
+- [Backstory LLM Skills Catalog](https://happycowboyai.github.io/LLMSkills/) — Interactive AI skills powered by Backstory MCP

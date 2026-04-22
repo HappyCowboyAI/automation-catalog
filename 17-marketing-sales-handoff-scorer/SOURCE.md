@@ -8,19 +8,19 @@
 | **Status**     | Active                                               |
 | **Trigger**    | Webhook — New MQL created in CRM/MAP                 |
 | **Node Count** | 23                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 pipeline-forecasting
 
 ## Description
 
-Enriches marketing-qualified leads at the moment of handoff by checking People.ai for existing engagement history. When a new MQL is created in the CRM or marketing automation platform, the workflow queries People.ai to see if the account already has relationship history — prior meetings, email threads, known contacts, or past opportunities. An AI agent scores the handoff quality (hot / warm / cold) and generates a context brief for the receiving SDR or AE, so they never walk into a "cold" call that's actually warm. Delivered instantly via Messaging.
+Enriches marketing-qualified leads at the moment of handoff by checking Backstory for existing engagement history. When a new MQL is created in the CRM or marketing automation platform, the workflow queries Backstory to see if the account already has relationship history — prior meetings, email threads, known contacts, or past opportunities. An AI agent scores the handoff quality (hot / warm / cold) and generates a context brief for the receiving SDR or AE, so they never walk into a "cold" call that's actually warm. Delivered instantly via Messaging.
 
 ## Node Flow
 
 1. **Webhook Trigger** — Fires when a new MQL is created in CRM or marketing automation platform.
-2. **Enrich with People.ai History** — Queries People.ai for any existing engagement with the MQL's account: past meetings, email history, known contacts, prior opportunities.
+2. **Enrich with Backstory History** — Queries Backstory for any existing engagement with the MQL's account: past meetings, email history, known contacts, prior opportunities.
 3. **AI Handoff Scoring** — AI Agent evaluates the engagement history to score the handoff (hot / warm / cold) and generates a context brief with key talking points and relationship history.
 4. **Deliver to SDR/AE** — Sends the scored handoff with context brief to the assigned SDR or AE via Messaging, including recommended first outreach approach.
 
@@ -29,7 +29,7 @@ Enriches marketing-qualified leads at the moment of handoff by checking People.a
 | Node Type             | Role                                      |
 |-----------------------|-------------------------------------------|
 | `webhookTrigger`      | New MQL creation event                    |
-| `mcpClientTool`       | People.ai account engagement history      |
+| `mcpClientTool`       | Backstory account engagement history      |
 | `agent`               | AI handoff scoring and brief generation   |
 | `lmChat`              | LLM language model                        |
 | `outputParserStructured` | Enforces typed handoff score output    |
@@ -37,7 +37,7 @@ Enriches marketing-qualified leads at the moment of handoff by checking People.a
 
 ## Credentials Required
 
-- **People.ai MCP** — Account engagement history
+- **Backstory MCP** — Account engagement history
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI handoff scoring
 - **CRM (Salesforce, HubSpot, etc.)** — MQL data and account lookup
 - **Messaging (Slack, Teams, Email)** — Delivers scored handoff to SDR/AE
@@ -73,4 +73,4 @@ Enriches marketing-qualified leads at the moment of handoff by checking People.a
 - Urgency: High — budget cycle window is narrow
 
 ---
-*Powered by People.ai MCP — full account engagement history matched*
+*Powered by Backstory MCP — full account engagement history matched*

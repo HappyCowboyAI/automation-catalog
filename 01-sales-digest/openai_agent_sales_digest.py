@@ -2,7 +2,7 @@
 Sales Digest — OpenAI Agents SDK Implementation
 
 Generates a personalized daily sales digest for each enrolled user by
-pulling account activity from People.ai via MCP and summarizing with an LLM.
+pulling account activity from Backstory via MCP and summarizing with an LLM.
 
 Requirements:
     pip install openai-agents slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     OPENAI_API_KEY       — OpenAI API key
     SLACK_BOT_TOKEN      — Slack bot token for delivering digests
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     SUBSCRIBER_STORE     — Path to JSON subscriber list (or DB connection)
 """
 from __future__ import annotations
@@ -33,7 +33,7 @@ WEEKDAYS_ONLY = True
 SYSTEM_PROMPT = """You are a sales intelligence assistant that generates
 personalized daily digests for sales reps.
 
-You have access to People.ai via MCP tools to pull account activity data,
+You have access to Backstory via MCP tools to pull account activity data,
 and local tools to manage subscribers and deliver messages.
 
 For each subscriber, generate a digest in this format:
@@ -98,7 +98,7 @@ async def send_slack_dm(slack_user_id: str, message: str) -> str:
 # ---------------------------------------------------------------------------
 
 async def create_agent() -> Agent:
-    """Create the Sales Digest agent with People.ai MCP + local tools."""
+    """Create the Sales Digest agent with Backstory MCP + local tools."""
     peopleai_mcp = MCPServerSse(
         name="peopleai",
         url=os.environ["PEOPLEAI_MCP_URL"],
@@ -127,7 +127,7 @@ async def run_digest():
 1. Check get_today_info() — if it's not a weekday and weekday-only is set, skip
 2. Get the subscriber list using get_subscribers()
 3. For each subscriber:
-   a. Query People.ai MCP for recent activity on their accounts (last 24 hours)
+   a. Query Backstory MCP for recent activity on their accounts (last 24 hours)
    b. Generate a personalized daily digest
    c. Deliver via send_slack_dm() using their slack_id
 4. Report how many digests were delivered""",

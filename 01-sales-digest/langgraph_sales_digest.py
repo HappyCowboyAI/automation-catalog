@@ -2,7 +2,7 @@
 Sales Digest — LangGraph Implementation
 
 Generates a personalized daily sales digest for each enrolled user by
-pulling account activity from People.ai via MCP and summarizing with an LLM.
+pulling account activity from Backstory via MCP and summarizing with an LLM.
 
 Requirements:
     pip install langgraph langchain-anthropic langchain-mcp-adapters slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token for delivering digests
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     SUBSCRIBER_STORE     — Path to JSON subscriber list (or DB connection)
 """
 from __future__ import annotations
@@ -36,7 +36,7 @@ WEEKDAYS_ONLY = True
 
 SYSTEM_PROMPT = """You are a sales intelligence assistant generating a
 personalized daily digest for a sales rep. Given raw account activity data
-from People.ai, produce a concise morning briefing.
+from Backstory, produce a concise morning briefing.
 
 Format:
 - Greeting with rep name and date
@@ -89,7 +89,7 @@ async def fetch_subscribers(state: SalesDigestState) -> dict:
 
 
 async def gather_account_activity(state: SalesDigestState) -> dict:
-    """For the current user, pull overnight account activity from People.ai."""
+    """For the current user, pull overnight account activity from Backstory."""
     user = state["subscribers"][0]
     since = (datetime.utcnow() - timedelta(days=1)).isoformat()
 
@@ -125,7 +125,7 @@ async def ai_summarization(state: SalesDigestState) -> dict:
         HumanMessage(content=f"""Rep: {user['name']}
 Date: {datetime.utcnow().strftime('%A, %b %d')}
 
-Raw account activity from People.ai:
+Raw account activity from Backstory:
 {state['account_activity']}
 
 Generate the personalized daily digest."""),

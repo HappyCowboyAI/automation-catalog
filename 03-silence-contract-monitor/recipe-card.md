@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- **People.ai API access** — REST API or MCP-to-REST bridge
+- **Backstory API access** — REST API or MCP-to-REST bridge
 - **LLM API key** — Claude, OpenAI, or any chat completion endpoint
 - **Messaging credentials** — Slack Bot Token, Teams Webhook, or SMTP
 - **Account metadata store** — Contract dates, normal cadence baselines
@@ -26,10 +26,10 @@ Schedule (6:30 AM daily) → Fetch Accounts → Check Engagement Gaps →
 
 ### Step 2: Fetch Monitored Accounts
 - **What:** Get all accounts with their engagement data and contract dates
-- **API call:** Query People.ai for accounts with last engagement timestamps
+- **API call:** Query Backstory for accounts with last engagement timestamps
   `POST /api/v1/accounts/engagement-summary`
   Body: `{ "include": ["last_activity_date", "normal_cadence", "contract_dates", "deal_info"] }`
-- **All platforms:** HTTP request module to People.ai REST API
+- **All platforms:** HTTP request module to Backstory REST API
 
 ### Step 3: Detect Silent Accounts
 - **What:** Filter accounts where days since last engagement exceeds threshold
@@ -79,7 +79,7 @@ Schedule (6:30 AM daily) → Fetch Accounts → Check Engagement Gaps →
 ## MCP Gap Workaround
 
 See the Channel Pulse recipe card for MCP-to-REST bridge options. The same
-approach applies — deploy a lightweight proxy or use People.ai REST API directly.
+approach applies — deploy a lightweight proxy or use Backstory REST API directly.
 
 ## Cadence Baseline
 

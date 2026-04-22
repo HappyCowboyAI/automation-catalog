@@ -2,7 +2,7 @@
 Opportunity Discovery — Claude Agent SDK Implementation
 
 Surfaces hidden revenue opportunities by cross-referencing engagement
-signals from People.ai against the CRM pipeline.
+signals from Backstory against the CRM pipeline.
 
 Requirements:
     pip install claude-agent-sdk anthropic slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     DISCOVERY_SLACK_CHANNEL — Slack channel for discovery results
 """
 from __future__ import annotations
@@ -27,12 +27,12 @@ from claude_agent_sdk import Agent, tool
 SYSTEM_PROMPT = """You are a sales intelligence assistant that discovers hidden
 revenue opportunities.
 
-You have access to People.ai via MCP tools to pull engagement data and pipeline
+You have access to Backstory via MCP tools to pull engagement data and pipeline
 info, and local tools to deliver results.
 
 Your workflow:
-1. Query People.ai for accounts with recent engagement activity (last 30 days)
-2. Query People.ai for all open opportunities in the pipeline
+1. Query Backstory for accounts with recent engagement activity (last 30 days)
+2. Query Backstory for all open opportunities in the pipeline
 3. Cross-reference to find accounts with engagement but no open deal
 4. For each gap, analyze signal strength and recommend action
 5. Generate a prioritized report grouped by confidence (High/Moderate)
@@ -99,8 +99,8 @@ async def run_opportunity_discovery():
 
     result = await agent.run(
         f"""Run the Opportunity Discovery workflow:
-1. Query People.ai MCP for all accounts with engagement activity in the last 30 days
-2. Query People.ai MCP for all open opportunities in the pipeline
+1. Query Backstory MCP for all accounts with engagement activity in the last 30 days
+2. Query Backstory MCP for all open opportunities in the pipeline
 3. Cross-reference: find accounts with engagement signals but no open opportunity
 4. For each unmatched account, analyze:
    - Signal strength (meeting count, email activity, content downloads, contact seniority)

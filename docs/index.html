@@ -3,26 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>People.ai Automation Library</title>
+<title>Backstory Automation Library</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Chivo+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ac-coral: #FF6B6B;
-    --ac-coral-light: #FF8E8E;
-    --ac-coral-dark: #E85555;
-    --ac-salmon: #FFA07A;
-    --ac-cream: #FFF5F2;
-    --ac-warm-white: #FFFAF8;
-    --ac-dark: #2D3436;
-    --ac-dark-secondary: #636E72;
-    --ac-med-gray: #B2BEC3;
-    --ac-light-gray: #DFE6E9;
-    --ac-white: #FFFFFF;
-    --ac-success: #00B894;
-    --ac-warning: #FDCB6E;
+    /* Neutrals (dominant) */
+    --bs-black: #000000;
+    --bs-white: #FFFFFF;
+    --bs-graphite: #171721;
+    --bs-surface-gray: #BBBCBC;
+    --bs-border-subtle: #E4E6E8;
+    --bs-bg-surface: #F5F5F5;
+
+    /* Primary palette (supporting) */
+    --bs-horizon: #6296AD;
+    --bs-horizon-hover: #447C93;
+    --bs-horizon-subtle: #DBEBF2;
+
+    /* Secondary palette (accent only) */
+    --bs-indigo: #275198;
+    --bs-cobalt: #21B5FF;
+    --bs-plum: #B08FA2;
+    --bs-mint: #8FCDA8;
+    --bs-cinder: #C05527;
+
+    /* Text tokens */
+    --bs-text-default: #171721;
+    --bs-text-secondary: #55555E;
+    --bs-text-tertiary: #7F7F85;
+
+    /* Feedback */
+    --bs-success: #5BA779;
+    --bs-warning: #B49650;
+
     --radius: 10px;
-    --shadow: 0 2px 12px rgba(45,52,54,0.06);
-    --shadow-hover: 0 6px 20px rgba(45,52,54,0.12);
+    --shadow: 0 2px 12px rgba(23,23,33,0.06);
+    --shadow-hover: 0 6px 20px rgba(23,23,33,0.12);
+
+    /* Workflow mock UI (intentionally dark, not brand-tied) */
     --wf-bg: #1a1a2e;
     --wf-surface: #232340;
     --wf-border: #2e2e4a;
@@ -36,43 +57,53 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: var(--ac-dark);
-    background: var(--ac-cream);
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--bs-text-default);
+    background: var(--bs-bg-surface);
     line-height: 1.5;
+  }
+
+  h1, h2, h3, .header-title, .detail-title {
+    font-family: 'Cardo', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  code, pre, .mono {
+    font-family: 'Chivo Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   /* Header */
   .header {
-    background: var(--ac-white);
-    color: var(--ac-dark);
+    background: var(--bs-white);
+    color: var(--bs-graphite);
     padding: 20px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 3px solid var(--ac-coral);
+    border-bottom: 3px solid var(--bs-horizon);
     box-shadow: var(--shadow);
   }
   .header-left { display: flex; align-items: center; gap: 16px; }
   .header-logo {
-    font-size: 20px;
+    font-family: 'Cardo', Georgia, serif;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--ac-coral);
+    letter-spacing: -0.01em;
+    color: var(--bs-graphite);
   }
-  .header-logo span { color: var(--ac-coral-dark); }
   .header-divider {
     width: 1px;
     height: 32px;
-    background: var(--ac-light-gray);
+    background: var(--bs-border-subtle);
   }
   .header-title {
     font-size: 22px;
     font-weight: 700;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
   }
   .header-subtitle {
     font-size: 13px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     margin-top: 2px;
   }
   .btn {
@@ -89,37 +120,37 @@
     text-decoration: none;
   }
   .btn-primary {
-    background: var(--ac-coral);
-    color: var(--ac-white);
+    background: var(--bs-horizon);
+    color: var(--bs-white);
   }
-  .btn-primary:hover { background: var(--ac-coral-dark); }
+  .btn-primary:hover { background: var(--bs-horizon-hover); }
   .btn-secondary {
-    background: var(--ac-white);
-    color: var(--ac-coral);
-    border: 1.5px solid var(--ac-coral);
+    background: var(--bs-white);
+    color: var(--bs-horizon);
+    border: 1.5px solid var(--bs-horizon);
   }
-  .btn-secondary:hover { background: var(--ac-cream); }
+  .btn-secondary:hover { background: var(--bs-bg-surface); }
   .btn-outline {
     background: transparent;
-    color: var(--ac-dark);
-    border: 1px solid var(--ac-light-gray);
+    color: var(--bs-graphite);
+    border: 1px solid var(--bs-border-subtle);
   }
-  .btn-outline:hover { border-color: var(--ac-coral); color: var(--ac-coral); }
+  .btn-outline:hover { border-color: var(--bs-horizon); color: var(--bs-horizon); }
   .btn-copy {
-    background: var(--ac-coral);
+    background: var(--bs-horizon);
     color: white;
     padding: 12px 24px;
     font-size: 15px;
   }
-  .btn-copy:hover { background: var(--ac-coral-dark); }
+  .btn-copy:hover { background: var(--bs-horizon-hover); }
   .btn-download {
     background: transparent;
-    color: var(--ac-coral);
-    border: 1.5px solid var(--ac-coral);
+    color: var(--bs-horizon);
+    border: 1.5px solid var(--bs-horizon);
     padding: 12px 24px;
     font-size: 15px;
   }
-  .btn-download:hover { background: var(--ac-cream); }
+  .btn-download:hover { background: var(--bs-bg-surface); }
   .btn-download.disabled, .btn-copy.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -138,16 +169,16 @@
   .search-bar input {
     width: 100%;
     padding: 12px 16px 12px 42px;
-    border: 1.5px solid var(--ac-light-gray);
+    border: 1.5px solid var(--bs-border-subtle);
     border-radius: var(--radius);
     font-size: 14px;
-    background: var(--ac-white);
-    color: var(--ac-dark);
+    background: var(--bs-white);
+    color: var(--bs-graphite);
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .search-bar input:focus {
-    border-color: var(--ac-coral);
+    border-color: var(--bs-horizon);
     box-shadow: 0 0 0 3px rgba(255,107,107,0.1);
   }
   .search-bar::before {
@@ -171,7 +202,7 @@
   .filter-label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     margin-right: 4px;
   }
   .filter-btn {
@@ -180,16 +211,16 @@
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    border: 1.5px solid var(--ac-light-gray);
-    background: var(--ac-white);
-    color: var(--ac-dark-secondary);
+    border: 1.5px solid var(--bs-border-subtle);
+    background: var(--bs-white);
+    color: var(--bs-text-secondary);
     transition: all 0.2s;
   }
-  .filter-btn:hover { border-color: var(--ac-coral); color: var(--ac-coral); }
+  .filter-btn:hover { border-color: var(--bs-horizon); color: var(--bs-horizon); }
   .filter-btn.active {
-    background: var(--ac-coral);
-    color: var(--ac-white);
-    border-color: var(--ac-coral);
+    background: var(--bs-horizon);
+    color: var(--bs-white);
+    border-color: var(--bs-horizon);
   }
 
   /* Card Grid */
@@ -200,9 +231,9 @@
   }
 
   .card {
-    background: var(--ac-white);
+    background: var(--bs-white);
     border-radius: var(--radius);
-    border: 1px solid var(--ac-light-gray);
+    border: 1px solid var(--bs-border-subtle);
     padding: 20px;
     cursor: pointer;
     transition: all 0.25s;
@@ -212,13 +243,13 @@
   .card:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
-    border-left-color: var(--ac-coral);
+    border-left-color: var(--bs-horizon);
   }
 
   .card-number {
     font-size: 12px;
     font-weight: 700;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -226,11 +257,11 @@
     font-size: 17px;
     font-weight: 700;
     margin: 4px 0 8px;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
   }
   .card-desc {
     font-size: 13px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -248,15 +279,15 @@
   }
   .badge-trigger {
     background: rgba(255,107,107,0.12);
-    color: var(--ac-coral-dark);
+    color: var(--bs-horizon-hover);
   }
   .badge-output {
     background: rgba(255,160,122,0.15);
     color: #C06030;
   }
   .badge-category {
-    background: var(--ac-light-gray);
-    color: var(--ac-dark-secondary);
+    background: var(--bs-border-subtle);
+    color: var(--bs-text-secondary);
   }
 
   /* Stats bar */
@@ -266,9 +297,9 @@
     padding: 16px 0;
     margin-bottom: 8px;
     font-size: 13px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
   }
-  .stats-bar strong { color: var(--ac-dark); }
+  .stats-bar strong { color: var(--bs-graphite); }
 
   /* Detail View */
   .detail-view { display: none; }
@@ -278,7 +309,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--ac-coral);
+    color: var(--bs-horizon);
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -288,9 +319,9 @@
   .back-link:hover { text-decoration: underline; }
 
   .detail-header {
-    background: var(--ac-white);
+    background: var(--bs-white);
     border-radius: var(--radius);
-    border: 1px solid var(--ac-light-gray);
+    border: 1px solid var(--bs-border-subtle);
     padding: 24px;
     margin-bottom: 20px;
     box-shadow: var(--shadow);
@@ -298,12 +329,12 @@
   .detail-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
     margin-bottom: 8px;
   }
   .detail-desc {
     font-size: 15px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     margin-bottom: 16px;
   }
   .detail-meta-row {
@@ -311,15 +342,15 @@
     gap: 24px;
     flex-wrap: wrap;
     font-size: 13px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
   }
-  .detail-meta-item strong { color: var(--ac-dark); }
+  .detail-meta-item strong { color: var(--bs-graphite); }
 
   /* Tabs */
   .tabs {
     display: flex;
     gap: 0;
-    border-bottom: 2px solid var(--ac-light-gray);
+    border-bottom: 2px solid var(--bs-border-subtle);
     margin-bottom: 20px;
   }
   .tab {
@@ -329,22 +360,22 @@
     cursor: pointer;
     border-bottom: 2px solid transparent;
     margin-bottom: -2px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 6px;
   }
-  .tab:hover { color: var(--ac-coral); }
+  .tab:hover { color: var(--bs-horizon); }
   .tab.active {
-    color: var(--ac-coral);
-    border-bottom-color: var(--ac-coral);
+    color: var(--bs-horizon);
+    border-bottom-color: var(--bs-horizon);
   }
 
   .tab-content {
-    background: var(--ac-white);
+    background: var(--bs-white);
     border-radius: var(--radius);
-    border: 1px solid var(--ac-light-gray);
+    border: 1px solid var(--bs-border-subtle);
     padding: 24px;
     box-shadow: var(--shadow);
   }
@@ -431,7 +462,7 @@
     border-radius: 8px;
     padding: 24px;
     text-align: center;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     font-size: 13px;
     transition: border-color 0.3s, background 0.3s;
   }
@@ -472,7 +503,7 @@
   .cred-label {
     font-size: 11px;
     font-weight: 600;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 3px;
@@ -503,7 +534,7 @@
   .config-label {
     font-size: 11px;
     font-weight: 600;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 3px;
@@ -560,7 +591,7 @@
   .activate-status {
     font-size: 14px;
     font-weight: 600;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     transition: color 0.3s;
   }
   .activate-status.active { color: var(--wf-green); }
@@ -583,9 +614,9 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1.5px solid var(--ac-light-gray);
-    background: var(--ac-white);
-    color: var(--ac-dark);
+    border: 1.5px solid var(--bs-border-subtle);
+    background: var(--bs-white);
+    color: var(--bs-graphite);
     font-size: 12px;
     cursor: pointer;
     display: flex;
@@ -593,16 +624,16 @@
     justify-content: center;
     transition: all 0.2s;
   }
-  .playback-btn:hover { background: var(--ac-cream); border-color: var(--ac-coral); }
+  .playback-btn:hover { background: var(--bs-bg-surface); border-color: var(--bs-horizon); }
   .playback-btn.primary {
     width: 32px;
     height: 32px;
-    background: var(--ac-coral);
+    background: var(--bs-horizon);
     color: white;
     border: none;
     font-size: 13px;
   }
-  .playback-btn.primary:hover { background: var(--ac-coral-dark); }
+  .playback-btn.primary:hover { background: var(--bs-horizon-hover); }
   .playback-dots {
     display: flex;
     gap: 6px;
@@ -612,28 +643,28 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--ac-light-gray);
+    background: var(--bs-border-subtle);
     transition: all 0.3s;
   }
   .playback-dot.active {
-    background: var(--ac-coral);
+    background: var(--bs-horizon);
     transform: scale(1.3);
   }
   .playback-dot.done {
-    background: var(--ac-success);
+    background: var(--bs-success);
   }
   .step-desc {
     text-align: center;
     font-size: 14px;
     font-weight: 600;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
     margin-top: 12px;
     min-height: 20px;
   }
   .step-detail {
     text-align: center;
     font-size: 12px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     margin-top: 4px;
     min-height: 16px;
     margin-bottom: 8px;
@@ -658,7 +689,7 @@
   .detail-split-right h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
     margin-bottom: 8px;
   }
 
@@ -678,18 +709,18 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    border: 1.5px solid var(--ac-light-gray);
-    background: var(--ac-white);
-    color: var(--ac-med-gray);
+    border: 1.5px solid var(--bs-border-subtle);
+    background: var(--bs-white);
+    color: var(--bs-text-tertiary);
     transition: all 0.15s;
   }
   .platform-pill:hover {
-    border-color: var(--ac-coral);
-    color: var(--ac-dark);
+    border-color: var(--bs-horizon);
+    color: var(--bs-graphite);
   }
   .platform-pill.active {
-    border-color: var(--ac-coral);
-    background: var(--ac-coral);
+    border-color: var(--bs-horizon);
+    background: var(--bs-horizon);
     color: white;
   }
   .platform-pill .pill-icon {
@@ -703,15 +734,15 @@
   }
   .platform-note {
     font-size: 12px;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     margin-top: 8px;
     line-height: 1.5;
   }
 
   /* Sample Output Mockups */
   .slack-mockup {
-    background: var(--ac-white);
-    border: 1px solid var(--ac-light-gray);
+    background: var(--bs-white);
+    border: 1px solid var(--bs-border-subtle);
     border-radius: 8px;
     font-size: 13px;
     overflow: hidden;
@@ -727,7 +758,7 @@
     width: 36px;
     height: 36px;
     border-radius: 6px;
-    background: linear-gradient(135deg, var(--ac-coral), var(--ac-coral-dark));
+    background: linear-gradient(135deg, var(--bs-horizon), var(--bs-horizon-hover));
     color: white;
     display: flex;
     align-items: center;
@@ -739,14 +770,14 @@
   .slack-mockup-botname {
     font-weight: 900;
     font-size: 14px;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
   }
   .slack-mockup-app-badge {
     display: inline-block;
     font-size: 10px;
     font-weight: 700;
-    background: var(--ac-light-gray);
-    color: var(--ac-dark-secondary);
+    background: var(--bs-border-subtle);
+    color: var(--bs-text-secondary);
     padding: 1px 5px;
     border-radius: 3px;
     vertical-align: middle;
@@ -754,21 +785,21 @@
   }
   .slack-mockup-time {
     font-size: 11px;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
     margin-left: auto;
   }
   .slack-mockup-body {
     padding: 6px 14px 14px 60px;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
     line-height: 1.55;
     font-size: 13px;
   }
   .slack-mockup-body p { margin: 0 0 4px; }
   .slack-mockup-body strong { font-weight: 700; }
-  .slack-mockup-body em { font-style: italic; color: var(--ac-dark-secondary); }
+  .slack-mockup-body em { font-style: italic; color: var(--bs-text-secondary); }
   .slack-mockup-body ul { margin: 0 0 6px; padding-left: 18px; list-style: disc; }
   .slack-mockup-body li { margin: 1px 0; }
-  .slack-mockup-body hr { border: none; border-top: 1px solid var(--ac-light-gray); margin: 8px 0; }
+  .slack-mockup-body hr { border: none; border-top: 1px solid var(--bs-border-subtle); margin: 8px 0; }
   .slack-mockup-body .slack-mention {
     background: rgba(29,155,209,0.1);
     color: #1264A3;
@@ -793,19 +824,19 @@
   .detail-section h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
     margin-bottom: 8px;
   }
   .detail-section ul {
     list-style: disc;
     padding-left: 20px;
     font-size: 14px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     line-height: 1.8;
   }
   .detail-section p {
     font-size: 14px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     line-height: 1.7;
   }
 
@@ -814,7 +845,7 @@
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background: var(--ac-dark);
+    background: var(--bs-graphite);
     color: white;
     padding: 12px 20px;
     border-radius: var(--radius);
@@ -829,25 +860,25 @@
 
   /* About view */
   .about-content {
-    background: var(--ac-white);
+    background: var(--bs-white);
     border-radius: var(--radius);
-    border: 1px solid var(--ac-light-gray);
+    border: 1px solid var(--bs-border-subtle);
     padding: 24px;
     box-shadow: var(--shadow);
   }
   .about-content h2 {
     font-size: 20px;
     font-weight: 700;
-    color: var(--ac-dark);
+    color: var(--bs-graphite);
     margin-bottom: 12px;
   }
   .about-content p {
     font-size: 14px;
-    color: var(--ac-dark-secondary);
+    color: var(--bs-text-secondary);
     line-height: 1.7;
     margin-bottom: 12px;
   }
-  .about-content strong { color: var(--ac-dark); }
+  .about-content strong { color: var(--bs-graphite); }
   .about-content .platform-badge {
     display: inline-block;
     padding: 3px 10px;
@@ -862,15 +893,15 @@
     color: #00866A;
   }
   .about-content .platform-badge.coming-soon {
-    background: var(--ac-light-gray);
-    color: var(--ac-dark-secondary);
+    background: var(--bs-border-subtle);
+    color: var(--bs-text-secondary);
   }
 
   /* Empty state */
   .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: var(--ac-med-gray);
+    color: var(--bs-text-tertiary);
   }
 
   /* Coming soon label */
@@ -878,8 +909,8 @@
     display: inline-block;
     font-size: 11px;
     font-weight: 600;
-    color: var(--ac-dark-secondary);
-    background: var(--ac-light-gray);
+    color: var(--bs-text-secondary);
+    background: var(--bs-border-subtle);
     padding: 2px 8px;
     border-radius: 8px;
     margin-left: 8px;
@@ -909,12 +940,12 @@
 <div class="header">
   <div class="header-left">
     <div>
-      <div class="header-logo">people<span>.</span>ai</div>
+      <div class="header-logo">Backstory</div>
     </div>
     <div class="header-divider"></div>
     <div>
       <div class="header-title">Automation Library</div>
-      <div class="header-subtitle">Ready-to-import workflow automations powered by People.ai</div>
+      <div class="header-subtitle">Ready-to-import workflow automations powered by Backstory</div>
     </div>
   </div>
   <div style="display:flex;gap:8px;">
@@ -944,15 +975,15 @@
 <div id="about-view" class="container detail-view">
   <a class="back-link" onclick="navigate('#/')">&#8592; Back to Library</a>
   <div class="about-content">
-    <h2>About the People.ai Automation Library</h2>
+    <h2>About the Backstory Automation Library</h2>
     <p>
       This library contains ready-to-import workflow automations that leverage the
-      <strong>People.ai MCP</strong> (Model Context Protocol) integration alongside AI models,
+      <strong>Backstory MCP</strong> (Model Context Protocol) integration alongside AI models,
       CRM data, and communication tools to deliver actionable sales intelligence.
     </p>
     <p>
       Each workflow is a complete automation that can be imported into your preferred platform.
-      Workflows combine People.ai's engagement data with Claude AI to generate insights like daily
+      Workflows combine Backstory's engagement data with Claude AI to generate insights like daily
       sales digests, meeting briefs, pipeline coaching reports, and account risk alerts.
     </p>
     <p style="margin-top:16px;">
@@ -967,14 +998,14 @@
       1. Browse the library and pick a workflow<br>
       2. Download the workflow JSON<br>
       3. Import into your automation platform<br>
-      4. Connect your credentials (People.ai MCP, Anthropic, Slack, etc.)<br>
+      4. Connect your credentials (Backstory MCP, Anthropic, Slack, etc.)<br>
       5. Configure schedule and channel settings<br>
       6. Activate the workflow
     </p>
     <p style="margin-top:16px;">
       <strong>Prerequisites:</strong><br>
       &bull; An automation platform instance (self-hosted or Cloud)<br>
-      &bull; People.ai MCP credentials<br>
+      &bull; Backstory MCP credentials<br>
       &bull; Anthropic API key for Claude AI<br>
       &bull; Slack Bot token (for most workflows)<br>
       &bull; Additional credentials as noted per workflow
@@ -991,79 +1022,79 @@
   <a class="back-link" onclick="navigate('#/')">&#8592; Back to Library</a>
   <div style="max-width:900px;">
     <h2 style="margin-bottom:8px;">Setup Guides</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:28px;">
+    <p style="color:var(--bs-text-secondary);margin-bottom:28px;">
       Step-by-step configuration guides for the services that power these workflows.
     </p>
 
-    <h3 style="margin-bottom:12px;color:var(--ac-coral);">Data Source</h3>
+    <h3 style="margin-bottom:12px;color:var(--bs-horizon);">Data Source</h3>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:28px;">
 
       <a href="#/guides/peopleai-mcp" style="text-decoration:none;color:inherit;">
-        <div style="background:var(--ac-white);border:2px solid var(--ac-coral);border-radius:var(--radius);padding:24px;transition:box-shadow .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)'" onmouseout="this.style.boxShadow='none'">
+        <div style="background:var(--bs-white);border:2px solid var(--bs-horizon);border-radius:var(--radius);padding:24px;transition:box-shadow .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)'" onmouseout="this.style.boxShadow='none'">
           <div style="font-size:32px;margin-bottom:12px;">🧠</div>
-          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">People.ai MCP</div>
-          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+          <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Backstory MCP</div>
+          <div style="font-size:13px;color:var(--bs-text-secondary);line-height:1.5;">
             Core data source for all workflows. MCP server setup, authentication, available tools, and platform integration.
           </div>
           <div style="margin-top:12px;">
-            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-coral);border-radius:4px;color:white;font-weight:600;">Required for all workflows</span>
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--bs-horizon);border-radius:4px;color:white;font-weight:600;">Required for all workflows</span>
           </div>
         </div>
       </a>
 
     </div>
 
-    <h3 style="margin-bottom:12px;color:var(--ac-coral);">Delivery Platforms</h3>
+    <h3 style="margin-bottom:12px;color:var(--bs-horizon);">Delivery Platforms</h3>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
 
       <a href="#/guides/slack-bot-setup" style="text-decoration:none;color:inherit;">
-        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+        <div style="background:var(--bs-white);border:1px solid var(--bs-border-subtle);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--bs-horizon)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--bs-border-subtle)'">
           <div style="font-size:32px;margin-bottom:12px;">💬</div>
           <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Slack</div>
-          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+          <div style="font-size:13px;color:var(--bs-text-secondary);line-height:1.5;">
             Bot token scopes, app creation, channel invites, and DM delivery setup.
           </div>
           <div style="margin-top:12px;">
-            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">9 scopes covered</span>
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--bs-bg-surface);border-radius:4px;color:var(--bs-text-secondary);">9 scopes covered</span>
           </div>
         </div>
       </a>
 
       <a href="#/guides/teams-setup" style="text-decoration:none;color:inherit;">
-        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+        <div style="background:var(--bs-white);border:1px solid var(--bs-border-subtle);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--bs-horizon)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--bs-border-subtle)'">
           <div style="font-size:32px;margin-bottom:12px;">🟦</div>
           <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Microsoft Teams</div>
-          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+          <div style="font-size:13px;color:var(--bs-text-secondary);line-height:1.5;">
             Incoming Webhooks for channels, Bot Framework with Azure AD for DMs and adaptive cards.
           </div>
           <div style="margin-top:12px;">
-            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">Webhooks + Bot Framework</span>
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--bs-bg-surface);border-radius:4px;color:var(--bs-text-secondary);">Webhooks + Bot Framework</span>
           </div>
         </div>
       </a>
 
       <a href="#/guides/google-chat-setup" style="text-decoration:none;color:inherit;">
-        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+        <div style="background:var(--bs-white);border:1px solid var(--bs-border-subtle);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--bs-horizon)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--bs-border-subtle)'">
           <div style="font-size:32px;margin-bottom:12px;">🟢</div>
           <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Google Chat</div>
-          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+          <div style="font-size:13px;color:var(--bs-text-secondary);line-height:1.5;">
             Space webhooks for alerts, Chat App with GCP service account for proactive DMs.
           </div>
           <div style="margin-top:12px;">
-            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">Webhooks + Chat App</span>
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--bs-bg-surface);border-radius:4px;color:var(--bs-text-secondary);">Webhooks + Chat App</span>
           </div>
         </div>
       </a>
 
       <a href="#/guides/email-setup" style="text-decoration:none;color:inherit;">
-        <div style="background:var(--ac-white);border:1px solid var(--ac-light-gray);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--ac-coral)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--ac-light-gray)'">
+        <div style="background:var(--bs-white);border:1px solid var(--bs-border-subtle);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,border-color .2s;cursor:pointer;" onmouseover="this.style.boxShadow='var(--shadow-hover)';this.style.borderColor='var(--bs-horizon)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='var(--bs-border-subtle)'">
           <div style="font-size:32px;margin-bottom:12px;">📧</div>
           <div style="font-size:17px;font-weight:700;margin-bottom:6px;">Email (SMTP)</div>
-          <div style="font-size:13px;color:var(--ac-dark-secondary);line-height:1.5;">
+          <div style="font-size:13px;color:var(--bs-text-secondary);line-height:1.5;">
             Gmail, Outlook/M365, and SendGrid setup. Universal fallback for any workflow.
           </div>
           <div style="margin-top:12px;">
-            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--ac-cream);border-radius:4px;color:var(--ac-dark-secondary);">4 providers compared</span>
+            <span style="display:inline-block;font-size:11px;padding:2px 8px;background:var(--bs-bg-surface);border-radius:4px;color:var(--bs-text-secondary);">4 providers compared</span>
           </div>
         </div>
       </a>
@@ -1072,101 +1103,101 @@
   </div>
 </div>
 
-<!-- People.ai MCP Setup Guide -->
+<!-- Backstory MCP Setup Guide -->
 <div id="guide-peopleai-mcp-view" class="container detail-view">
   <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
-    <h2>People.ai MCP Setup Guide</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
-      The <strong>People.ai Model Context Protocol (MCP)</strong> server is the core data source
+    <h2>Backstory MCP Setup Guide</h2>
+    <p style="color:var(--bs-text-secondary);margin-bottom:24px;">
+      The <strong>Backstory Model Context Protocol (MCP)</strong> server is the core data source
       for every workflow in this library. It provides AI agents with direct access to account
       activity, engagement data, opportunity status, and contact intelligence.
     </p>
 
-    <div style="margin-top:8px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:8px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>What is MCP?</strong> Model Context Protocol is an open standard that lets AI agents
-      call external tools and data sources. People.ai's MCP server exposes sales intelligence
+      call external tools and data sources. Backstory's MCP server exposes sales intelligence
       as tools that agents can invoke during reasoning — no custom API integration code needed.
     </div>
 
-    <div style="margin-top:12px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
-      <strong>Prerequisites:</strong> An n8n instance (cloud or self-hosted <strong>v1.19.0+</strong>) and an active People.ai account with MCP API access enabled.
-      For the official People.ai guide, see <a href="https://help.people.ai/en/articles/13780674-connect-n8n-to-people-ai" target="_blank" style="color:var(--ac-coral);">Connect n8n to People.ai</a>.
+    <div style="margin-top:12px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-success);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Prerequisites:</strong> An n8n instance (cloud or self-hosted <strong>v1.19.0+</strong>) and an active Backstory account with MCP API access enabled.
+      For the official Backstory guide, see <a href="https://help.people.ai/en/articles/13780674-connect-n8n-to-people-ai" target="_blank" style="color:var(--bs-horizon);">Connect n8n to Backstory</a>.
     </div>
 
     <!-- ============ WHAT YOU CAN DO ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">What You Can Do</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">What You Can Do</h3>
     <ul style="margin:8px 0 20px 20px;line-height:2;">
       <li>Automate sales intelligence workflows like daily account health checks, weekly opportunity reviews, or risk alerts</li>
       <li>Build AI-powered chatbots for Slack or Teams that answer questions with real CRM data</li>
       <li>Create coaching automation that analyzes opportunities and generates weekly insights</li>
-      <li>Generate automated reports combining People.ai insights with data from other systems</li>
+      <li>Generate automated reports combining Backstory insights with data from other systems</li>
       <li>Trigger actions based on sales data like sending alerts when accounts show low engagement</li>
     </ul>
 
     <!-- ============ AVAILABLE TOOLS ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">Available MCP Tools</h3>
-    <p style="margin:8px 0;">The People.ai MCP server exposes these tools to connected agents:</p>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">Available MCP Tools</h3>
+    <p style="margin:8px 0;">The Backstory MCP server exposes these tools to connected agents:</p>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Tool</th>
           <th style="padding:10px 12px;text-align:left;">Description</th>
           <th style="padding:10px 12px;text-align:left;">Used By</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>find_account</code></td>
           <td style="padding:10px 12px;">Search for accounts by name or domain</td>
           <td style="padding:10px 12px;">All workflows</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>get_account_status</code></td>
           <td style="padding:10px 12px;">Account health, engagement score, risk signals</td>
           <td style="padding:10px 12px;">Silence Monitor, Churn Risk</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>get_recent_account_activity</code></td>
           <td style="padding:10px 12px;">Meetings, emails, calls in a time window</td>
           <td style="padding:10px 12px;">Sales Digest, Channel Pulse</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>get_opportunity_status</code></td>
           <td style="padding:10px 12px;">Deal stage, amount, close date, activity</td>
           <td style="padding:10px 12px;">Forecast Coach, Deal Hygiene</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>get_recent_opportunity_activity</code></td>
           <td style="padding:10px 12px;">Recent deal-level interactions and changes</td>
           <td style="padding:10px 12px;">Opportunity Discovery, Win/Loss</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>get_engaged_people</code></td>
           <td style="padding:10px 12px;">Contacts with recent engagement on an account</td>
           <td style="padding:10px 12px;">Meeting Brief, Sponsor Tracker</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>get_scorecard</code></td>
           <td style="padding:10px 12px;">Rep and team performance metrics</td>
           <td style="padding:10px 12px;">Activity Gap, Forecast Coach</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>ask_sales_ai_about_account</code></td>
           <td style="padding:10px 12px;">Natural language queries about any account (10-30s response)</td>
           <td style="padding:10px 12px;">Executive Inbox, QBR Prep</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>ask_sales_ai_about_opportunity</code></td>
           <td style="padding:10px 12px;">Natural language queries about any deal (10-30s response)</td>
           <td style="padding:10px 12px;">Forecast Coach, Competitive Alert</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>top_records</code></td>
           <td style="padding:10px 12px;">Top accounts/opps by activity, risk, or value</td>
           <td style="padding:10px 12px;">Territory Heat Map</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>account_company_news</code></td>
           <td style="padding:10px 12px;">Recent news about an account's company</td>
           <td style="padding:10px 12px;">Meeting Brief, QBR Prep</td>
@@ -1175,9 +1206,9 @@
     </table>
 
     <!-- ============ GETTING CREDENTIALS ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">1. Obtain MCP Credentials</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">1. Obtain MCP Credentials</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Contact your <strong>People.ai administrator or CSM</strong> to request MCP API access</li>
+      <li>Contact your <strong>Backstory administrator or CSM</strong> to request MCP API access</li>
       <li>You'll receive two credentials:
         <ul style="margin:4px 0 4px 20px;">
           <li><strong>Client ID</strong> — your organization's MCP client identifier (e.g., <code>Yl1JnBI...</code>)</li>
@@ -1186,12 +1217,12 @@
       </li>
       <li>Store these credentials securely — you'll need them for configuration</li>
     </ol>
-    <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
-      <strong>Important:</strong> MCP credentials are different from People.ai REST API credentials. Make sure you request MCP-specific access.
+    <div style="padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
+      <strong>Important:</strong> MCP credentials are different from Backstory REST API credentials. Make sure you request MCP-specific access.
     </div>
 
     <!-- ============ n8n ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">2. Configure in n8n</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">2. Configure in n8n</h3>
 
     <p style="margin:8px 0;">n8n v1.19.0+ has a built-in MCP Client tool. Here's the exact configuration:</p>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
@@ -1201,15 +1232,15 @@
       <li>Configure the MCP Client:
         <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;">
           <tbody>
-            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+            <tr style="border-bottom:1px solid var(--bs-border-subtle);">
               <td style="padding:8px 12px;font-weight:bold;width:180px;">Connection Name</td>
-              <td style="padding:8px 12px;"><code>People.ai MCP Multi-Header</code></td>
+              <td style="padding:8px 12px;"><code>Backstory MCP Multi-Header</code></td>
             </tr>
-            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+            <tr style="border-bottom:1px solid var(--bs-border-subtle);">
               <td style="padding:8px 12px;font-weight:bold;">Server URL</td>
               <td style="padding:8px 12px;"><code>https://mcp.people.ai/mcp</code></td>
             </tr>
-            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+            <tr style="border-bottom:1px solid var(--bs-border-subtle);">
               <td style="padding:8px 12px;font-weight:bold;">Authentication</td>
               <td style="padding:8px 12px;"><strong>Multiple Headers Auth</strong></td>
             </tr>
@@ -1219,24 +1250,24 @@
       <li>Configure <strong>three authentication headers</strong>:
         <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;">
           <thead>
-            <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+            <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
               <th style="padding:8px 12px;text-align:left;">Header</th>
               <th style="padding:8px 12px;text-align:left;">Name</th>
               <th style="padding:8px 12px;text-align:left;">Value</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+            <tr style="border-bottom:1px solid var(--bs-border-subtle);">
               <td style="padding:8px 12px;">Header 1</td>
               <td style="padding:8px 12px;"><code>PAI-Client-Id</code></td>
               <td style="padding:8px 12px;">[Your Client ID]</td>
             </tr>
-            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+            <tr style="border-bottom:1px solid var(--bs-border-subtle);">
               <td style="padding:8px 12px;">Header 2</td>
               <td style="padding:8px 12px;"><code>PAI-Client-Secret</code></td>
               <td style="padding:8px 12px;">[Your Client Secret]</td>
             </tr>
-            <tr style="border-bottom:1px solid var(--ac-light-gray);">
+            <tr style="border-bottom:1px solid var(--bs-border-subtle);">
               <td style="padding:8px 12px;">Header 3</td>
               <td style="padding:8px 12px;"><code>Content-Type</code></td>
               <td style="padding:8px 12px;"><code>application/json</code></td>
@@ -1248,7 +1279,7 @@
       <li>Click <strong>Save</strong> to create the credential</li>
     </ol>
 
-    <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
+    <div style="padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
       <strong>Header names are case-sensitive.</strong> Use exactly: <code>PAI-Client-Id</code> (not <code>PAI-Client-ID</code> or <code>pai-client-id</code>).
     </div>
 
@@ -1258,17 +1289,17 @@
     </div>
 
     <!-- ============ AI AGENT PROMPT ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">3. Configure Your AI Agent</h3>
-    <p style="margin:8px 0;">Add a system prompt to your AI Agent that instructs it how to use People.ai tools:</p>
-    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">You are a sales intelligence assistant with access to People.ai CRM data.
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">3. Configure Your AI Agent</h3>
+    <p style="margin:8px 0;">Add a system prompt to your AI Agent that instructs it how to use Backstory tools:</p>
+    <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">You are a sales intelligence assistant with access to Backstory CRM data.
 When users ask about accounts, opportunities, or customer activity:
-1) Use People.ai MCP tools to search and retrieve data
+1) Use Backstory MCP tools to search and retrieve data
 2) Analyze the information and provide strategic insights
 3) Highlight risks, next steps, and key topics
 4) Format responses clearly and actionably</pre>
 
     <!-- ============ OTHER PLATFORMS ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">4. Other Platforms</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">4. Other Platforms</h3>
 
     <h4 style="margin-top:20px;">LangGraph (Python)</h4>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">pip install langchain-mcp-adapters
@@ -1335,17 +1366,17 @@ agent = Agent(
 )</pre>
 
     <h4 style="margin-top:20px;">Make / Power Automate / Zapier</h4>
-    <div style="padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
+    <div style="padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-warning);border-radius:0 var(--radius) var(--radius) 0;margin:8px 0 20px 0;">
       <strong>MCP is not natively supported</strong> on Make, Power Automate, or Zapier. Options:
       <ol style="margin:8px 0 0 20px;line-height:2;">
         <li><strong>n8n as middleware</strong> — n8n handles MCP, exposes results via webhook that Make/PA/Zapier can call</li>
         <li><strong>MCP-to-REST bridge</strong> — Deploy a lightweight proxy that translates MCP tool calls to HTTP endpoints</li>
-        <li><strong>People.ai REST API</strong> — Use the Insights Export REST API for bulk data, combined with MCP for deep intelligence on specific items</li>
+        <li><strong>Backstory REST API</strong> — Use the Insights Export REST API for bulk data, combined with MCP for deep intelligence on specific items</li>
       </ol>
     </div>
 
     <!-- ============ ENV VARS ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">5. Environment Variables</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">5. Environment Variables</h3>
     <p style="margin:8px 0;">Set these for Python-based workflows (LangGraph, Claude Agent, OpenAI Agent):</p>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export PEOPLEAI_MCP_URL="https://mcp.people.ai/mcp"
 export PEOPLEAI_CLIENT_ID="your-client-id"
@@ -1356,7 +1387,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."   # for Claude Agent / LangGraph (recommen
 export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
 
     <!-- ============ TESTING ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">6. Test Your Connection</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">6. Test Your Connection</h3>
     <p style="margin:8px 0;">Try these example queries in n8n or your agent to verify the connection:</p>
     <ul style="margin:8px 0 16px 20px;line-height:2;">
       <li><code>"Find the account for [Company Name]"</code></li>
@@ -1366,42 +1397,42 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
     <p style="margin:8px 0;">Check the execution log to verify: MCP tools appear in available tools, AI Agent calls them successfully, and data is returned.</p>
 
     <!-- ============ TROUBLESHOOTING ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">7. Troubleshooting</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">7. Troubleshooting</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Issue</th>
           <th style="padding:10px 12px;text-align:left;">Cause</th>
           <th style="padding:10px 12px;text-align:left;">Fix</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Can't find MCP Client tool</td>
           <td style="padding:10px 12px;">n8n version below 1.19.0</td>
           <td style="padding:10px 12px;">Update n8n to v1.19.0 or later</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Connection failed / server not responding</td>
           <td style="padding:10px 12px;">Wrong URL or network issue</td>
           <td style="padding:10px 12px;">Verify URL is exactly <code>https://mcp.people.ai/mcp</code> (no trailing slash). Check firewall/proxy settings for self-hosted n8n.</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Authentication failed</td>
           <td style="padding:10px 12px;">Wrong credentials or header names</td>
           <td style="padding:10px 12px;">Header names are case-sensitive: <code>PAI-Client-Id</code>, <code>PAI-Client-Secret</code>. Verify MCP-specific credentials (not REST API keys). Check for extra spaces.</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
-          <td style="padding:10px 12px;">AI Agent not using People.ai tools</td>
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
+          <td style="padding:10px 12px;">AI Agent not using Backstory tools</td>
           <td style="padding:10px 12px;">Prompt too vague or MCP tool not connected</td>
           <td style="padding:10px 12px;">Be explicit in prompts: "Use the find_account tool to search for [company]." Verify MCP Client is connected to the AI Agent node.</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Workflow times out</td>
           <td style="padding:10px 12px;">AI-powered tools (<code>ask_sales_ai_*</code>) take 10-30s</td>
           <td style="padding:10px 12px;">Increase workflow timeout. Use simpler tools like <code>get_account_status</code> for faster responses.</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Tool returns empty data</td>
           <td style="padding:10px 12px;">Account name mismatch or no activity</td>
           <td style="padding:10px 12px;">Use exact account names from Salesforce; widen the lookback window</td>
@@ -1410,9 +1441,9 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
     </table>
 
     <!-- ============ HYBRID APPROACH ============ -->
-    <h3 style="margin-top:28px;color:var(--ac-coral);">8. Combining MCP with REST API</h3>
+    <h3 style="margin-top:28px;color:var(--bs-horizon);">8. Combining MCP with REST API</h3>
     <p style="margin:8px 0;">
-      For best results, use the People.ai <strong>Insights Export REST API</strong> for bulk data extraction
+      For best results, use the Backstory <strong>Insights Export REST API</strong> for bulk data extraction
       and <strong>MCP tools</strong> for deep intelligence on specific items. Example pattern:
     </p>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
@@ -1421,17 +1452,17 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       <li>MCP tools analyze the top 10 high-risk opportunities</li>
       <li>n8n formats and sends the report</li>
     </ol>
-    <p style="margin:8px 0;color:var(--ac-dark-secondary);font-size:13px;">This hybrid approach combines the efficiency of bulk APIs with the intelligence of AI-powered analysis.</p>
+    <p style="margin:8px 0;color:var(--bs-text-secondary);font-size:13px;">This hybrid approach combines the efficiency of bulk APIs with the intelligence of AI-powered analysis.</p>
 
-    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
-      <strong>Security:</strong> Your People.ai data never leaves the secure People.ai environment — n8n workflows only send queries and receive specific responses.
+    <div style="margin-top:24px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Security:</strong> Your Backstory data never leaves the secure Backstory environment — n8n workflows only send queries and receive specific responses.
       All communication uses HTTPS/TLS encryption. Store credentials using n8n's built-in credential system, never in workflow code.
-      The integration respects your People.ai permissions. Rotate Client ID and Secret regularly.
+      The integration respects your Backstory permissions. Rotate Client ID and Secret regularly.
     </div>
 
-    <div style="margin-top:16px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
-      <strong>Need help?</strong> For People.ai API issues, contact your CSM or email <strong>support@people.ai</strong>.
-      For n8n-specific questions, consult the <a href="https://community.n8n.io" target="_blank" style="color:var(--ac-coral);">n8n Community Forum</a>.
+    <div style="margin-top:16px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-success);border-radius:0 var(--radius) var(--radius) 0;">
+      <strong>Need help?</strong> For Backstory API issues, contact your CSM or email <strong>support@backstory.ai</strong>.
+      For n8n-specific questions, consult the <a href="https://community.n8n.io" target="_blank" style="color:var(--bs-horizon);">n8n Community Forum</a>.
     </div>
   </div>
 </div>
@@ -1441,71 +1472,71 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
   <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Slack Bot Setup Guide</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+    <p style="color:var(--bs-text-secondary);margin-bottom:24px;">
       Most workflows in this library deliver results via Slack. Follow these steps to create
       and configure a Slack bot with the right permissions.
     </p>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">1. Create a Slack App</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">1. Create a Slack App</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to <a href="https://api.slack.com/apps" target="_blank" style="color:var(--ac-coral);">api.slack.com/apps</a></li>
+      <li>Go to <a href="https://api.slack.com/apps" target="_blank" style="color:var(--bs-horizon);">api.slack.com/apps</a></li>
       <li>Click <strong>Create New App</strong> &rarr; <strong>From scratch</strong></li>
       <li>Name it (e.g., <code>Automation Catalog Bot</code>) and select your workspace</li>
       <li>Click <strong>Create App</strong></li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">2. Configure Bot Token Scopes</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">2. Configure Bot Token Scopes</h3>
     <p style="margin:8px 0;">Navigate to <strong>OAuth &amp; Permissions</strong> in the sidebar, scroll to <strong>Bot Token Scopes</strong>, and add:</p>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Scope</th>
           <th style="padding:10px 12px;text-align:left;">Purpose</th>
           <th style="padding:10px 12px;text-align:left;">Required By</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>chat:write</code></td>
           <td style="padding:10px 12px;">Send messages to channels and DMs</td>
           <td style="padding:10px 12px;">All workflows</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>chat:write.customize</code></td>
           <td style="padding:10px 12px;">Send messages with custom bot name/icon</td>
           <td style="padding:10px 12px;">All workflows</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>channels:read</code></td>
           <td style="padding:10px 12px;">List public channels</td>
           <td style="padding:10px 12px;">Channel-targeted workflows</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>groups:read</code></td>
           <td style="padding:10px 12px;">List private channels the bot is in</td>
           <td style="padding:10px 12px;">Private channel delivery</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>im:write</code></td>
           <td style="padding:10px 12px;">Open and send direct messages</td>
           <td style="padding:10px 12px;">DM-based workflows (Sales Digest, Meeting Brief)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>users:read</code></td>
           <td style="padding:10px 12px;">Look up user IDs by name/email</td>
           <td style="padding:10px 12px;">Subscriber-based workflows</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>users:read.email</code></td>
           <td style="padding:10px 12px;">Look up users by email address</td>
           <td style="padding:10px 12px;">Email-to-Slack user mapping</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>files:write</code></td>
           <td style="padding:10px 12px;">Upload files and snippets</td>
           <td style="padding:10px 12px;">Workflows with file attachments (QBR Prep)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>reactions:write</code></td>
           <td style="padding:10px 12px;">Add emoji reactions to messages</td>
           <td style="padding:10px 12px;">Optional — status indicators</td>
@@ -1513,7 +1544,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       </tbody>
     </table>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Install to Workspace</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">3. Install to Workspace</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>Scroll up on the <strong>OAuth &amp; Permissions</strong> page</li>
       <li>Click <strong>Install to Workspace</strong></li>
@@ -1521,7 +1552,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       <li>Copy the <strong>Bot User OAuth Token</strong> (starts with <code>xoxb-</code>)</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">4. Invite Bot to Channels</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">4. Invite Bot to Channels</h3>
     <p style="margin:8px 0;">The bot can only post to channels it's been invited to:</p>
     <ul style="margin:12px 0 20px 20px;line-height:2;">
       <li>Open the target Slack channel</li>
@@ -1529,7 +1560,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       <li>For DM-based workflows, no invite is needed — the bot opens DMs directly using <code>im:write</code></li>
     </ul>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">5. Configure in Your Platform</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">5. Configure in Your Platform</h3>
 
     <h4 style="margin-top:16px;">n8n</h4>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
@@ -1549,47 +1580,47 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       <li><strong>Zapier:</strong> Connect Slack account via OAuth flow (scopes configured in the app)</li>
     </ul>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">6. Bot Display Name &amp; Icon</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">6. Bot Display Name &amp; Icon</h3>
     <p style="margin:8px 0;">To customize how the bot appears in Slack:</p>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to your app at <a href="https://api.slack.com/apps" target="_blank" style="color:var(--ac-coral);">api.slack.com/apps</a></li>
+      <li>Go to your app at <a href="https://api.slack.com/apps" target="_blank" style="color:var(--bs-horizon);">api.slack.com/apps</a></li>
       <li>Click <strong>Basic Information</strong> in the sidebar</li>
       <li>Scroll to <strong>Display Information</strong></li>
       <li>Set the app name, description, icon, and background color</li>
       <li>Each workflow in this library uses a unique bot name (Aria, Watchdog, Prospector, etc.) via the <code>chat:write.customize</code> scope</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">7. Troubleshooting</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">7. Troubleshooting</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Error</th>
           <th style="padding:10px 12px;text-align:left;">Cause</th>
           <th style="padding:10px 12px;text-align:left;">Fix</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>not_in_channel</code></td>
           <td style="padding:10px 12px;">Bot hasn't been invited to the channel</td>
           <td style="padding:10px 12px;"><code>/invite @BotName</code> in the channel</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>channel_not_found</code></td>
           <td style="padding:10px 12px;">Wrong channel ID or channel is private</td>
           <td style="padding:10px 12px;">Use channel ID (not name) — find it in channel details</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>missing_scope</code></td>
           <td style="padding:10px 12px;">Required scope not added</td>
           <td style="padding:10px 12px;">Add the scope, then <strong>reinstall</strong> the app to workspace</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>invalid_auth</code></td>
           <td style="padding:10px 12px;">Token is wrong, expired, or revoked</td>
           <td style="padding:10px 12px;">Reinstall app and copy the new token</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>ratelimited</code></td>
           <td style="padding:10px 12px;">Too many API calls</td>
           <td style="padding:10px 12px;">Add delays between messages; Slack allows ~1 msg/sec per channel</td>
@@ -1597,7 +1628,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
       </tbody>
     </table>
 
-    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:24px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Security Tip:</strong> Never commit your <code>xoxb-</code> token to source control.
       Store it as an environment variable or in your platform's credential store.
       Rotate tokens immediately if exposed.
@@ -1610,23 +1641,23 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
   <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Microsoft Teams Setup Guide</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+    <p style="color:var(--bs-text-secondary);margin-bottom:24px;">
       Workflows in this library can deliver results to Microsoft Teams via two methods:
       <strong>Incoming Webhooks</strong> (quick setup, channel-only) or a
       <strong>Bot Framework bot</strong> (full-featured, supports DMs and adaptive cards).
     </p>
 
     <!-- ============ OPTION A: WEBHOOKS ============ -->
-    <div style="margin-top:8px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:8px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-success);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Which method should I use?</strong><br>
       <strong>Incoming Webhook</strong> — Best for channel alerts (Silence Monitor, Opportunity Discovery, Channel Pulse). 5-minute setup, no app registration.<br>
       <strong>Bot Framework</strong> — Best for DM-based workflows (Sales Digest, Meeting Brief) and rich adaptive cards. Requires Azure AD app registration.
     </div>
 
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option A: Incoming Webhooks</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:16px;">Fastest way to post messages to a Teams channel. No Azure registration needed.</p>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option A: Incoming Webhooks</h2>
+    <p style="color:var(--bs-text-secondary);margin-bottom:16px;">Fastest way to post messages to a Teams channel. No Azure registration needed.</p>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Create a Webhook in Teams</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. Create a Webhook in Teams</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>Open the target Teams channel</li>
       <li>Click <strong>&#8942;</strong> (more options) next to the channel name &rarr; <strong>Connectors</strong> (or <strong>Manage channel &rarr; Connectors</strong>)</li>
@@ -1637,7 +1668,7 @@ export OPENAI_API_KEY="sk-..."          # for OpenAI Agent</pre>
         <code style="font-size:12px;">https://outlook.office.com/webhook/...</code></li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">2. Send Messages via Webhook</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">2. Send Messages via Webhook</h3>
     <p style="margin:8px 0;">POST a JSON payload to the webhook URL. Teams supports two formats:</p>
 
     <h4 style="margin-top:16px;">Simple Text (MessageCard)</h4>
@@ -1672,7 +1703,7 @@ Content-Type: application/json
   }]
 }</pre>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Configure in Your Platform</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">3. Configure in Your Platform</h3>
 
     <h4 style="margin-top:16px;">n8n</h4>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
@@ -1706,12 +1737,12 @@ urlopen(req)</pre>
     </ul>
 
     <!-- ============ OPTION B: BOT FRAMEWORK ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option B: Bot Framework (Azure AD)</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:16px;">Full-featured bot with DM support, adaptive cards, and proactive messaging. Required for workflows that deliver personalized content to individual users.</p>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option B: Bot Framework (Azure AD)</h2>
+    <p style="color:var(--bs-text-secondary);margin-bottom:16px;">Full-featured bot with DM support, adaptive cards, and proactive messaging. Required for workflows that deliver personalized content to individual users.</p>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Register an Azure AD App</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. Register an Azure AD App</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" target="_blank" style="color:var(--ac-coral);">Azure Portal &rarr; App Registrations</a></li>
+      <li>Go to <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" target="_blank" style="color:var(--bs-horizon);">Azure Portal &rarr; App Registrations</a></li>
       <li>Click <strong>New registration</strong></li>
       <li>Name: <code>Automation Catalog Bot</code></li>
       <li>Supported account types: <strong>Single tenant</strong> (your org only)</li>
@@ -1720,43 +1751,43 @@ urlopen(req)</pre>
       <li>Go to <strong>Certificates &amp; secrets &rarr; New client secret</strong> — copy the secret value</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">2. API Permissions</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">2. API Permissions</h3>
     <p style="margin:8px 0;">In your app registration, go to <strong>API permissions &rarr; Add a permission &rarr; Microsoft Graph</strong>:</p>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Permission</th>
           <th style="padding:10px 12px;text-align:left;">Type</th>
           <th style="padding:10px 12px;text-align:left;">Purpose</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>ChatMessage.Send</code></td>
           <td style="padding:10px 12px;">Application</td>
           <td style="padding:10px 12px;">Send messages to chats and channels</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>Chat.Create</code></td>
           <td style="padding:10px 12px;">Application</td>
           <td style="padding:10px 12px;">Create 1:1 chats for DM delivery</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>Chat.ReadWrite.All</code></td>
           <td style="padding:10px 12px;">Application</td>
           <td style="padding:10px 12px;">Read/write to chats (proactive messaging)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>User.Read.All</code></td>
           <td style="padding:10px 12px;">Application</td>
           <td style="padding:10px 12px;">Look up users by email for DM targeting</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>ChannelMessage.Send</code></td>
           <td style="padding:10px 12px;">Application</td>
           <td style="padding:10px 12px;">Post to specific team channels</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>Team.ReadBasic.All</code></td>
           <td style="padding:10px 12px;">Application</td>
           <td style="padding:10px 12px;">List teams and channels</td>
@@ -1765,7 +1796,7 @@ urlopen(req)</pre>
     </table>
     <p style="margin:8px 0;">Click <strong>Grant admin consent</strong> after adding permissions (requires admin role).</p>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Create a Bot Channel Registration</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">3. Create a Bot Channel Registration</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>In Azure Portal, search for <strong>Azure Bot</strong> and click <strong>Create</strong></li>
       <li>Link it to the app registration you created in Step 1</li>
@@ -1773,16 +1804,16 @@ urlopen(req)</pre>
       <li>Under <strong>Configuration</strong>, set the messaging endpoint if using a custom bot service</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">4. Install Bot in Teams</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">4. Install Bot in Teams</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to <a href="https://dev.teams.microsoft.com/apps" target="_blank" style="color:var(--ac-coral);">Teams Developer Portal</a></li>
+      <li>Go to <a href="https://dev.teams.microsoft.com/apps" target="_blank" style="color:var(--bs-horizon);">Teams Developer Portal</a></li>
       <li>Create a new app or import the bot</li>
       <li>Under <strong>App features &rarr; Bot</strong>, link your Azure Bot registration</li>
       <li><strong>Publish to your org</strong> or sideload for testing</li>
       <li>Users can then find and chat with the bot, or add it to channels</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">5. Configure in Your Platform</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">5. Configure in Your Platform</h3>
 
     <h4 style="margin-top:16px;">n8n</h4>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
@@ -1822,42 +1853,42 @@ requests.post(
       <li>For DMs, use <strong>"Post message in a chat or channel"</strong> with <strong>Flow bot</strong> as the poster</li>
     </ul>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">6. Troubleshooting</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">6. Troubleshooting</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Error</th>
           <th style="padding:10px 12px;text-align:left;">Cause</th>
           <th style="padding:10px 12px;text-align:left;">Fix</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>403 Forbidden</code></td>
           <td style="padding:10px 12px;">Missing admin consent on Graph permissions</td>
           <td style="padding:10px 12px;">Azure Portal &rarr; API permissions &rarr; Grant admin consent</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>404 Not Found</code></td>
           <td style="padding:10px 12px;">Wrong team/channel ID or bot not installed</td>
           <td style="padding:10px 12px;">Verify IDs via Graph Explorer; ensure bot is added to the team</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>InvalidAuthenticationToken</code></td>
           <td style="padding:10px 12px;">Expired or malformed token</td>
           <td style="padding:10px 12px;">Re-acquire token via MSAL; check client secret expiry</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Webhook returns <code>400</code></td>
           <td style="padding:10px 12px;">Malformed JSON payload</td>
-          <td style="padding:10px 12px;">Validate against <a href="https://adaptivecards.io/designer/" target="_blank" style="color:var(--ac-coral);">Adaptive Cards Designer</a></td>
+          <td style="padding:10px 12px;">Validate against <a href="https://adaptivecards.io/designer/" target="_blank" style="color:var(--bs-horizon);">Adaptive Cards Designer</a></td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Messages not appearing</td>
           <td style="padding:10px 12px;">Webhook URL expired or connector removed</td>
           <td style="padding:10px 12px;">Recreate the Incoming Webhook connector in the channel</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>Throttled (429)</code></td>
           <td style="padding:10px 12px;">Rate limit exceeded</td>
           <td style="padding:10px 12px;">Graph API allows ~30 msgs/sec per app; add retry with backoff</td>
@@ -1865,13 +1896,13 @@ requests.post(
       </tbody>
     </table>
 
-    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:24px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Security Tip:</strong> Store your Client Secret in a vault (Azure Key Vault, env var, or platform credential store).
       Client secrets expire — set a calendar reminder to rotate before expiry.
       Never embed secrets in workflow JSON files.
     </div>
 
-    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:24px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-success);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Power Automate Users:</strong> You likely don't need any of the above!
       Power Automate's native Teams connector handles authentication automatically.
       Just use the <strong>"Post message in a chat or channel"</strong> action and sign in with your Microsoft account.
@@ -1884,21 +1915,21 @@ requests.post(
   <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Google Chat Setup Guide</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+    <p style="color:var(--bs-text-secondary);margin-bottom:24px;">
       Workflows can deliver results to Google Chat via <strong>Incoming Webhooks</strong>
       (quick, space-only) or a <strong>Google Chat App</strong> (DM support, cards, slash commands).
     </p>
 
-    <div style="margin-top:8px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:8px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-success);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Which method should I use?</strong><br>
       <strong>Webhook</strong> — Best for channel/space alerts (Silence Monitor, Opportunity Discovery). 2-minute setup.<br>
       <strong>Chat App</strong> — Best for DM workflows (Sales Digest, Meeting Brief) and interactive cards. Requires Google Cloud project.
     </div>
 
     <!-- ============ OPTION A: WEBHOOKS ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option A: Incoming Webhooks</h2>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option A: Incoming Webhooks</h2>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Create a Webhook in Google Chat</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. Create a Webhook in Google Chat</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>Open the Google Chat space you want to post to</li>
       <li>Click the space name at the top &rarr; <strong>Apps &amp; integrations</strong></li>
@@ -1909,7 +1940,7 @@ requests.post(
         <code style="font-size:12px;">https://chat.googleapis.com/v1/spaces/.../messages?key=...&token=...</code></li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">2. Send Messages via Webhook</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">2. Send Messages via Webhook</h3>
 
     <h4 style="margin-top:16px;">Simple Text</h4>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">POST {webhook_url}
@@ -1945,7 +1976,7 @@ Content-Type: application/json
   }]
 }</pre>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Platform Configuration</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">3. Platform Configuration</h3>
 
     <h4 style="margin-top:16px;">n8n</h4>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
@@ -1973,19 +2004,19 @@ urlopen(req)</pre>
     </ul>
 
     <!-- ============ OPTION B: CHAT APP ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option B: Google Chat App</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:16px;">Full-featured app with DM support, interactive cards, and slash commands. Required for personalized delivery to individual users.</p>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option B: Google Chat App</h2>
+    <p style="color:var(--bs-text-secondary);margin-bottom:16px;">Full-featured app with DM support, interactive cards, and slash commands. Required for personalized delivery to individual users.</p>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Create a Google Cloud Project</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. Create a Google Cloud Project</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to <a href="https://console.cloud.google.com/projectcreate" target="_blank" style="color:var(--ac-coral);">Google Cloud Console &rarr; Create Project</a></li>
+      <li>Go to <a href="https://console.cloud.google.com/projectcreate" target="_blank" style="color:var(--bs-horizon);">Google Cloud Console &rarr; Create Project</a></li>
       <li>Name it (e.g., <code>automation-catalog-bot</code>)</li>
       <li>Enable the <strong>Google Chat API</strong>: search in <strong>APIs &amp; Services &rarr; Library</strong></li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">2. Configure the Chat App</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">2. Configure the Chat App</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to <a href="https://console.cloud.google.com/apis/api/chat.googleapis.com/hangouts-chat" target="_blank" style="color:var(--ac-coral);">Google Chat API &rarr; Configuration</a></li>
+      <li>Go to <a href="https://console.cloud.google.com/apis/api/chat.googleapis.com/hangouts-chat" target="_blank" style="color:var(--bs-horizon);">Google Chat API &rarr; Configuration</a></li>
       <li>Set the <strong>App name</strong> and <strong>Avatar URL</strong></li>
       <li>Under <strong>Functionality</strong>, enable:
         <ul>
@@ -1997,7 +2028,7 @@ urlopen(req)</pre>
       <li>Set <strong>Visibility</strong> to your organization</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">3. Service Account for Proactive Messaging</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">3. Service Account for Proactive Messaging</h3>
     <p style="margin:8px 0;">To send DMs without user interaction (proactive messaging), you need a service account:</p>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>Go to <strong>IAM &amp; Admin &rarr; Service Accounts &rarr; Create</strong></li>
@@ -2006,35 +2037,35 @@ urlopen(req)</pre>
       <li>Enable <strong>domain-wide delegation</strong> in Google Workspace Admin if needed</li>
     </ol>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">4. API Scopes</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">4. API Scopes</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Scope</th>
           <th style="padding:10px 12px;text-align:left;">Purpose</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>https://www.googleapis.com/auth/chat.bot</code></td>
           <td style="padding:10px 12px;">Send and manage messages as the Chat app</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>https://www.googleapis.com/auth/chat.spaces</code></td>
           <td style="padding:10px 12px;">List and manage spaces the app belongs to</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>https://www.googleapis.com/auth/chat.messages.create</code></td>
           <td style="padding:10px 12px;">Create messages in spaces and DMs</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>https://www.googleapis.com/auth/chat.memberships</code></td>
           <td style="padding:10px 12px;">Look up space members for DM targeting</td>
         </tr>
       </tbody>
     </table>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">5. Sending DMs via Chat API</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">5. Sending DMs via Chat API</h3>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
@@ -2056,37 +2087,37 @@ chat.spaces().messages().create(
     body={"text": digest_content},
 ).execute()</pre>
 
-    <h3 style="margin-top:24px;color:var(--ac-coral);">6. Troubleshooting</h3>
+    <h3 style="margin-top:24px;color:var(--bs-horizon);">6. Troubleshooting</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Error</th>
           <th style="padding:10px 12px;text-align:left;">Cause</th>
           <th style="padding:10px 12px;text-align:left;">Fix</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>403 PERMISSION_DENIED</code></td>
           <td style="padding:10px 12px;">Chat API not enabled or missing scopes</td>
           <td style="padding:10px 12px;">Enable Chat API; verify service account scopes</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>404 NOT_FOUND</code></td>
           <td style="padding:10px 12px;">Space doesn't exist or app not added</td>
           <td style="padding:10px 12px;">Add the Chat app to the space first</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>FAILED_PRECONDITION</code></td>
           <td style="padding:10px 12px;">App can't DM users who haven't interacted with it</td>
           <td style="padding:10px 12px;">User must message the app first, or use <code>spaces().setup()</code> with domain-wide delegation</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Webhook returns <code>400</code></td>
           <td style="padding:10px 12px;">Invalid JSON or card schema</td>
-          <td style="padding:10px 12px;">Validate with <a href="https://addons.gsuite.google.com/uikit/builder" target="_blank" style="color:var(--ac-coral);">Card Builder</a></td>
+          <td style="padding:10px 12px;">Validate with <a href="https://addons.gsuite.google.com/uikit/builder" target="_blank" style="color:var(--bs-horizon);">Card Builder</a></td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Rate limited</td>
           <td style="padding:10px 12px;">Exceeding Chat API quotas</td>
           <td style="padding:10px 12px;">Default: 60 msgs/min per space; add batching with delays</td>
@@ -2094,7 +2125,7 @@ chat.spaces().messages().create(
       </tbody>
     </table>
 
-    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:24px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Security Tip:</strong> Store the service account JSON key securely — never commit it to source control.
       Use environment variables or a secret manager. Rotate keys periodically via Google Cloud Console.
     </div>
@@ -2106,26 +2137,26 @@ chat.spaces().messages().create(
   <a class="back-link" onclick="navigate('#/guides')">&#8592; All Guides</a>
   <div class="about-content" style="max-width:800px;">
     <h2>Email Delivery Setup Guide</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:24px;">
+    <p style="color:var(--bs-text-secondary);margin-bottom:24px;">
       Email is the universal fallback — every workflow can deliver via SMTP.
       This guide covers Gmail, Outlook/M365, SendGrid, and generic SMTP.
     </p>
 
-    <div style="margin-top:8px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-success);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:8px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-success);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>When to use email delivery:</strong> When recipients don't share a common messaging platform,
       for formal reports (QBR Prep, Forecast Coach), as a fallback alongside Slack/Teams, or for
       stakeholders outside your organization.
     </div>
 
     <!-- ============ GMAIL ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option A: Gmail / Google Workspace</h2>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option A: Gmail / Google Workspace</h2>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Create an App Password</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. Create an App Password</h3>
     <p style="margin:8px 0;">Google blocks "less secure app" logins. Use an App Password instead:</p>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Go to <a href="https://myaccount.google.com/security" target="_blank" style="color:var(--ac-coral);">myaccount.google.com/security</a></li>
+      <li>Go to <a href="https://myaccount.google.com/security" target="_blank" style="color:var(--bs-horizon);">myaccount.google.com/security</a></li>
       <li>Ensure <strong>2-Step Verification</strong> is enabled</li>
-      <li>Go to <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:var(--ac-coral);">App Passwords</a></li>
+      <li>Go to <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:var(--bs-horizon);">App Passwords</a></li>
       <li>Select app: <strong>Mail</strong>, device: <strong>Other</strong> (name it <code>Automation Catalog</code>)</li>
       <li>Click <strong>Generate</strong> — copy the 16-character password</li>
     </ol>
@@ -2133,30 +2164,30 @@ chat.spaces().messages().create(
     <h4 style="margin-top:16px;">SMTP Settings</h4>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;width:140px;">Host</td>
           <td style="padding:8px 12px;"><code>smtp.gmail.com</code></td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Port</td>
           <td style="padding:8px 12px;"><code>587</code> (STARTTLS) or <code>465</code> (SSL)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Username</td>
           <td style="padding:8px 12px;">Your full Gmail address</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Password</td>
           <td style="padding:8px 12px;">The 16-character App Password (not your Google password)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Daily limit</td>
           <td style="padding:8px 12px;">500 emails (personal) / 2,000 (Workspace)</td>
         </tr>
       </tbody>
     </table>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">Alternative: Gmail API (OAuth)</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">Alternative: Gmail API (OAuth)</h3>
     <p style="margin:8px 0;">For Google Workspace orgs, the Gmail API with a service account avoids App Passwords:</p>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>Enable the <strong>Gmail API</strong> in Google Cloud Console</li>
@@ -2166,35 +2197,35 @@ chat.spaces().messages().create(
     </ol>
 
     <!-- ============ OUTLOOK / M365 ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option B: Outlook / Microsoft 365</h2>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option B: Outlook / Microsoft 365</h2>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. SMTP Settings</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. SMTP Settings</h3>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;width:140px;">Host</td>
           <td style="padding:8px 12px;"><code>smtp.office365.com</code></td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Port</td>
           <td style="padding:8px 12px;"><code>587</code> (STARTTLS)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Username</td>
           <td style="padding:8px 12px;">Your full email address</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Password</td>
           <td style="padding:8px 12px;">Account password (or App Password if MFA enabled)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Auth</td>
           <td style="padding:8px 12px;">SMTP AUTH must be enabled per-mailbox by M365 admin</td>
         </tr>
       </tbody>
     </table>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">2. Enable SMTP AUTH (Admin)</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">2. Enable SMTP AUTH (Admin)</h3>
     <p style="margin:8px 0;">M365 disables SMTP AUTH by default. An admin must enable it:</p>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
       <li>Go to <strong>Microsoft 365 Admin Center &rarr; Users &rarr; Active Users</strong></li>
@@ -2202,7 +2233,7 @@ chat.spaces().messages().create(
       <li>Check <strong>Authenticated SMTP</strong> and save</li>
     </ol>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">Alternative: Microsoft Graph API</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">Alternative: Microsoft Graph API</h3>
     <p style="margin:8px 0;">For production use, the Graph API with app-only auth is more reliable:</p>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">POST https://graph.microsoft.com/v1.0/users/{sender}/sendMail
 Authorization: Bearer {token}
@@ -2217,12 +2248,12 @@ Authorization: Bearer {token}
     <p style="margin:8px 0;">Requires the <code>Mail.Send</code> application permission with admin consent.</p>
 
     <!-- ============ SENDGRID ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Option C: SendGrid (Transactional Email)</h2>
-    <p style="color:var(--ac-dark-secondary);margin-bottom:16px;">Best for production — high deliverability, no per-user mailbox needed, generous free tier (100 emails/day).</p>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Option C: SendGrid (Transactional Email)</h2>
+    <p style="color:var(--bs-text-secondary);margin-bottom:16px;">Best for production — high deliverability, no per-user mailbox needed, generous free tier (100 emails/day).</p>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">1. Get an API Key</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">1. Get an API Key</h3>
     <ol style="margin:12px 0 20px 20px;line-height:2;">
-      <li>Sign up at <a href="https://sendgrid.com" target="_blank" style="color:var(--ac-coral);">sendgrid.com</a></li>
+      <li>Sign up at <a href="https://sendgrid.com" target="_blank" style="color:var(--bs-horizon);">sendgrid.com</a></li>
       <li>Verify a <strong>Sender Identity</strong> (single sender or domain authentication)</li>
       <li>Go to <strong>Settings &rarr; API Keys &rarr; Create API Key</strong></li>
       <li>Grant <strong>Mail Send</strong> permission</li>
@@ -2232,19 +2263,19 @@ Authorization: Bearer {token}
     <h4 style="margin-top:16px;">SMTP Settings</h4>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;width:140px;">Host</td>
           <td style="padding:8px 12px;"><code>smtp.sendgrid.net</code></td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Port</td>
           <td style="padding:8px 12px;"><code>587</code> (STARTTLS) or <code>465</code> (SSL)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Username</td>
           <td style="padding:8px 12px;"><code>apikey</code> (literally the word "apikey")</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:8px 12px;font-weight:bold;">Password</td>
           <td style="padding:8px 12px;">Your SendGrid API key</td>
         </tr>
@@ -2264,9 +2295,9 @@ Content-Type: application/json
 }</pre>
 
     <!-- ============ PLATFORM CONFIG ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Platform Configuration</h2>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Platform Configuration</h2>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">n8n</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">n8n</h3>
     <ol style="margin:8px 0 16px 20px;line-height:2;">
       <li>Go to <strong>Settings &rarr; Credentials &rarr; Add Credential</strong></li>
       <li>Select <strong>SMTP</strong> (or <strong>SendGrid</strong> / <strong>Gmail</strong> for those providers)</li>
@@ -2274,7 +2305,7 @@ Content-Type: application/json
       <li>Use the <strong>Send Email</strong> node in your workflow</li>
     </ol>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">Python (LangGraph / Claude Agent / OpenAI Agent)</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">Python (LangGraph / Claude Agent / OpenAI Agent)</h3>
     <pre style="background:var(--wf-bg);color:var(--wf-text);padding:16px;border-radius:var(--radius);margin:8px 0 16px 0;overflow-x:auto;font-size:13px;">export SMTP_HOST="smtp.gmail.com"      # or smtp.office365.com, smtp.sendgrid.net
 export SMTP_PORT="587"
 export SMTP_USER="you@company.com"      # or "apikey" for SendGrid
@@ -2297,7 +2328,7 @@ with smtplib.SMTP(os.environ["SMTP_HOST"], int(os.environ["SMTP_PORT"])) as s:
     s.login(os.environ["SMTP_USER"], os.environ["SMTP_PASS"])
     s.send_message(msg)</pre>
 
-    <h3 style="margin-top:20px;color:var(--ac-coral);">Make / Power Automate / Zapier</h3>
+    <h3 style="margin-top:20px;color:var(--bs-horizon);">Make / Power Automate / Zapier</h3>
     <ul style="margin:8px 0 20px 20px;line-height:2;">
       <li><strong>Make:</strong> Email &rarr; Send (SMTP), Gmail &rarr; Send, or SendGrid &rarr; Send</li>
       <li><strong>Power Automate:</strong> <strong>Send an email (V2)</strong> action (native Office 365), or SMTP via HTTP</li>
@@ -2305,10 +2336,10 @@ with smtplib.SMTP(os.environ["SMTP_HOST"], int(os.environ["SMTP_PORT"])) as s:
     </ul>
 
     <!-- ============ COMPARISON ============ -->
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Provider Comparison</h2>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Provider Comparison</h2>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Provider</th>
           <th style="padding:10px 12px;text-align:left;">Free Tier</th>
           <th style="padding:10px 12px;text-align:left;">Best For</th>
@@ -2316,25 +2347,25 @@ with smtplib.SMTP(os.environ["SMTP_HOST"], int(os.environ["SMTP_PORT"])) as s:
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Gmail</td>
           <td style="padding:10px 12px;">500/day</td>
           <td style="padding:10px 12px;">Prototyping, small teams</td>
           <td style="padding:10px 12px;">5 min</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Outlook / M365</td>
           <td style="padding:10px 12px;">10,000/day</td>
           <td style="padding:10px 12px;">Microsoft shops</td>
           <td style="padding:10px 12px;">10 min (+ admin)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">SendGrid</td>
           <td style="padding:10px 12px;">100/day</td>
           <td style="padding:10px 12px;">Production, high deliverability</td>
           <td style="padding:10px 12px;">15 min</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Amazon SES</td>
           <td style="padding:10px 12px;">62,000/mo (from EC2)</td>
           <td style="padding:10px 12px;">AWS-native orgs, volume</td>
@@ -2343,37 +2374,37 @@ with smtplib.SMTP(os.environ["SMTP_HOST"], int(os.environ["SMTP_PORT"])) as s:
       </tbody>
     </table>
 
-    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--ac-light-gray);">Troubleshooting</h2>
+    <h2 style="margin-top:32px;padding-top:16px;border-top:2px solid var(--bs-border-subtle);">Troubleshooting</h2>
     <table style="width:100%;border-collapse:collapse;margin:12px 0 20px 0;font-size:14px;">
       <thead>
-        <tr style="background:var(--ac-cream);border-bottom:2px solid var(--ac-light-gray);">
+        <tr style="background:var(--bs-bg-surface);border-bottom:2px solid var(--bs-border-subtle);">
           <th style="padding:10px 12px;text-align:left;">Error</th>
           <th style="padding:10px 12px;text-align:left;">Cause</th>
           <th style="padding:10px 12px;text-align:left;">Fix</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>535 Authentication failed</code></td>
           <td style="padding:10px 12px;">Wrong password or App Password needed</td>
           <td style="padding:10px 12px;">Use App Password (Gmail) or enable SMTP AUTH (M365)</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>Connection refused (port 25)</code></td>
           <td style="padding:10px 12px;">ISP or cloud provider blocks port 25</td>
           <td style="padding:10px 12px;">Use port 587 (STARTTLS) or 465 (SSL) instead</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">Emails going to spam</td>
           <td style="padding:10px 12px;">Missing SPF/DKIM/DMARC records</td>
           <td style="padding:10px 12px;">Set up domain authentication with your email provider</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;"><code>Daily sending limit reached</code></td>
           <td style="padding:10px 12px;">Exceeded provider quota</td>
           <td style="padding:10px 12px;">Upgrade plan or switch to SendGrid/SES for volume</td>
         </tr>
-        <tr style="border-bottom:1px solid var(--ac-light-gray);">
+        <tr style="border-bottom:1px solid var(--bs-border-subtle);">
           <td style="padding:10px 12px;">HTML not rendering</td>
           <td style="padding:10px 12px;">Sent as plain text instead of HTML</td>
           <td style="padding:10px 12px;">Set content type to <code>text/html</code> or use multipart/alternative</td>
@@ -2381,7 +2412,7 @@ with smtplib.SMTP(os.environ["SMTP_HOST"], int(os.environ["SMTP_PORT"])) as s:
       </tbody>
     </table>
 
-    <div style="margin-top:24px;padding:16px;background:var(--ac-cream);border-left:4px solid var(--ac-coral);border-radius:0 var(--radius) var(--radius) 0;">
+    <div style="margin-top:24px;padding:16px;background:var(--bs-bg-surface);border-left:4px solid var(--bs-horizon);border-radius:0 var(--radius) var(--radius) 0;">
       <strong>Security Tip:</strong> Never use your primary account password for SMTP.
       Always use App Passwords, API keys, or OAuth tokens. Store credentials in environment
       variables or your platform's secret store.
@@ -2584,7 +2615,7 @@ function renderDetail(workflowId) {
     <div class="detail-header">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
         <span class="badge badge-category">${cat ? cat.name : ''}</span>
-        <span style="font-size:12px;color:var(--ac-med-gray);">${wf.id}</span>
+        <span style="font-size:12px;color:var(--bs-text-tertiary);">${wf.id}</span>
       </div>
       <div class="detail-title">${wf.name}</div>
       <div class="detail-desc">${wf.description}</div>
@@ -2785,7 +2816,7 @@ class SetupWalkthrough {
 
   render() {
     this.container.innerHTML = `
-      <h3 style="margin-bottom:16px;color:var(--ac-dark);">Setup Walkthrough</h3>
+      <h3 style="margin-bottom:16px;color:var(--bs-graphite);">Setup Walkthrough</h3>
       <div class="wf-mockup">
         <div class="wf-title-bar">
           <div class="wf-dots"><span></span><span></span><span></span></div>

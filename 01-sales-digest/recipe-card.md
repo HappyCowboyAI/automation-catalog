@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- **People.ai API access** — REST API or MCP-to-REST bridge
+- **Backstory API access** — REST API or MCP-to-REST bridge
 - **LLM API key** — Claude, OpenAI, or any chat completion endpoint
 - **Messaging credentials** — Slack Bot Token, Teams Webhook, or SMTP
 - **Subscriber store** — JSON file, Airtable, Google Sheets, or database
@@ -38,7 +38,7 @@ Schedule (6 AM weekdays) → Fetch Subscribers → Loop Each User →
 - **Zapier:** Looping by Zapier
 
 ### Step 4: Gather Account Activity
-- **What:** For each subscriber's accounts, pull last 24 hours of activity from People.ai
+- **What:** For each subscriber's accounts, pull last 24 hours of activity from Backstory
 - **API call:** For each account in user's list:
   `POST /api/v1/accounts/{name}/activity-summary`
   Body: `{ "lookback_hours": 24, "include": ["deals", "emails", "meetings", "contacts"] }`
@@ -75,7 +75,7 @@ Schedule (6 AM weekdays) → Fetch Subscribers → Loop Each User →
 ## MCP Gap Workaround
 
 See the Channel Pulse recipe card for MCP-to-REST bridge options. The same
-approach applies here — deploy a lightweight proxy or use People.ai REST API
+approach applies here — deploy a lightweight proxy or use Backstory REST API
 directly if available.
 
 ## Subscriber Store Options

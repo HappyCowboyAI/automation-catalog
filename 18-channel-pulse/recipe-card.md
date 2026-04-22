@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- **People.ai API access** — Since most platforms lack native MCP support, you'll need the People.ai REST API or a custom MCP-to-REST bridge
+- **Backstory API access** — Since most platforms lack native MCP support, you'll need the Backstory REST API or a custom MCP-to-REST bridge
 - **LLM API key** — Claude, OpenAI, or any LLM with a chat completion endpoint
 - **Messaging credentials** — Slack Bot Token, Teams Webhook, or SMTP
 
@@ -24,10 +24,10 @@ Schedule (60s) → Fetch Active Accounts → Loop Each Account →
 - **Zapier:** Schedule by Zapier → every hour (Zapier minimum is 1 min on paid plans)
 
 ### Step 2: Identify Active Accounts
-- **What:** Query People.ai for accounts with activity in the last 7 days
+- **What:** Query Backstory for accounts with activity in the last 7 days
 - **API call:** `GET /api/v1/accounts?activity_since={7_days_ago_ISO}`
-- **Make:** HTTP module → GET request to People.ai REST endpoint
-- **Power Automate:** HTTP action → Method: GET, URI: People.ai endpoint
+- **Make:** HTTP module → GET request to Backstory REST endpoint
+- **Power Automate:** HTTP action → Method: GET, URI: Backstory endpoint
 - **Zapier:** Webhooks by Zapier → GET request
 
 ### Step 3: Loop Over Accounts
@@ -37,7 +37,7 @@ Schedule (60s) → Fetch Active Accounts → Loop Each Account →
 - **Zapier:** Looping by Zapier (or use Paths for up to 3 accounts)
 
 ### Step 4: Gather Account Context
-- **What:** For each account, pull engagement details from People.ai
+- **What:** For each account, pull engagement details from Backstory
 - **API call:** `POST /api/v1/accounts/{id}/activity-summary`
   - Body: `{ "lookback_days": 7, "include": ["meetings", "emails", "contacts", "deals"] }`
 - **All platforms:** HTTP request module with account ID from Step 3
@@ -77,11 +77,11 @@ Schedule (60s) → Fetch Active Accounts → Loop Each Account →
 
 ## MCP Gap Workaround
 
-Most platforms cannot connect to People.ai via MCP natively. Options:
+Most platforms cannot connect to Backstory via MCP natively. Options:
 
 1. **REST API proxy** — Deploy a lightweight server (FastAPI, Express) that translates MCP calls to REST. Host on Vercel, Railway, or internal infra.
-2. **People.ai REST API** — If available for your account, use the REST endpoints directly.
-3. **n8n as middleware** — Use n8n's native MCP support to handle the People.ai integration, expose results via webhook that your platform calls.
+2. **Backstory REST API** — If available for your account, use the REST endpoints directly.
+3. **n8n as middleware** — Use n8n's native MCP support to handle the Backstory integration, expose results via webhook that your platform calls.
 
 ## Estimated Build Time
 

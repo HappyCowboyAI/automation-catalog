@@ -9,7 +9,7 @@ Requirements:
 
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     SMTP_HOST            — SMTP server
     SMTP_USER            — SMTP username
     SMTP_PASS            — SMTP password
@@ -28,7 +28,7 @@ from claude_agent_sdk import Agent, tool
 SYSTEM_PROMPT = """You are an AI sales coaching assistant that helps sales leaders
 improve their team's pipeline execution.
 
-You have access to People.ai via MCP tools to pull pipeline and engagement data,
+You have access to Backstory via MCP tools to pull pipeline and engagement data,
 and local tools to deliver coaching reports via email.
 
 For each leader's team, analyze every open deal across:
@@ -83,7 +83,7 @@ async def run_forecast_coach():
 
     result = await agent.run(
         """Run the Forecast Coach workflow:
-1. Query People.ai MCP for all sales leaders and their team assignments
+1. Query Backstory MCP for all sales leaders and their team assignments
 2. For each leader:
    a. Pull their team's open pipeline (active deals only)
    b. For each deal, assess health across dimensions:

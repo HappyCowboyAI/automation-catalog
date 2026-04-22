@@ -2,7 +2,7 @@
 Meeting Brief — LangGraph Implementation
 
 Generates AI-powered meeting briefings by pulling account context from
-People.ai via MCP and delivering to the meeting owner before each call.
+Backstory via MCP and delivering to the meeting owner before each call.
 
 Requirements:
     pip install langgraph langchain-anthropic langchain-core
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     CALENDAR_API_URL     — Calendar API endpoint (Google, Outlook)
 """
 from __future__ import annotations
@@ -32,7 +32,7 @@ from langgraph.prebuilt import ToolNode
 class MeetingBriefState(TypedDict):
     meetings: list[dict]          # upcoming meetings from calendar
     current_meeting: dict         # meeting being processed
-    account_context: dict         # People.ai data for the account
+    account_context: dict         # Backstory data for the account
     brief: str                    # generated brief
     delivery_results: list[str]   # delivery confirmations
 
@@ -41,7 +41,7 @@ class MeetingBriefState(TypedDict):
 # ---------------------------------------------------------------------------
 
 async def get_peopleai_tools():
-    """Load People.ai MCP tools via adapter."""
+    """Load Backstory MCP tools via adapter."""
     try:
         from langchain_mcp_adapters.client import MultiServerMCPClient
         client = MultiServerMCPClient({
@@ -61,7 +61,7 @@ async def get_peopleai_tools():
 SYSTEM_PROMPT = """You are a sales intelligence assistant that generates
 pre-meeting briefing documents for sales reps.
 
-You have access to People.ai via MCP tools. For each meeting, generate:
+You have access to Backstory via MCP tools. For each meeting, generate:
 - Meeting header (account, time, type)
 - ATTENDEES section with roles, history, and new attendees flagged
 - ACCOUNT CONTEXT with deal info, recent activity, competitor intel
@@ -93,7 +93,7 @@ async def check_calendar(state: MeetingBriefState) -> dict:
 
 
 async def fetch_meeting_context(state: MeetingBriefState) -> dict:
-    """Fetch account context from People.ai for the current meeting."""
+    """Fetch account context from Backstory for the current meeting."""
     meeting = state["meetings"][0] if state["meetings"] else {}
     tools = await get_peopleai_tools()
     llm = ChatAnthropic(model="claude-sonnet-4-20250514", temperature=0)

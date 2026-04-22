@@ -295,7 +295,7 @@
         "promptType": "define",
         "text": "={{ $json.aiPrompt }}",
         "options": {
-          "systemMessage": "You are a Slack message generator for weekly customer account updates. Your ONLY job is to:\n1. Call the People.ai MCP tools as instructed in the prompt\n2. Analyze the data returned\n3. Output a formatted Slack message\n\nDO NOT include ANY explanatory text, preambles, or meta-commentary.\nDO NOT say things like 'Based on the data' or 'Let me analyze' or 'Here is the update'.\nYour first line of output MUST be the account header line.\nOutput ONLY the formatted message, nothing else."
+          "systemMessage": "You are a Slack message generator for weekly customer account updates. Your ONLY job is to:\n1. Call the Backstory MCP tools as instructed in the prompt\n2. Analyze the data returned\n3. Output a formatted Slack message\n\nDO NOT include ANY explanatory text, preambles, or meta-commentary.\nDO NOT say things like 'Based on the data' or 'Let me analyze' or 'Here is the update'.\nYour first line of output MUST be the account header line.\nOutput ONLY the formatted message, nothing else."
         }
       },
       "id": "generate-update",
@@ -339,11 +339,11 @@
         528
       ],
       "id": "mcp-client",
-      "name": "People.ai MCP"
+      "name": "Backstory MCP"
     },
     {
       "parameters": {
-        "jsCode": "const item = $input.first().json;\nconst account = $('Build Customer Update Prompt v3').first().json;\n\nlet message = item.output || item.text || item.response || item.message || '';\n\nif (!message) {\n  const stringFields = Object.entries(item).filter(([key, val]) => typeof val === 'string' && val.length > 100);\n  if (stringFields.length > 0) {\n    message = stringFields[0][1];\n  }\n}\n\n// Extract PAI_ID from first line if present\nlet paiId = '';\nconst paiMatch = message.match(/^PAI_ID:(\\d+)\\s*/);\nif (paiMatch) {\n  paiId = paiMatch[1];\n  message = message.replace(/^PAI_ID:\\d+\\s*\\n?/, '').trim();\n  console.log(`[${account.accountName}] People.ai ID: ${paiId}`);\n}\n\n// Split on DETAIL_BREAK marker\nlet aboveFold = message;\nlet belowFold = '';\n\nif (message.includes('---DETAIL_BREAK---')) {\n  const parts = message.split('---DETAIL_BREAK---');\n  aboveFold = parts[0].trim();\n  belowFold = parts[1].trim();\n}\n\nconsole.log(`[${account.accountName}] Above fold: ${aboveFold.length} chars, Below fold: ${belowFold.length} chars`);\n\nreturn {\n  json: {\n    accountName: account.accountName,\n    slackChannelId: account.slackChannelId,\n    userMapping: account.userMapping,\n    paiId: paiId,\n    aboveFold: aboveFold,\n    belowFold: belowFold,\n    message: aboveFold + '\\n\\n' + belowFold,\n    messageBody: aboveFold + '\\n\\n' + belowFold\n  }\n};"
+        "jsCode": "const item = $input.first().json;\nconst account = $('Build Customer Update Prompt v3').first().json;\n\nlet message = item.output || item.text || item.response || item.message || '';\n\nif (!message) {\n  const stringFields = Object.entries(item).filter(([key, val]) => typeof val === 'string' && val.length > 100);\n  if (stringFields.length > 0) {\n    message = stringFields[0][1];\n  }\n}\n\n// Extract PAI_ID from first line if present\nlet paiId = '';\nconst paiMatch = message.match(/^PAI_ID:(\\d+)\\s*/);\nif (paiMatch) {\n  paiId = paiMatch[1];\n  message = message.replace(/^PAI_ID:\\d+\\s*\\n?/, '').trim();\n  console.log(`[${account.accountName}] Backstory ID: ${paiId}`);\n}\n\n// Split on DETAIL_BREAK marker\nlet aboveFold = message;\nlet belowFold = '';\n\nif (message.includes('---DETAIL_BREAK---')) {\n  const parts = message.split('---DETAIL_BREAK---');\n  aboveFold = parts[0].trim();\n  belowFold = parts[1].trim();\n}\n\nconsole.log(`[${account.accountName}] Above fold: ${aboveFold.length} chars, Below fold: ${belowFold.length} chars`);\n\nreturn {\n  json: {\n    accountName: account.accountName,\n    slackChannelId: account.slackChannelId,\n    userMapping: account.userMapping,\n    paiId: paiId,\n    aboveFold: aboveFold,\n    belowFold: belowFold,\n    message: aboveFold + '\\n\\n' + belowFold,\n    messageBody: aboveFold + '\\n\\n' + belowFold\n  }\n};"
       },
       "id": "extract-format",
       "name": "Extract and Format",
@@ -525,7 +525,7 @@
         140
       ],
       "parameters": {
-        "content": "## 2. Data Gathering\nAuthenticates with People.ai, queries customer accounts and open renewals, then fetches Slack channel/user mappings to resolve posting targets.",
+        "content": "## 2. Data Gathering\nAuthenticates with Backstory, queries customer accounts and open renewals, then fetches Slack channel/user mappings to resolve posting targets.",
         "height": 160,
         "width": 1100,
         "color": 1
@@ -541,7 +541,7 @@
         110
       ],
       "parameters": {
-        "content": "## 3. AI-Powered Summarization\nLoops through each account, builds a prompt with context, sends to Claude via People.ai MCP, then extracts and filters the response.",
+        "content": "## 3. AI-Powered Summarization\nLoops through each account, builds a prompt with context, sends to Claude via Backstory MCP, then extracts and filters the response.",
         "height": 160,
         "width": 1480,
         "color": 1
@@ -573,7 +573,7 @@
         560
       ],
       "parameters": {
-        "content": "**START HERE:** Set your People.ai org ID, Slack bot token, and target account filters before first run.",
+        "content": "**START HERE:** Set your Backstory org ID, Slack bot token, and target account filters before first run.",
         "height": 140,
         "width": 340,
         "color": 3
@@ -741,7 +741,7 @@
         ]
       ]
     },
-    "People.ai MCP": {
+    "Backstory MCP": {
       "ai_tool": [
         [
           {

@@ -51,7 +51,7 @@ WORKFLOW_NOTES = {
             "banner-data", "2. Data Gathering", BLUE,
             -760, 140, 1100, 160,
             "## 2. Data Gathering\n"
-            "Authenticates with People.ai, queries customer accounts and open renewals, "
+            "Authenticates with Backstory, queries customer accounts and open renewals, "
             "then fetches Slack channel/user mappings to resolve posting targets."
         ),
         (
@@ -59,7 +59,7 @@ WORKFLOW_NOTES = {
             380, 110, 1480, 160,
             "## 3. AI-Powered Summarization\n"
             "Loops through each account, builds a prompt with context, "
-            "sends to Claude via People.ai MCP, then extracts and filters the response."
+            "sends to Claude via Backstory MCP, then extracts and filters the response."
         ),
         (
             "banner-delivery", "4. Delivery & Summary", BLUE,
@@ -72,7 +72,7 @@ WORKFLOW_NOTES = {
         (
             "setup-config", "Setup: Configuration", YELLOW,
             -1020, 560, 340, 140,
-            "**START HERE:** Set your People.ai org ID, Slack bot token, "
+            "**START HERE:** Set your Backstory org ID, Slack bot token, "
             "and target account filters before first run."
         ),
         (

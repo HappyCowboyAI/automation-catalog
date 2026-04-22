@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- **People.ai API access** — REST API or MCP-to-REST bridge
+- **Backstory API access** — REST API or MCP-to-REST bridge
 - **LLM API key** — Claude, OpenAI, or any chat completion endpoint
 - **SMTP credentials** — Email delivery for coaching reports
 - **Leader/team mapping** — Who manages which reps (spreadsheet or CRM)
@@ -43,7 +43,7 @@ Schedule (Monday AM) → Fetch Leaders → Loop Each Leader →
 - **API call:**
   `POST /api/v1/opportunities/by-owner`
   Body: `{ "owners": ["sarah.chen", "james.park"], "status": "open", "include": ["engagement", "stakeholders", "stage_history"] }`
-- **All platforms:** HTTP request to People.ai REST API or CRM query
+- **All platforms:** HTTP request to Backstory REST API or CRM query
 
 ### Step 5: AI Deal Health Assessment
 - **What:** Analyze each deal across coaching dimensions
@@ -78,7 +78,7 @@ Schedule (Monday AM) → Fetch Leaders → Loop Each Leader →
 ## MCP Gap Workaround
 
 See the Channel Pulse recipe card for MCP-to-REST bridge options. The same
-approach applies — use People.ai REST API directly or deploy a proxy.
+approach applies — use Backstory REST API directly or deploy a proxy.
 
 ## Leader-Rep Mapping Options
 

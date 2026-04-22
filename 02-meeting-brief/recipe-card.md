@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- **People.ai API access** — REST API or MCP-to-REST bridge
+- **Backstory API access** — REST API or MCP-to-REST bridge
 - **LLM API key** — Claude, OpenAI, or any chat completion endpoint
 - **Calendar API** — Google Calendar, Outlook Calendar, or Cal.com
 - **Messaging credentials** — Slack Bot Token, Teams Webhook, or SMTP
@@ -37,12 +37,12 @@ Cron (every 15 min) → Check Calendar → Filter Upcoming Meetings →
 - **Logic:** Check if attendees include external domains or if meeting has an associated account
 - **All platforms:** Filter/Router step checking attendee email domains
 
-### Step 4: Fetch Account Context from People.ai
+### Step 4: Fetch Account Context from Backstory
 - **What:** For each meeting's account, pull engagement history and deal status
 - **API call:** For each account:
   `POST /api/v1/accounts/{name}/context`
   Body: `{ "include": ["deals", "contacts", "recent_activity", "engagement_timeline"] }`
-- **All platforms:** HTTP request module with People.ai REST API
+- **All platforms:** HTTP request module with Backstory REST API
 
 ### Step 5: AI Brief Generation
 - **What:** Send meeting details + account context to LLM for structured brief
@@ -75,9 +75,9 @@ Cron (every 15 min) → Check Calendar → Filter Upcoming Meetings →
 
 ## MCP Gap Workaround
 
-People.ai MCP is not natively supported on Make, Power Automate, or Zapier.
+Backstory MCP is not natively supported on Make, Power Automate, or Zapier.
 Options:
-1. **Use People.ai REST API directly** — if available in your contract
+1. **Use Backstory REST API directly** — if available in your contract
 2. **Deploy an MCP-to-REST bridge** — lightweight proxy that translates MCP calls to HTTP
 3. **Use n8n as MCP middleware** — n8n handles MCP, exposes results via webhook for other platforms
 

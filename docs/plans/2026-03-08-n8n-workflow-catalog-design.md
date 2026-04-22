@@ -1,15 +1,15 @@
-# People.ai n8n Workflow Catalog — Design Document
+# Backstory n8n Workflow Catalog — Design Document
 
 **Date:** 2026-03-08
 **Status:** Approved
 
 ## Overview
 
-A GitHub Pages SPA that provides importable n8n workflow automations to People.ai customers. Complements the existing LLM Skills Catalog (AI skills for interactive use) with hands-free workflow automation.
+A GitHub Pages SPA that provides importable n8n workflow automations to Backstory customers. Complements the existing LLM Skills Catalog (AI skills for interactive use) with hands-free workflow automation.
 
 **Repo:** `HappyCowboyAI/n8nWorkflows`
 **Working directory:** `/Users/scottmetcalf/projects/n8n`
-**Audience:** People.ai customers who want ready-to-import n8n automations
+**Audience:** Backstory customers who want ready-to-import n8n automations
 
 ## Launch Workflows (6)
 
@@ -56,7 +56,7 @@ n8n/
 ## SPA Design
 
 ### Same design language as LLM Skills Catalog:
-- People.ai branded header (dark blue gradient, logo)
+- Backstory branded header (dark blue gradient, logo)
 - Category filter bar + search
 - Card grid with workflow cards: name, description, trigger type badge, output destination badge, status
 - Detail view with tabs
@@ -85,13 +85,13 @@ n8n/
 - Rounded-rect nodes with icons, connected by curved lines
 - Color-coded by node type:
   - **Green** — Triggers (schedule, webhook, Slack command)
-  - **Blue** — Data fetch (People.ai API, Salesforce, Gmail)
+  - **Blue** — Data fetch (Backstory API, Salesforce, Gmail)
   - **Purple** — AI processing (Claude, GPT)
   - **Orange** — Output (Slack, email, calendar)
 
 ### Animation sequence (example — Sales Digest):
 1. Trigger node pulses green — "6am Weekday Trigger fires"
-2. Line animates to People.ai MCP node (blue) — "Fetches account activity & engagement data"
+2. Line animates to Backstory MCP node (blue) — "Fetches account activity & engagement data"
 3. Line flows to Claude node (purple) — "AI analyzes patterns, generates personalized digest"
 4. Line flows to Slack node (orange) — "Delivers digest via Slack DM"
 5. Sample output appears below (Slack message preview)
@@ -102,7 +102,7 @@ n8n/
 
 ### Setup walkthrough (reuses animation engine):
 1. n8n import screen — drag/drop or paste JSON
-2. Credential setup — People.ai API key, Slack bot token, etc.
+2. Credential setup — Backstory API key, Slack bot token, etc.
 3. Configure — schedule, channel names, team mapping
 4. Activate — toggle on and verify first run
 
@@ -128,7 +128,7 @@ n8n/
 ### Credential documentation (per workflow SOURCE.md):
 ```
 ## Required Credentials
-- People.ai API Key (OAuth via MCP or REST API)
+- Backstory API Key (OAuth via MCP or REST API)
 - Slack Bot Token (with chat:write, users:read scopes)
 - Anthropic API Key (for Claude AI nodes)
 ```

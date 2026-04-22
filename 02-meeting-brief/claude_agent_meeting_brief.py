@@ -2,7 +2,7 @@
 Meeting Brief — Claude Agent SDK Implementation
 
 Generates AI-powered meeting briefings by pulling account context from
-People.ai via MCP and delivering to the meeting owner before each call.
+Backstory via MCP and delivering to the meeting owner before each call.
 
 Requirements:
     pip install claude-agent-sdk anthropic slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     CALENDAR_API_URL     — Calendar API endpoint
 """
 from __future__ import annotations
@@ -31,7 +31,7 @@ from claude_agent_sdk import Agent, tool
 SYSTEM_PROMPT = """You are a sales intelligence assistant that generates
 pre-meeting briefing documents for sales reps.
 
-You have access to People.ai via MCP tools to pull account context, and
+You have access to Backstory via MCP tools to pull account context, and
 local tools to check calendars and deliver briefs.
 
 For each upcoming meeting, generate a brief with:
@@ -93,7 +93,7 @@ async def send_slack_dm(slack_user_id: str, message: str) -> str:
 # ---------------------------------------------------------------------------
 
 def create_agent() -> Agent:
-    """Create the Meeting Brief agent with People.ai MCP + local tools."""
+    """Create the Meeting Brief agent with Backstory MCP + local tools."""
     client = anthropic.Anthropic()
 
     agent = Agent(
@@ -124,7 +124,7 @@ async def run_meeting_brief():
 1. Check get_upcoming_meetings() for meetings in the next 30 minutes
 2. For each meeting:
    a. Identify the account associated with the meeting
-   b. Query People.ai MCP for account context (recent activity, engagement, contacts, deals)
+   b. Query Backstory MCP for account context (recent activity, engagement, contacts, deals)
    c. Generate a structured meeting brief
    d. Deliver via send_slack_dm() to the meeting owner
 3. Report how many briefs were delivered"""

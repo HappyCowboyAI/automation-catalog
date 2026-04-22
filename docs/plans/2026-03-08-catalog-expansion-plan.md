@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Expand the People.ai Automation Catalog from 6 to 17 workflows across 6 categories, adding Customer Success, Coaching & Enablement, and Strategic Intelligence workflow groups.
+**Goal:** Expand the Backstory Automation Catalog from 6 to 17 workflows across 6 categories, adding Customer Success, Coaching & Enablement, and Strategic Intelligence workflow groups.
 
 **Architecture:** Each new workflow follows the existing pattern: a numbered folder with `SOURCE.md` metadata and (eventually) sanitized JSON exports. Three new categories are added to `build-catalog.py`. The SPA needs no structural changes — it already renders dynamically from `workflows.json`. The build script is updated once, then each workflow is just a new `SOURCE.md` file + rebuild.
 
@@ -102,20 +102,20 @@ mkdir -p 07-churn-risk-scorecard/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Weekly Monday 7:00 AM                     |
 | **Node Count** | 28                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email), CRM (Salesforce, HubSpot, etc.) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email), CRM (Salesforce, HubSpot, etc.) |
 
 ## Category
 customer-success
 
 ## Description
 
-Generates a weekly churn risk scorecard for the customer success team. The workflow pulls engagement trends, support ticket volumes, champion contact activity, and product usage signals from People.ai and the CRM. An AI agent scores each account on a 1–10 churn risk scale, identifies the top risk drivers, and suggests specific save plays. The scorecard is delivered to CS managers via Messaging with accounts ranked by risk severity.
+Generates a weekly churn risk scorecard for the customer success team. The workflow pulls engagement trends, support ticket volumes, champion contact activity, and product usage signals from Backstory and the CRM. An AI agent scores each account on a 1–10 churn risk scale, identifies the top risk drivers, and suggests specific save plays. The scorecard is delivered to CS managers via Messaging with accounts ranked by risk severity.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires weekly on Monday at 7:00 AM.
 2. **Fetch Active Accounts** — Queries CRM for all active customer accounts assigned to the CS team.
-3. **Enrich with Engagement Data** — For each account, pulls People.ai engagement trends, contact activity changes, and meeting frequency from MCP.
+3. **Enrich with Engagement Data** — For each account, pulls Backstory engagement trends, contact activity changes, and meeting frequency from MCP.
 4. **AI Risk Scoring** — AI Agent analyzes engagement drop-offs, support ticket spikes, champion departures, and usage patterns to assign a 1–10 churn risk score with top risk drivers.
 5. **Compile Scorecard** — Aggregates scored accounts into a ranked scorecard with risk tiers (Critical / Watch / Healthy) and suggested save plays.
 6. **Deliver to CS Managers** — Sends the formatted scorecard via Messaging to each CS manager for their portfolio.
@@ -127,7 +127,7 @@ Generates a weekly churn risk scorecard for the customer success team. The workf
 | `scheduleTrigger`     | Weekly Monday 7 AM trigger                |
 | `crmQuery`            | Fetches active customer accounts          |
 | `splitInBatches`      | Iterates over each account                |
-| `mcpClientTool`       | People.ai engagement data retrieval       |
+| `mcpClientTool`       | Backstory engagement data retrieval       |
 | `agent`               | AI risk scoring and save play generation  |
 | `lmChat`              | LLM language model                        |
 | `code`                | Score aggregation and tier classification |
@@ -135,7 +135,7 @@ Generates a weekly churn risk scorecard for the customer success team. The workf
 
 ## Credentials Required
 
-- **People.ai MCP** — Engagement trends and contact activity
+- **Backstory MCP** — Engagement trends and contact activity
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI risk scoring and analysis
 - **CRM (Salesforce, HubSpot, etc.)** — Active account list and support data
 - **Messaging (Slack, Teams, Email)** — Delivers scorecard to CS managers
@@ -180,20 +180,20 @@ mkdir -p 08-renewal-prep-brief/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Daily 7:00 AM                             |
 | **Node Count** | 25                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 customer-success
 
 ## Description
 
-Automatically generates renewal preparation briefs at 60, 30, and 15 days before each account's renewal date. The workflow queries the CRM for upcoming renewals, enriches each account with People.ai engagement trends, support history, expansion signals, and key contact activity. An AI agent produces a structured brief covering account health, risk factors, expansion opportunities, and a recommended renewal strategy. Briefs are delivered to the assigned CSM and account executive via Messaging.
+Automatically generates renewal preparation briefs at 60, 30, and 15 days before each account's renewal date. The workflow queries the CRM for upcoming renewals, enriches each account with Backstory engagement trends, support history, expansion signals, and key contact activity. An AI agent produces a structured brief covering account health, risk factors, expansion opportunities, and a recommended renewal strategy. Briefs are delivered to the assigned CSM and account executive via Messaging.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires daily at 7:00 AM.
 2. **Find Upcoming Renewals** — Queries CRM for accounts with renewals in 60, 30, or 15 days, filtering out those already briefed at this milestone.
-3. **Enrich with Account Health** — For each renewal account, pulls People.ai engagement trends, support ticket history, champion activity, and expansion signals from MCP.
+3. **Enrich with Account Health** — For each renewal account, pulls Backstory engagement trends, support ticket history, champion activity, and expansion signals from MCP.
 4. **AI Brief Generation** — AI Agent synthesizes engagement data into a structured renewal brief with health score, risk factors, expansion opportunities, and recommended strategy.
 5. **Deliver to Account Team** — Sends the brief to the assigned CSM and AE via Messaging with the renewal date and urgency tier highlighted.
 
@@ -204,14 +204,14 @@ Automatically generates renewal preparation briefs at 60, 30, and 15 days before
 | `scheduleTrigger`     | Daily 7 AM trigger                        |
 | `crmQuery`            | Fetches accounts approaching renewal      |
 | `if`                  | Filters by 60/30/15-day milestones        |
-| `mcpClientTool`       | People.ai engagement and health data      |
+| `mcpClientTool`       | Backstory engagement and health data      |
 | `agent`               | AI brief generation with structured output|
 | `lmChat`              | LLM language model                        |
 | `outputParserStructured` | Enforces typed brief output            |
 
 ## Credentials Required
 
-- **People.ai MCP** — Engagement trends and relationship health
+- **Backstory MCP** — Engagement trends and relationship health
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI brief generation
 - **CRM (Salesforce, HubSpot, etc.)** — Renewal dates and account data
 - **Messaging (Slack, Teams, Email)** — Delivers briefs to account teams
@@ -256,20 +256,20 @@ mkdir -p 09-onboarding-pulse/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Daily 8:00 AM                             |
 | **Node Count** | 26                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 customer-success
 
 ## Description
 
-Monitors newly closed deals during their first 90 days to detect accounts going dark before they become a retention problem. The workflow identifies recently closed-won accounts, checks People.ai engagement data for post-sale activity (meetings booked, emails exchanged, contacts engaged), and flags accounts with below-threshold engagement. An AI agent assesses each flagged account and recommends specific re-engagement actions. Alerts are sent to the CSM and sales handoff team via Messaging.
+Monitors newly closed deals during their first 90 days to detect accounts going dark before they become a retention problem. The workflow identifies recently closed-won accounts, checks Backstory engagement data for post-sale activity (meetings booked, emails exchanged, contacts engaged), and flags accounts with below-threshold engagement. An AI agent assesses each flagged account and recommends specific re-engagement actions. Alerts are sent to the CSM and sales handoff team via Messaging.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires daily at 8:00 AM.
 2. **Find New Customers** — Queries CRM for accounts closed-won in the last 90 days.
-3. **Check Post-Sale Engagement** — For each account, pulls People.ai data on meetings, emails, and contact engagement since close date.
+3. **Check Post-Sale Engagement** — For each account, pulls Backstory data on meetings, emails, and contact engagement since close date.
 4. **AI Engagement Assessment** — AI Agent evaluates whether engagement is on track, at risk, or dark. Generates re-engagement recommendations for at-risk accounts.
 5. **Alert on Silent Accounts** — Sends alerts to the CSM for accounts flagged as at-risk or dark, with specific recommended next steps.
 
@@ -279,7 +279,7 @@ Monitors newly closed deals during their first 90 days to detect accounts going 
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Daily 8 AM trigger                        |
 | `crmQuery`            | Fetches recently closed-won accounts      |
-| `mcpClientTool`       | People.ai post-sale engagement data       |
+| `mcpClientTool`       | Backstory post-sale engagement data       |
 | `code`                | Engagement threshold calculation           |
 | `if`                  | Filters for at-risk and dark accounts     |
 | `agent`               | AI engagement assessment and recommendations |
@@ -287,7 +287,7 @@ Monitors newly closed deals during their first 90 days to detect accounts going 
 
 ## Credentials Required
 
-- **People.ai MCP** — Post-sale engagement tracking
+- **Backstory MCP** — Post-sale engagement tracking
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI engagement assessment
 - **CRM (Salesforce, HubSpot, etc.)** — Closed-won account data
 - **Messaging (Slack, Teams, Email)** — Alerts to CSMs
@@ -328,19 +328,19 @@ mkdir -p 10-activity-gap-detector/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Weekly Friday 8:00 AM                     |
 | **Node Count** | 24                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 coaching-enablement
 
 ## Description
 
-Compares each rep's weekly activity patterns against team benchmarks and top performer profiles using People.ai activity data. Identifies reps with low outbound activity, thin multi-threading on key deals, or single-threaded opportunities missing executive engagement. An AI agent generates personalized coaching nudges for sales managers, highlighting specific gaps and suggesting actionable improvement areas. Delivered weekly to frontline managers via Messaging.
+Compares each rep's weekly activity patterns against team benchmarks and top performer profiles using Backstory activity data. Identifies reps with low outbound activity, thin multi-threading on key deals, or single-threaded opportunities missing executive engagement. An AI agent generates personalized coaching nudges for sales managers, highlighting specific gaps and suggesting actionable improvement areas. Delivered weekly to frontline managers via Messaging.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires weekly on Friday at 8:00 AM.
-2. **Fetch Team Activity** — Pulls People.ai activity data for all reps on the team: emails sent, meetings held, contacts engaged, accounts touched.
+2. **Fetch Team Activity** — Pulls Backstory activity data for all reps on the team: emails sent, meetings held, contacts engaged, accounts touched.
 3. **Benchmark Analysis** — Code node calculates team averages and top-performer baselines, then flags reps falling below thresholds.
 4. **AI Coaching Insights** — AI Agent analyzes each flagged rep's patterns, identifies specific gaps (e.g., low multi-threading, no exec outreach), and generates coaching recommendations.
 5. **Deliver to Managers** — Sends a per-manager coaching digest via Messaging, listing their reps' gaps with suggested conversation starters.
@@ -350,7 +350,7 @@ Compares each rep's weekly activity patterns against team benchmarks and top per
 | Node Type             | Role                                      |
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Weekly Friday 8 AM trigger                |
-| `mcpClientTool`       | People.ai team activity data              |
+| `mcpClientTool`       | Backstory team activity data              |
 | `code`                | Benchmark calculation and gap detection   |
 | `agent`               | AI coaching insight generation            |
 | `lmChat`              | LLM language model                        |
@@ -358,7 +358,7 @@ Compares each rep's weekly activity patterns against team benchmarks and top per
 
 ## Credentials Required
 
-- **People.ai MCP** — Rep activity and engagement data
+- **Backstory MCP** — Rep activity and engagement data
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI coaching analysis
 - **Messaging (Slack, Teams, Email)** — Delivers coaching digests to managers
 ```
@@ -398,20 +398,20 @@ mkdir -p 11-deal-hygiene-audit/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Weekly Monday 7:30 AM                     |
 | **Node Count** | 27                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 coaching-enablement
 
 ## Description
 
-Performs a weekly pipeline hygiene audit by scanning all open opportunities in the CRM and cross-referencing with People.ai engagement data. Flags deals with stale close dates, no recent activity, missing next steps, single-threaded contacts, or no executive engagement. An AI agent prioritizes the issues and generates a per-rep action list with specific cleanup tasks. Delivered to reps and their managers via Messaging every Monday morning.
+Performs a weekly pipeline hygiene audit by scanning all open opportunities in the CRM and cross-referencing with Backstory engagement data. Flags deals with stale close dates, no recent activity, missing next steps, single-threaded contacts, or no executive engagement. An AI agent prioritizes the issues and generates a per-rep action list with specific cleanup tasks. Delivered to reps and their managers via Messaging every Monday morning.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires weekly on Monday at 7:30 AM.
 2. **Pull Open Pipeline** — Queries CRM for all open opportunities with their stages, close dates, and assigned reps.
-3. **Cross-Reference Engagement** — For each deal, pulls People.ai data on last activity date, contacts engaged, meeting recency, and email thread status.
+3. **Cross-Reference Engagement** — For each deal, pulls Backstory data on last activity date, contacts engaged, meeting recency, and email thread status.
 4. **AI Hygiene Assessment** — AI Agent identifies hygiene issues per deal (stale, single-threaded, no exec, past close date) and prioritizes by deal value and stage.
 5. **Deliver Action Lists** — Sends a per-rep cleanup checklist via Messaging, CC'ing their manager, with specific actions for each flagged deal.
 
@@ -421,14 +421,14 @@ Performs a weekly pipeline hygiene audit by scanning all open opportunities in t
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Weekly Monday 7:30 AM trigger             |
 | `crmQuery`            | Fetches open pipeline opportunities       |
-| `mcpClientTool`       | People.ai deal engagement data            |
+| `mcpClientTool`       | Backstory deal engagement data            |
 | `code`                | Hygiene rule evaluation and flagging      |
 | `agent`               | AI prioritization and action generation   |
 | `lmChat`              | LLM language model                        |
 
 ## Credentials Required
 
-- **People.ai MCP** — Deal engagement and activity data
+- **Backstory MCP** — Deal engagement and activity data
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI hygiene assessment
 - **CRM (Salesforce, HubSpot, etc.)** — Open pipeline data
 - **Messaging (Slack, Teams, Email)** — Delivers action lists to reps and managers
@@ -469,19 +469,19 @@ mkdir -p 12-win-loss-debrief/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Webhook — CRM deal stage change to Closed Won/Lost   |
 | **Node Count** | 22                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 coaching-enablement
 
 ## Description
 
-Automatically generates a structured win/loss debrief when any deal closes (won or lost). Triggered by a CRM webhook on stage change, the workflow pulls the full engagement timeline from People.ai — every meeting, email, contact involved, and engagement cadence throughout the deal cycle. An AI agent analyzes the timeline to produce a structured debrief: what worked, where engagement dropped, key turning points, multi-threading effectiveness, and lessons learned. The debrief is delivered to the rep, their manager, and optionally a shared enablement channel.
+Automatically generates a structured win/loss debrief when any deal closes (won or lost). Triggered by a CRM webhook on stage change, the workflow pulls the full engagement timeline from Backstory — every meeting, email, contact involved, and engagement cadence throughout the deal cycle. An AI agent analyzes the timeline to produce a structured debrief: what worked, where engagement dropped, key turning points, multi-threading effectiveness, and lessons learned. The debrief is delivered to the rep, their manager, and optionally a shared enablement channel.
 
 ## Node Flow
 
 1. **Webhook Trigger** — Fires when a CRM opportunity moves to Closed Won or Closed Lost.
-2. **Fetch Deal Timeline** — Pulls the complete People.ai engagement history for the deal: meetings, emails, contacts, activity cadence over the deal lifecycle.
+2. **Fetch Deal Timeline** — Pulls the complete Backstory engagement history for the deal: meetings, emails, contacts, activity cadence over the deal lifecycle.
 3. **AI Debrief Analysis** — AI Agent analyzes the full timeline, identifies key moments (first exec meeting, proposal sent, competitor mention, engagement gaps), and generates a structured debrief.
 4. **Format & Deliver** — Formats the debrief as a rich message and delivers to the rep, their manager, and the team enablement channel via Messaging.
 
@@ -490,7 +490,7 @@ Automatically generates a structured win/loss debrief when any deal closes (won 
 | Node Type             | Role                                      |
 |-----------------------|-------------------------------------------|
 | `webhookTrigger`      | CRM deal closed event                     |
-| `mcpClientTool`       | People.ai full deal engagement timeline   |
+| `mcpClientTool`       | Backstory full deal engagement timeline   |
 | `agent`               | AI timeline analysis and debrief writing  |
 | `lmChat`              | LLM language model                        |
 | `outputParserStructured` | Enforces typed debrief output          |
@@ -498,7 +498,7 @@ Automatically generates a structured win/loss debrief when any deal closes (won 
 
 ## Credentials Required
 
-- **People.ai MCP** — Full deal engagement timeline
+- **Backstory MCP** — Full deal engagement timeline
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI debrief generation
 - **CRM (Salesforce, HubSpot, etc.)** — Deal close webhook and opportunity data
 - **Messaging (Slack, Teams, Email)** — Delivers debriefs to rep, manager, and team
@@ -539,19 +539,19 @@ mkdir -p 13-competitive-displacement-alert/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Daily 7:00 AM                             |
 | **Node Count** | 26                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 strategic-intelligence
 
 ## Description
 
-Monitors customer accounts for early signs of competitive displacement. The workflow scans People.ai engagement data for accounts where internal engagement has suddenly dropped while simultaneously checking for competitor mentions in email subjects, meeting titles, or CRM notes. An AI agent evaluates the combined signals to assess displacement risk and recommends defensive actions. High-risk alerts are sent immediately to the account owner and their manager via Messaging.
+Monitors customer accounts for early signs of competitive displacement. The workflow scans Backstory engagement data for accounts where internal engagement has suddenly dropped while simultaneously checking for competitor mentions in email subjects, meeting titles, or CRM notes. An AI agent evaluates the combined signals to assess displacement risk and recommends defensive actions. High-risk alerts are sent immediately to the account owner and their manager via Messaging.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires daily at 7:00 AM.
-2. **Scan Engagement Drops** — Queries People.ai for accounts with significant week-over-week engagement declines (meetings, emails, response times).
+2. **Scan Engagement Drops** — Queries Backstory for accounts with significant week-over-week engagement declines (meetings, emails, response times).
 3. **Check Competitor Signals** — For flagged accounts, searches CRM notes, email subjects, and meeting titles for competitor name mentions or evaluation-related keywords.
 4. **AI Displacement Assessment** — AI Agent correlates engagement drops with competitor signals, assigns a displacement risk level, and generates a defensive action plan.
 5. **Alert Account Team** — Sends high-priority alerts to the account owner and manager via Messaging with risk assessment and recommended defensive plays.
@@ -561,7 +561,7 @@ Monitors customer accounts for early signs of competitive displacement. The work
 | Node Type             | Role                                      |
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Daily 7 AM trigger                        |
-| `mcpClientTool`       | People.ai engagement trend analysis       |
+| `mcpClientTool`       | Backstory engagement trend analysis       |
 | `crmQuery`            | Competitor signal search in CRM           |
 | `code`                | Signal correlation and threshold logic    |
 | `agent`               | AI displacement risk assessment           |
@@ -570,7 +570,7 @@ Monitors customer accounts for early signs of competitive displacement. The work
 
 ## Credentials Required
 
-- **People.ai MCP** — Engagement trend data and drop detection
+- **Backstory MCP** — Engagement trend data and drop detection
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI displacement analysis
 - **CRM (Salesforce, HubSpot, etc.)** — Competitor signal search
 - **Messaging (Slack, Teams, Email)** — High-priority alerts to account teams
@@ -611,20 +611,20 @@ mkdir -p 14-territory-heat-map/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Weekly Monday 6:30 AM                     |
 | **Node Count** | 24                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 strategic-intelligence
 
 ## Description
 
-Generates a weekly territory heat map digest for each rep, showing which accounts in their territory are heating up (increased inbound, new contacts engaging, meeting frequency rising) versus cooling down (declining engagement, unresponsive contacts). The workflow pulls People.ai engagement data across all accounts in each rep's territory, calculates week-over-week momentum scores, and uses an AI agent to summarize trends and recommend where to focus time. Delivered every Monday to help reps prioritize their week.
+Generates a weekly territory heat map digest for each rep, showing which accounts in their territory are heating up (increased inbound, new contacts engaging, meeting frequency rising) versus cooling down (declining engagement, unresponsive contacts). The workflow pulls Backstory engagement data across all accounts in each rep's territory, calculates week-over-week momentum scores, and uses an AI agent to summarize trends and recommend where to focus time. Delivered every Monday to help reps prioritize their week.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires weekly on Monday at 6:30 AM.
-2. **Fetch Territory Assignments** — Pulls each rep's assigned accounts from CRM or People.ai territory data.
-3. **Calculate Account Momentum** — For each account, queries People.ai for week-over-week engagement changes and calculates a momentum score (heating up / steady / cooling down).
+2. **Fetch Territory Assignments** — Pulls each rep's assigned accounts from CRM or Backstory territory data.
+3. **Calculate Account Momentum** — For each account, queries Backstory for week-over-week engagement changes and calculates a momentum score (heating up / steady / cooling down).
 4. **AI Territory Summary** — AI Agent analyzes the momentum map, identifies the hottest opportunities and coldest risks, and recommends a prioritized focus list for the week.
 5. **Deliver Heat Map Digest** — Sends a per-rep territory digest via Messaging with accounts color-coded by momentum.
 
@@ -633,7 +633,7 @@ Generates a weekly territory heat map digest for each rep, showing which account
 | Node Type             | Role                                      |
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Weekly Monday 6:30 AM trigger             |
-| `mcpClientTool`       | People.ai territory engagement data       |
+| `mcpClientTool`       | Backstory territory engagement data       |
 | `code`                | Momentum score calculation                |
 | `agent`               | AI territory analysis and prioritization  |
 | `lmChat`              | LLM language model                        |
@@ -641,7 +641,7 @@ Generates a weekly territory heat map digest for each rep, showing which account
 
 ## Credentials Required
 
-- **People.ai MCP** — Account engagement data across territories
+- **Backstory MCP** — Account engagement data across territories
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI territory analysis
 - **Messaging (Slack, Teams, Email)** — Delivers heat map digests to reps
 ```
@@ -681,20 +681,20 @@ mkdir -p 15-qbr-auto-prep/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Weekly (configurable to quarterly cadence) |
 | **Node Count** | 30                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Calendar (Google Calendar, Outlook), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Calendar (Google Calendar, Outlook), Messaging (Slack, Teams, Email) |
 
 ## Category
 strategic-intelligence
 
 ## Description
 
-Automatically prepares quarterly business review materials for every account on an upcoming QBR agenda. The workflow scans the calendar for meetings tagged as QBRs (or matching configurable title patterns), then for each account on the agenda, pulls the full quarter's engagement data from People.ai: meeting frequency, email volume, contacts engaged, key relationship changes, and deal progression. An AI agent generates a structured QBR prep document with executive summary, engagement trends, wins/risks, and talking points. Delivered to the account team 48 hours before the QBR.
+Automatically prepares quarterly business review materials for every account on an upcoming QBR agenda. The workflow scans the calendar for meetings tagged as QBRs (or matching configurable title patterns), then for each account on the agenda, pulls the full quarter's engagement data from Backstory: meeting frequency, email volume, contacts engaged, key relationship changes, and deal progression. An AI agent generates a structured QBR prep document with executive summary, engagement trends, wins/risks, and talking points. Delivered to the account team 48 hours before the QBR.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires on a configurable schedule to check for upcoming QBRs within the next 48 hours.
 2. **Find Upcoming QBRs** — Scans calendar for meetings matching QBR title patterns, extracts the associated account names.
-3. **Pull Quarterly Engagement** — For each QBR account, queries People.ai for the full quarter's engagement data: meetings, emails, contact maps, and activity trends.
+3. **Pull Quarterly Engagement** — For each QBR account, queries Backstory for the full quarter's engagement data: meetings, emails, contact maps, and activity trends.
 4. **AI QBR Document Generation** — AI Agent produces a structured QBR prep document with executive summary, quarter-over-quarter trends, key wins, risk areas, and recommended talking points.
 5. **Deliver Prep Materials** — Sends the QBR prep document to the account team via Messaging 48 hours before the meeting.
 
@@ -704,7 +704,7 @@ Automatically prepares quarterly business review materials for every account on 
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Configurable cadence trigger              |
 | `calendarQuery`       | Finds upcoming QBR meetings               |
-| `mcpClientTool`       | People.ai quarterly engagement data       |
+| `mcpClientTool`       | Backstory quarterly engagement data       |
 | `agent`               | AI QBR document generation                |
 | `lmChat`              | LLM language model                        |
 | `outputParserStructured` | Enforces typed QBR document output     |
@@ -712,7 +712,7 @@ Automatically prepares quarterly business review materials for every account on 
 
 ## Credentials Required
 
-- **People.ai MCP** — Quarterly engagement data and relationship maps
+- **Backstory MCP** — Quarterly engagement data and relationship maps
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI document generation
 - **CRM (Salesforce, HubSpot, etc.)** — Account and opportunity context
 - **Calendar (Google Calendar, Outlook)** — QBR meeting detection
@@ -754,20 +754,20 @@ mkdir -p 16-executive-sponsor-tracker/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Schedule — Daily 7:30 AM                             |
 | **Node Count** | 25                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 strategic-intelligence
 
 ## Description
 
-Monitors executive-level contact engagement across strategic deals to ensure champion and sponsor relationships stay active. The workflow identifies open opportunities above a configurable deal value threshold, checks People.ai for executive contact engagement (VP+ titles), and flags deals where executive sponsors have gone silent (no meetings or emails in the configured lookback window). An AI agent assesses the risk of each silent-sponsor situation and recommends re-engagement tactics. Alerts are sent to the deal owner and sales leadership via Messaging.
+Monitors executive-level contact engagement across strategic deals to ensure champion and sponsor relationships stay active. The workflow identifies open opportunities above a configurable deal value threshold, checks Backstory for executive contact engagement (VP+ titles), and flags deals where executive sponsors have gone silent (no meetings or emails in the configured lookback window). An AI agent assesses the risk of each silent-sponsor situation and recommends re-engagement tactics. Alerts are sent to the deal owner and sales leadership via Messaging.
 
 ## Node Flow
 
 1. **Schedule Trigger** — Fires daily at 7:30 AM.
 2. **Find Strategic Deals** — Queries CRM for open opportunities above the deal value threshold with identified executive contacts.
-3. **Check Executive Engagement** — For each deal, pulls People.ai engagement data for VP+ contacts to detect silent sponsors (no activity in lookback window).
+3. **Check Executive Engagement** — For each deal, pulls Backstory engagement data for VP+ contacts to detect silent sponsors (no activity in lookback window).
 4. **AI Risk & Re-engagement** — AI Agent evaluates the impact of sponsor silence on deal health and generates specific re-engagement tactics per deal.
 5. **Alert Deal Owners** — Sends alerts to deal owners and sales leadership via Messaging for deals with silent executive sponsors.
 
@@ -777,7 +777,7 @@ Monitors executive-level contact engagement across strategic deals to ensure cha
 |-----------------------|-------------------------------------------|
 | `scheduleTrigger`     | Daily 7:30 AM trigger                     |
 | `crmQuery`            | Strategic deal and executive contact data  |
-| `mcpClientTool`       | People.ai executive engagement tracking   |
+| `mcpClientTool`       | Backstory executive engagement tracking   |
 | `code`                | Silence detection logic                   |
 | `agent`               | AI risk assessment and re-engagement tips |
 | `lmChat`              | LLM language model                        |
@@ -785,7 +785,7 @@ Monitors executive-level contact engagement across strategic deals to ensure cha
 
 ## Credentials Required
 
-- **People.ai MCP** — Executive contact engagement data
+- **Backstory MCP** — Executive contact engagement data
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI risk and re-engagement analysis
 - **CRM (Salesforce, HubSpot, etc.)** — Strategic deal and contact data
 - **Messaging (Slack, Teams, Email)** — Alerts to deal owners and leadership
@@ -826,19 +826,19 @@ mkdir -p 17-marketing-sales-handoff-scorer/assets
 | **Status**     | Active                                               |
 | **Trigger**    | Webhook — New MQL created in CRM/MAP                 |
 | **Node Count** | 23                                                   |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), CRM (Salesforce, HubSpot, etc.), Messaging (Slack, Teams, Email) |
 
 ## Category
 pipeline-forecasting
 
 ## Description
 
-Enriches marketing-qualified leads at the moment of handoff by checking People.ai for existing engagement history. When a new MQL is created in the CRM or marketing automation platform, the workflow queries People.ai to see if the account already has relationship history — prior meetings, email threads, known contacts, or past opportunities. An AI agent scores the handoff quality (hot / warm / cold) and generates a context brief for the receiving SDR or AE, so they never walk into a "cold" call that's actually warm. Delivered instantly via Messaging.
+Enriches marketing-qualified leads at the moment of handoff by checking Backstory for existing engagement history. When a new MQL is created in the CRM or marketing automation platform, the workflow queries Backstory to see if the account already has relationship history — prior meetings, email threads, known contacts, or past opportunities. An AI agent scores the handoff quality (hot / warm / cold) and generates a context brief for the receiving SDR or AE, so they never walk into a "cold" call that's actually warm. Delivered instantly via Messaging.
 
 ## Node Flow
 
 1. **Webhook Trigger** — Fires when a new MQL is created in CRM or marketing automation platform.
-2. **Enrich with People.ai History** — Queries People.ai for any existing engagement with the MQL's account: past meetings, email history, known contacts, prior opportunities.
+2. **Enrich with Backstory History** — Queries Backstory for any existing engagement with the MQL's account: past meetings, email history, known contacts, prior opportunities.
 3. **AI Handoff Scoring** — AI Agent evaluates the engagement history to score the handoff (hot / warm / cold) and generates a context brief with key talking points and relationship history.
 4. **Deliver to SDR/AE** — Sends the scored handoff with context brief to the assigned SDR or AE via Messaging, including recommended first outreach approach.
 
@@ -847,7 +847,7 @@ Enriches marketing-qualified leads at the moment of handoff by checking People.a
 | Node Type             | Role                                      |
 |-----------------------|-------------------------------------------|
 | `webhookTrigger`      | New MQL creation event                    |
-| `mcpClientTool`       | People.ai account engagement history      |
+| `mcpClientTool`       | Backstory account engagement history      |
 | `agent`               | AI handoff scoring and brief generation   |
 | `lmChat`              | LLM language model                        |
 | `outputParserStructured` | Enforces typed handoff score output    |
@@ -855,7 +855,7 @@ Enriches marketing-qualified leads at the moment of handoff by checking People.a
 
 ## Credentials Required
 
-- **People.ai MCP** — Account engagement history
+- **Backstory MCP** — Account engagement history
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI handoff scoring
 - **CRM (Salesforce, HubSpot, etc.)** — MQL data and account lookup
 - **Messaging (Slack, Teams, Email)** — Delivers scored handoff to SDR/AE

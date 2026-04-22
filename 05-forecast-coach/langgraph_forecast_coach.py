@@ -9,7 +9,7 @@ Requirements:
 
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     SMTP_HOST            — SMTP server
     SMTP_USER            — SMTP username
     SMTP_PASS            — SMTP password
@@ -40,7 +40,7 @@ class ForecastCoachState(TypedDict):
 SYSTEM_PROMPT = """You are an AI sales coaching assistant that helps sales leaders
 improve their team's pipeline execution.
 
-You have access to People.ai via MCP tools. For each leader's team pipeline:
+You have access to Backstory via MCP tools. For each leader's team pipeline:
 
 Analyze each deal across these dimensions:
 - Engagement recency: when was last meaningful contact?

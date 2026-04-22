@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- **People.ai API access** — REST API or MCP-to-REST bridge
+- **Backstory API access** — REST API or MCP-to-REST bridge
 - **CRM access** — Salesforce, HubSpot, or pipeline data source
 - **LLM API key** — Claude, OpenAI, or any chat completion endpoint
 - **Messaging credentials** — Slack Bot Token, Teams Webhook, or SMTP
@@ -25,11 +25,11 @@ Schedule (Weekly) → Fetch Engagement Data → Fetch Open Pipeline →
 - **Zapier:** Schedule by Zapier → every week on Monday
 
 ### Step 2: Fetch Engagement Data
-- **What:** Pull all accounts with activity in the last 30 days from People.ai
+- **What:** Pull all accounts with activity in the last 30 days from Backstory
 - **API call:**
   `POST /api/v1/accounts/activity-summary`
   Body: `{ "lookback_days": 30, "include": ["meetings", "emails", "content_engagement", "contacts"] }`
-- **All platforms:** HTTP request module to People.ai REST API
+- **All platforms:** HTTP request module to Backstory REST API
 
 ### Step 3: Fetch Open Pipeline
 - **What:** Get all open opportunities from CRM
@@ -80,7 +80,7 @@ Schedule (Weekly) → Fetch Engagement Data → Fetch Open Pipeline →
 ## MCP Gap Workaround
 
 See the Channel Pulse recipe card for MCP-to-REST bridge options. The same
-approach applies — use People.ai REST API directly or deploy a proxy.
+approach applies — use Backstory REST API directly or deploy a proxy.
 
 ## ICP Matching
 
@@ -88,7 +88,7 @@ For stronger signal analysis, add an Ideal Customer Profile (ICP) scoring step:
 
 | Signal               | Weight | Source              |
 |----------------------|--------|---------------------|
-| Executive meetings   | High   | People.ai           |
+| Executive meetings   | High   | Backstory           |
 | Inbound content      | Medium | Marketing automation |
 | Company size/revenue | Medium | CRM or enrichment   |
 | Industry fit         | Medium | CRM                 |

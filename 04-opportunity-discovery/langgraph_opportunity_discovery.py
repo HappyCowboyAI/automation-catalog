@@ -2,7 +2,7 @@
 Opportunity Discovery — LangGraph Implementation
 
 Surfaces hidden revenue opportunities by cross-referencing engagement
-signals from People.ai against the CRM pipeline.
+signals from Backstory against the CRM pipeline.
 
 Requirements:
     pip install langgraph langchain-anthropic langchain-core
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
     SMTP_HOST            — SMTP server for email delivery
     SMTP_USER            — SMTP username
     SMTP_PASS            — SMTP password
@@ -39,7 +39,7 @@ class OpportunityDiscoveryState(TypedDict):
 SYSTEM_PROMPT = """You are a sales intelligence assistant that discovers hidden
 revenue opportunities.
 
-You have access to People.ai via MCP tools. Your job is to find accounts with
+You have access to Backstory via MCP tools. Your job is to find accounts with
 strong engagement signals but no corresponding open opportunity in the pipeline.
 
 For each discovered opportunity, provide:
@@ -64,7 +64,7 @@ async def get_peopleai_tools():
 
 
 async def gather_data(state: OpportunityDiscoveryState) -> dict:
-    """Fetch activity data and pipeline from People.ai."""
+    """Fetch activity data and pipeline from Backstory."""
     tools = await get_peopleai_tools()
     llm = ChatAnthropic(model="claude-sonnet-4-20250514", temperature=0)
 

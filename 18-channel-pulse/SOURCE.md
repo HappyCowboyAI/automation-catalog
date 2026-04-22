@@ -8,7 +8,7 @@
 | **Status**     | Active                                             |
 | **Trigger**    | Schedule — Every 60 seconds                        |
 | **Node Count** | 22                                                 |
-| **Credentials**| People.ai MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
+| **Credentials**| Backstory MCP, LLM API (Claude, OpenAI, Gemini, etc.), Messaging (Slack, Teams, Email) |
 
 ## Description
 
@@ -29,15 +29,15 @@ Messaging (Slack channel, Teams channel, or Email)
 ## Node Flow
 
 1. **Schedule Trigger** — Fires on a configurable interval to check for accounts due for an update.
-2. **Identify Active Accounts** — Queries People.ai MCP to find accounts with recent activity in the last 7 days.
-3. **Gather Account Context** — For each account, pulls engagement data, meeting notes, deal movements, and contact activity from People.ai.
+2. **Identify Active Accounts** — Queries Backstory MCP to find accounts with recent activity in the last 7 days.
+3. **Gather Account Context** — For each account, pulls engagement data, meeting notes, deal movements, and contact activity from Backstory.
 4. **AI Summarization** — AI Agent synthesizes the raw activity data into a concise, scannable update formatted for quick consumption.
 5. **Route to Channel** — Determines the correct internal customer channel for each account.
 6. **Deliver Update** — Posts the formatted update to the appropriate Slack/Teams channel or sends via email.
 
 ## Credentials Required
 
-- **People.ai MCP** — Account activity, engagement signals, and contact data for the last 7 days
+- **Backstory MCP** — Account activity, engagement signals, and contact data for the last 7 days
 - **LLM API (Claude, OpenAI, Gemini, etc.)** — AI summarization of account activity into scannable updates
 - **Messaging (Slack, Teams, Email)** — Delivers updates to internal customer channels
 
@@ -76,4 +76,4 @@ Messaging (Slack channel, Teams channel, or Email)
 - @sarah.chen: Prep QBR deck with updated engagement metrics
 
 ---
-*Powered by People.ai MCP: please thread comments*
+*Powered by Backstory MCP: please thread comments*

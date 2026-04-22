@@ -2,7 +2,7 @@
 Channel Pulse — LangGraph Implementation
 
 Sends scannable account updates to internal customer channels by pulling
-engagement data from People.ai via MCP and summarizing with an LLM.
+engagement data from Backstory via MCP and summarizing with an LLM.
 
 Requirements:
     pip install langgraph langchain-anthropic langchain-mcp-adapters slack-sdk
@@ -10,7 +10,7 @@ Requirements:
 Environment variables:
     ANTHROPIC_API_KEY    — Claude API key
     SLACK_BOT_TOKEN      — Slack bot token for posting updates
-    PEOPLEAI_MCP_URL     — People.ai MCP server URL
+    PEOPLEAI_MCP_URL     — Backstory MCP server URL
 """
 from __future__ import annotations
 
@@ -36,14 +36,14 @@ CHANNEL_MAP: dict[str, str] = {
 }
 
 SYSTEM_PROMPT = """You are a sales intelligence assistant. Given raw account
-activity data from People.ai, produce a concise, scannable channel update.
+activity data from Backstory, produce a concise, scannable channel update.
 
 Format:
 - Lead with account name, deal value, close date, and health indicator
 - Section 1: THIS WEEK'S KEY DEVELOPMENTS (3-5 bullets)
 - Section 2: RISKS & OPPORTUNITIES (3-5 bullets)
 - Section 3: NEXT WEEK'S ACTIONS (3-5 bullets with @owner tags)
-- Footer: "Powered by People.ai MCP: please thread comments"
+- Footer: "Powered by Backstory MCP: please thread comments"
 
 Use emoji section headers. Keep each bullet to one line. Be specific with
 names, dates, and numbers — no vague summaries."""
@@ -67,7 +67,7 @@ class ChannelPulseState(TypedDict):
 # ---------------------------------------------------------------------------
 
 async def identify_active_accounts(state: ChannelPulseState) -> dict:
-    """Query People.ai MCP for accounts with recent activity."""
+    """Query Backstory MCP for accounts with recent activity."""
     since = (datetime.utcnow() - timedelta(days=LOOKBACK_DAYS)).isoformat()
 
     async with MultiServerMCPClient(
@@ -84,7 +84,7 @@ async def identify_active_accounts(state: ChannelPulseState) -> dict:
 
 
 async def gather_account_context(state: ChannelPulseState) -> dict:
-    """For the current account, pull detailed engagement data from People.ai."""
+    """For the current account, pull detailed engagement data from Backstory."""
     account = state["active_accounts"][0]  # process one at a time
 
     async with MultiServerMCPClient(
